@@ -1,6 +1,6 @@
 import { CalendarIcon, ClockIcon } from "@radix-ui/react-icons";
 import { Car, MapPin } from "lucide-react";
-import dayjs from "dayjs";
+import dayjs from "dayjs"
 
 interface StepOneSummaryProps {
   bookingType: string;
