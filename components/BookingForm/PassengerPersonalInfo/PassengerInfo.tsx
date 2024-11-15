@@ -169,14 +169,7 @@ export default function PassengerInfo() {
         <BagCount/>
         <PassengerCount/>
       </div>
-
-      {/* Submit Button */}
-      {/* <Button
-        type="submit"
-        className="p-6 bg-gray-950 hover:bg-gray-800 text-white rounded-lg"
-      >
-        Submit
-      </Button> */}
+       
     </form>
   )
 }
