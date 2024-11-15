@@ -107,7 +107,6 @@ const BookingForm = () => {
                                 onComplete = {() => handleCompleteStep("Step1")}
                                 onEdit = {() => handleEditStep(1)}
                                 
-                                
                             />
                         
                             <StepTwo/>
