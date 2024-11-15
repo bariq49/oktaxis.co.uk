@@ -1,7 +1,7 @@
 import { useFormikContext } from "formik";
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
-import { FaUser } from "react-icons/fa";
+import { UserRound } from 'lucide-react';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -80,11 +80,11 @@ export default function VehicleSelector({ onBookNow }: VehicleSelectorProps) {
                 />
                 <div className="flex justify-between items-center w-full">
                   <div className="flex items-center">
-                    <FaUser className="w-4 h-4 mr-1" />
+                    <UserRound className="w-4 h-4 mr-1" />
                     <span className="text-sm">{car.seats} Seats</span>
                   </div>
                   <div className="flex items-center md:m-0">
-                    <FaUser className="w-4 h-4 mr-1" />
+                    <UserRound className="w-4 h-4 mr-1" />
                     <span className="text-sm">{car.bags} Bags</span>
                   </div>
                 </div>
