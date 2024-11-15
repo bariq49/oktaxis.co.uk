@@ -106,41 +106,27 @@ const BookingForm = () => {
                                 isCompleted= {completedSteps.Step1}
                                 onComplete = {() => handleCompleteStep("Step1")}
                                 onEdit = {() => handleEditStep(1)}
-                                
+                            
                             />
                         
-                            <StepTwo/>
+                            <StepTwo
+                                isActive = {currentStep === 2}
+                                isCompleted={completedSteps.Step2}
+                                onComplete={() => handleCompleteStep("Step2")}
+                                onEdit={() => handleEditStep(2)}
+                            />
                     
-                            <StepThree/>
+                            <StepThree
+                                isActive={currentStep === 3}
+                                isCompleted={completedSteps.Step3}
+                                onComplete={() => handleCompleteStep("Step3")}
+                                onEdit={() => handleEditStep(3)}
+                            />
                             
                         </div>
                     </Form>
                 )}
             </Formik>
-            
-
-            {/* <div className="flex md:flex-row flex-col gap-y-3">
-
-                <div>
-                    <BookingTypeOption/>
-                </div>
-
-                <div className="flex flex-col gap-3">
-                    <PickUpAddressInput/>
-                    <DropOffAddressInput/>
-                    <div className="flex w-full gap-x-3 flex-wrap md:flex-nowrap gap-y-3">
-                        <CustomTimeSelector/>
-                        <CustomDateSelector/>
-                    </div>
-                </div>
-            </div> */}
-
-            {/* <div className="w-full md:w-[780px] ">
-                <PassengerInfo/>
-            </div> 
-            <div className="w-full md:w-[780px] my-4">
-                <VehicleSelector/>
-            </div>  */}
         </div>
     </div>
   )

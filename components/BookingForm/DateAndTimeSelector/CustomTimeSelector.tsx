@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Clock3 } from "lucide-react";
-import { useFormikContext, FormikErrors } from "formik";
+import { useFormikContext } from "formik";
 
 const CustomTimeSelector = () => {
   const { values, setFieldValue, errors, touched } = useFormikContext<any>();
