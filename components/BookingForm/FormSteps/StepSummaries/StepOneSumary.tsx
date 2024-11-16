@@ -9,6 +9,7 @@ interface StepOneSummaryProps {
   stops?: string[];
   date: string;
   time: string;
+  hourlyCharter?: string;
 }
 
 const StepOneSummary = ({
@@ -18,6 +19,7 @@ const StepOneSummary = ({
   stops = [],
   date,
   time,
+  hourlyCharter,
 }: StepOneSummaryProps) => {
   // Helper function to format the date
   const formatDate = (date: string) => {
@@ -33,6 +35,14 @@ const StepOneSummary = ({
         <p className="font-semibold">Booking Type:</p>
         <span>{bookingType || "Not Selected"}</span>
       </div>
+
+      {bookingType === "hourly" && (
+        <div className="flex items-center gap-2">
+          <ClockIcon className="text-yellow-500" />
+          <p className="font-semibold">Selected Hours:</p>
+          <span>{hourlyCharter ? `${hourlyCharter} HRS` : "Not Selected"}</span>
+        </div>
+      )}
 
       <div className="flex items-center gap-2">
         <MapPin className="text-green-500" />

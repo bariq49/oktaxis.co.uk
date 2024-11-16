@@ -21,15 +21,30 @@ export default function StepOne({
   onComplete,
   onEdit,
 }: StepOneProps) {
-  const { values } = useFormikContext<any>();
+  const { values, errors, validateForm } = useFormikContext<any>();
 
   const [isEditing, setIsEditing] = useState(false);
   const [showSummary, setShowSummary] = useState(true); 
+
+  // State to determine which airport selector to show
+  const [airportSelectorFor, setAirportSelectorFor] = useState<"to" | "from" | null>(null);
 
   // Toggle function for the heading
   const handleToggleSummary = () => {
     setShowSummary((prev) => !prev);
   };
+
+    // Function to handle form validation on button click
+    const handleValidationAndNextStep = async () => {
+      const validationErrors = await validateForm();
+  
+      if (Object.keys(validationErrors).length > 0) {
+        // If there are validation errors, they will automatically be shown under each field
+      } else {
+        setIsEditing(false);
+        onComplete();
+      }
+    };
 
   return (
     <div className={`w-full flex flex-col gap-y-3 ${isActive ? "" : "opacity-90"}`}>
@@ -58,11 +73,11 @@ export default function StepOne({
         <>
           <div className="flex md:flex-row flex-col gap-y-3">
             <div>
-              <BookingTypeOption />
+              <BookingTypeOption onAirportSelectChange={setAirportSelectorFor}/>
             </div>
             <div className="flex flex-col gap-3">
-              <PickUpAddressInput />
-              <DropOffAddressInput />
+              <PickUpAddressInput showAirportSelector={airportSelectorFor === "from"}/>
+              <DropOffAddressInput showAirportSelector={airportSelectorFor === "to"}/>
               <div className="flex w-full gap-x-3 flex-wrap md:flex-nowrap gap-y-3">
                 <CustomTimeSelector />
                 <CustomDateSelector />
@@ -72,8 +87,7 @@ export default function StepOne({
           <Button
             className="p-6 bg-gray-950 hover:bg-gray-800 text-white rounded-lg"
             onClick={() => {
-              setIsEditing(false);
-              onComplete();
+              handleValidationAndNextStep
             }}
           >
             {isEditing ? "Save Changes" : "Select Vehicle"}
@@ -89,6 +103,7 @@ export default function StepOne({
               stops={values.stops}
               date={values.date}
               time={values.time}
+              hourlyCharter={values.hourlyCharter}
             />
         )
       )}

@@ -19,34 +19,38 @@ export default function StepTwo({
 }: StepTwoProps) {
   const { values, setFieldValue } = useFormikContext<any>();
   const [showSummary, setShowSummary] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
 
   const handleBookNow = () => {
     setShowSummary(true); // Show summary once vehicle is selected
-    onComplete();
+    onComplete(); // Mark this step as complete
   };
 
   const handleEdit = () => {
     setShowSummary(false); // Return to vehicle selection
     setFieldValue("selectedVehicle", null); // Reset selected vehicle
-    onEdit();
+    onEdit(); // Set this step back to active
   };
 
-  // Toggle function for the heading
+  // Toggle function for the heading (only if the step is active)
   const handleToggleSummary = () => {
-    setShowSummary((prev) => !prev);
+    if (isActive) {
+      setShowSummary((prev) => !prev);
+    }
   };
 
   return (
     <div className="w-full flex flex-col gap-y-3">
-      <div className="w-full h-16 bg-gray-950 hover:bg-gradient-to-l from-gray-800 via-gray-900 to-gray-950 text-white flex align-middle px-3 justify-between">
-        <h1 
-            className="flex items-center capitalize text-lg font-bold tracking-wider cursor-pointer"
-            onClick={handleToggleSummary}
+      {/* Step Header */}
+      <div className="w-full h-16 bg-gray-950 hover:bg-gradient-to-l from-gray-800 via-gray-900 to-gray-950 text-white flex items-center justify-between px-3">
+        <h1
+          className={`capitalize text-lg font-bold tracking-wider cursor-pointer ${
+            !isActive ? "opacity-60" : ""
+          }`}
+          onClick={handleToggleSummary}
         >
           Step Two: Vehicle Selection
         </h1>
-        {isCompleted && handleEdit  && (
+        {isCompleted && (
           <Button
             onClick={handleEdit}
             className="bg-white text-gray-950 hover:bg-white px-6 py-3.5 h-0 mt-4"
@@ -56,16 +60,19 @@ export default function StepTwo({
         )}
       </div>
 
-      {isActive && !showSummary ? (
-        <VehicleSelector onBookNow={handleBookNow} />
-      ) : (
-        showSummary && (
+      {/* Step Content */}
+      {isActive && (
+        <>
+          {!showSummary ? (
+            <VehicleSelector onBookNow={handleBookNow} />
+          ) : (
             <StepTwoSummary
               selectedVehicle={values.selectedVehicle}
               seats={values.seats}
               bags={values.bags}
             />
-        )
+          )}
+        </>
       )}
     </div>
   );
