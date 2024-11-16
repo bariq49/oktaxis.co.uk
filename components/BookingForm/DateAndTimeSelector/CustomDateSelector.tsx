@@ -38,37 +38,39 @@ const CustomDateSelector = () => {
 
   return (
     <div className="w-full flex flex-col">
-      <Popover>
-        <PopoverTrigger asChild>
-          <div className="relative bg-white rounded-lg flex items-center w-full flex-row-reverse md:flex-row">
-            <div
-              className="flex bg-gray-50 w-[95px] md:w-[105px] items-center py-7 rounded-r-lg md:rounded-r-none md:rounded-l-lg"
-            >
-              <CalendarIcon className="absolute right-5 md:left-[30px] top-[17px] text-2xl text-gray-950" />
-            </div>
-
-            <div className="w-full">
-              <Button
-                className={cn(
-                  "w-full bg-transparent text-gray-950 justify-start text-left font-normal border-none shadow-none p-0 pl-4 text-[16px] hover:bg-transparent",
-                )}
+      <div>
+        <Popover>
+          <PopoverTrigger asChild>
+            <div className="relative bg-white rounded-lg flex items-center w-full flex-row-reverse md:flex-row">
+              <div
+                className="flex bg-gray-50 w-[95px] md:w-[105px] items-center py-7 rounded-r-lg md:rounded-r-none md:rounded-l-lg"
               >
-                {date ? format(date, "PPP") : <span>Pick a date</span>}
-              </Button>
+                <CalendarIcon className="absolute right-5 md:left-[30px] top-[17px] text-2xl text-gray-950" />
+              </div>
+
+              <div className="w-full">
+                <Button
+                  className={cn(
+                    "w-full bg-transparent text-gray-950 justify-start text-left font-normal border-none shadow-none p-0 pl-4 text-[16px] hover:bg-transparent",
+                  )}
+                >
+                  {date ? format(date, "PPP") : <span>Pick a date</span>}
+                </Button>
+              </div>
             </div>
-          </div>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={handleSelect}
-            initialFocus
-            className="rounded-md [&_button:hover:not([disabled])]:bg-gray-900 [&_button:hover:not([disabled])]:text-white [&_button[aria-selected='true']]:bg-gray-950 [&_button[aria-selected='true']]:text-white"
-            defaultMonth={date || new Date()} // Default to the selected date or today's date
-          />
-        </PopoverContent>
-      </Popover>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={handleSelect}
+              initialFocus
+              className="rounded-md [&_button:hover:not([disabled])]:bg-gray-900 [&_button:hover:not([disabled])]:text-white [&_button[aria-selected='true']]:bg-gray-950 [&_button[aria-selected='true']]:text-white"
+              defaultMonth={date || new Date()} // Default to the selected date or today's date
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
 
       {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
     </div>

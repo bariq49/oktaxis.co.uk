@@ -60,7 +60,7 @@ const CustomTimeSelector = () => {
       : null;
 
   return (
-    <div ref={containerRef} className="flex items-center w-full">
+    <div ref={containerRef} className="flex flex-col w-full">
       <div className="relative bg-white rounded-lg flex items-center w-full flex-row-reverse md:flex-row">
         <div className="flex bg-gray-50 w-[95px] md:w-[114px] items-center py-7 rounded-r-lg md:rounded-r-none md:rounded-l-lg">
           <Clock3 className="absolute right-5 md:left-[30px] top-[17px] text-2xl text-gray-950" />
