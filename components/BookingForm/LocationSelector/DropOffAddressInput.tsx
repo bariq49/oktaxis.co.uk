@@ -2,18 +2,25 @@ import { useFormikContext, FieldArray, Field } from "formik";
 import StopInput from "./StopAddressList/StopAddress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import AirportSelector from "./AirportSelector/AirportSelector";
+import Autocomplete from "./AddressAutoComplete";
 
-export default function DropOffAddressInput() {
+export default function DropOffAddressInput({ showAirportSelector = true }: { showAirportSelector?: boolean }) {
   const { values, setFieldValue, errors, touched } = useFormikContext<{
     dropOffAddress: string;
     stops: string[];
   }>();
 
-  // Error handling for dropOffAddress
+  // Error handling for dropOffAddress...
   const errorMessage =
     touched.dropOffAddress && typeof errors.dropOffAddress === "string"
       ? errors.dropOffAddress
       : null;
+
+      // Handle airport selector value change
+      const handleAirportSelect = (airport: string) => {
+        setFieldValue("dropOffAddress", airport); 
+      };
 
   return (
     <div className="w-full md:w-[550px] max-w-3xl space-y-3">
@@ -30,18 +37,34 @@ export default function DropOffAddressInput() {
             ))}
 
             {/* Add stop input field */}
-            <div className="flex flex-col md:flex-row overflow-hidden rounded-lg bg-gray-50 shadow-sm">
-              <div className="flex w-full md:w-[80px] items-center justify-start md:justify-end px-4 py-1 text-sm font-medium text-gray-700">
+            <div className="relative h-20 lg:h-14 flex flex-col md:flex-row overflow-hidden rounded-lg bg-gray-50 shadow-sm">
+              <div className="flex w-full h-8 md:h-14 md:w-[80px] items-center justify-start md:justify-end px-4 py-1 text-sm font-medium text-gray-700">
                 To:
               </div>
-              <div className="relative flex-1">
-                <Field
-                  name="dropOffAddress"
-                  as={Input}
-                  type="text"
-                  className="w-full text-[16px] border-0 bg-white pr-24 py-7 focus-visible:ring-0 focus-visible:ring-offset-0"
-                  placeholder="Enter Full Pick-Up Address & Select From Autocomplete"
+              <div className=" flex-1">
+                {showAirportSelector ? (
+                   <div className="absolute mt-0 lg:-mt-2.5  top-[68%] -translate-y-1/2 z-10 w-full p-0 border-none shadow-none outline-none">
+                      <AirportSelector 
+                        onSelect={handleAirportSelect}
+                        
+                      />
+                   </div>
+                ) : (
+                  <Autocomplete
+                  value={values.dropOffAddress}
+                  onChange={(value) => setFieldValue('dropOffAddress', value)}
+                  placeholder="Enter Full Drop-Off Address & Select From Autocomplete"
+
                 />
+                  // <Field
+                  //   name="dropOffAddress"
+                  //   as={Input}
+                  //   type="text"
+                  //   className="w-full text-[16px] border-0 bg-white pr-24 py-7 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  //   placeholder="Enter Full Pick-Up Address & Select From Autocomplete"
+                  // />
+                )}
+                
                 {errorMessage && (
                   <p className="text-red-500 text-sm">{errorMessage}</p>
                 )}
@@ -49,7 +72,7 @@ export default function DropOffAddressInput() {
                   type="button"
                   onClick={() => push("")} // Add a new stop to Formik's state
                   size="sm"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 bg-gray-950 px-3 text-white hover:bg-gray-800"
+                  className="absolute right-1 md:right-3 top-1/4 md:top-1/2 -translate-y-1/2 z-20 bg-gray-950 px-3 text-white hover:bg-gray-800"
                 >
                   Add Stop
                 </Button>

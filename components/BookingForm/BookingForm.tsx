@@ -19,7 +19,7 @@ const BookingForm = () => {
 
     // Form initial values...
     const initialValues = {
-        bookingType: "",
+        bookingType: "point",
         pickUpAddress: "",
         dropOffAddress: "",
         date: "",
@@ -30,9 +30,16 @@ const BookingForm = () => {
           email: "",
           phone: "",
         },
-        stops: [], 
+        bagCount: "0",
+        passengerCount: "0",
+        stops: [],
         hourlyCharter: "2",
+        cardNumber: "",
+        expiry: "",
+        cvc: "",
+        country: ""
       };
+      
       
 
     // Form validation schema...
@@ -54,6 +61,10 @@ const BookingForm = () => {
             .of(Yup.string().required("Stop address is required"))
             .min(1, "At least one stop is required"),
             hourlyCharter: Yup.string().required("Please select the number of hours"),
+            cardNumber: Yup.string().required('Card number is required'),
+            expiry: Yup.string().required('Expiration date is required'),
+            cvc: Yup.string().required('CVC is required').min(3, 'CVC must be at least 3 digits'),
+            country: Yup.string().required('Country is required'),
         });
       
 
