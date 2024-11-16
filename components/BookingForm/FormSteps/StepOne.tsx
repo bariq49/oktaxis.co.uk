@@ -21,7 +21,7 @@ export default function StepOne({
   onComplete,
   onEdit,
 }: StepOneProps) {
-  const { values, errors, validateForm } = useFormikContext<any>();
+  const { values } = useFormikContext<any>();
 
   const [isEditing, setIsEditing] = useState(false);
   const [showSummary, setShowSummary] = useState(true); 
@@ -34,17 +34,7 @@ export default function StepOne({
     setShowSummary((prev) => !prev);
   };
 
-    // Function to handle form validation on button click
-    const handleValidationAndNextStep = async () => {
-      const validationErrors = await validateForm();
   
-      if (Object.keys(validationErrors).length > 0) {
-        // If there are validation errors, they will automatically be shown under each field
-      } else {
-        setIsEditing(false);
-        onComplete();
-      }
-    };
 
   return (
     <div className={`w-full flex flex-col gap-y-3 ${isActive ? "" : "opacity-90"}`}>
@@ -87,7 +77,8 @@ export default function StepOne({
           <Button
             className="p-6 bg-gray-950 hover:bg-gray-800 text-white rounded-lg"
             onClick={() => {
-              handleValidationAndNextStep
+              setIsEditing(false);
+              onComplete();
             }}
           >
             {isEditing ? "Save Changes" : "Select Vehicle"}

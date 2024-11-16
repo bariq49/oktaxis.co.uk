@@ -37,7 +37,7 @@ const CustomDateSelector = () => {
       : null;
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col">
       <Popover>
         <PopoverTrigger asChild>
           <div className="relative bg-white rounded-lg flex items-center w-full flex-row-reverse md:flex-row">
