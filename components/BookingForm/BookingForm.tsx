@@ -11,7 +11,7 @@ const BookingForm = () => {
 
     // State variables for tracking current step and completed step...
     const [currentStep, setCurrentStep] = useState(1);
-    const [completedSteps, setCompletedSteps] = useState({
+    const [completedSteps, setCompletedSteps] = useState<any>({
         Step1: false,
         Step2: false,
         Step3: false,
@@ -68,14 +68,14 @@ const BookingForm = () => {
         });
       
 
-    // Function to complete the current step & move to next...
-    const handleCompleteStep = (stepName: string) => {
-        setCompletedSteps((prev) => ({
-            ...prev,
-            [stepName]: true,
-        }));
-        setCurrentStep((prev) => prev + 1)
-    };
+    // // Function to complete the current step & move to next...
+    // const handleCompleteStep = (stepName: string) => {
+    //     setCompletedSteps((prev) => ({
+    //         ...prev,
+    //         [stepName]: true,
+    //     }));
+    //     setCurrentStep((prev) => prev + 1)
+    // };
 
     // Edit a specific Step...
     const handleEditStep = (stepNumber: number) => {
@@ -114,23 +114,23 @@ const BookingForm = () => {
 
                             <StepOne
                                 isActive= {currentStep === 1}
-                                isCompleted= {completedSteps.Step1}
-                                onComplete = {() => handleCompleteStep("Step1")}
+                                completedSteps = {completedSteps}
+                                setCompletedSteps={setCompletedSteps}
                                 onEdit = {() => handleEditStep(1)}
                             
                             />
                         
                             <StepTwo
                                 isActive = {currentStep === 2}
-                                isCompleted={completedSteps.Step2}
-                                onComplete={() => handleCompleteStep("Step2")}
+                                completedSteps = {completedSteps}
+                                setCompletedSteps={setCompletedSteps}
                                 onEdit={() => handleEditStep(2)}
                             />
                     
                             <StepThree
                                 isActive={currentStep === 3}
-                                isCompleted={completedSteps.Step3}
-                                onComplete={() => handleCompleteStep("Step3")}
+                                completedSteps = {completedSteps}
+                                setCompletedSteps={setCompletedSteps}
                                 onEdit={() => handleEditStep(3)}
                             />
                             

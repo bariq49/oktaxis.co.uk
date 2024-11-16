@@ -8,15 +8,15 @@ import StepThreeSummary from "./StepSummaries/StepThreeSummary";
 
 interface StepThreeProps {
   isActive: boolean;
-  isCompleted: boolean;
-  onComplete: () => void;
+  completedSteps: any;
+  setCompletedSteps: any;
   onEdit: () => void;
 }
 
 export default function StepThree({
   isActive,
-  isCompleted,
-  onComplete,
+  completedSteps,
+  setCompletedSteps,
   onEdit,
 }: StepThreeProps) {
   const [isPaymentDialogOpen, setPaymentDialogOpen] = useState(false);
@@ -29,25 +29,42 @@ export default function StepThree({
   const handleCloseDialog = () => setPaymentDialogOpen(false);
 
   const handleBookNow = () => {
-    setShowSummary(true); // Show the summary when "Book Now" is clicked
-    setIsEditing(false); // Exit editing mode
-    onComplete(); // Mark step as complete
+    if (isEditing) {
+      // If editing, show summary without changing steps
+      setShowSummary(true);
+      setIsEditing(false); // Exit editing mode
+    } else {
+      // Normal flow when not editing
+      setShowSummary(true);
+      setCompletedSteps((prev: any) => ({ ...prev, Step3: true }));
+    }
   };
+
+  // Toggle function for the heading
+  const handleToggleSummary = () => {
+    setShowSummary((prev) => !prev);
+  };
+  
 
   return (
     <div className="w-full flex flex-col gap-y-3">
       {/* Step Three Header */}
       <div className="w-full h-16 bg-gray-950 hover:bg-gradient-to-l from-gray-800 via-gray-900 to-gray-950 text-white flex items-center justify-between px-3">
-        <h1 className="capitalize text-lg font-bold tracking-wider">
+        <h1 
+          className={`capitalize text-lg font-medium tracking-wider cursor-pointer ${
+            !isActive ? "opacity-70" : ""
+          }`}
+          onClick={handleToggleSummary}
+      >
           Step Three: Passenger Details
         </h1>
-        {isCompleted && !isEditing && (
+        {completedSteps.Step3 && !isEditing && (
           <Button
             onClick={() => {
               setIsEditing(true);
               onEdit();
             }}
-            className="bg-white text-gray-950 hover:bg-gray-200 px-4 py-2 rounded-md"
+            className="bg-white text-gray-950 hover:bg-white px-6 py-3.5 h-0"
           >
             Edit
           </Button>
@@ -55,31 +72,28 @@ export default function StepThree({
       </div>
 
       {/* Step Three Content */}
-      {isActive && (isEditing || !isCompleted) ? (
-        <div className="flex flex-col gap-y-3">
-          <PassengerInfo />
+{((completedSteps.Step2 && !completedSteps.Step3) || isEditing) ? (
+  <div className="flex flex-col gap-y-3">
+    <PassengerInfo />
 
-          {/* Book Now Button */}
-          <Button
-            className="p-4 bg-green-600 hover:bg-green-500 text-white rounded-lg mt-4"
-            onClick={handleBookNow}
-          >
-            Book Now
-          </Button>
-        </div>
-      ) : (
-        showSummary && (
-          <StepThreeSummary
-            // name={values.name}
-            // email={values.email}
-            // phone={values.phone}
-            passengerInfo={values.passengerInfo}
-            bagCount={values.bagCount || "Not Provided"}
-            passengerCount={values.passengerCount || "Not Provided"}
-            passengerNotes={values.passengerNotes}
-          />
-        )
-      )}
+    {/* Book Now Button */}
+    <Button
+      className="p-4 bg-green-600 hover:bg-green-500 text-white rounded-lg mt-4"
+      onClick={handleBookNow}
+    >
+      Book Now
+    </Button>
+  </div>
+) : (
+  showSummary && (
+    <StepThreeSummary
+      passengerInfo={values.passengerInfo}
+      bagCount={values.bagCount || "Not Provided"}
+      passengerCount={values.passengerCount || "Not Provided"}
+      passengerNotes={values.passengerNotes}
+    />
+  )
+)}
 
       {/* Pay Now Button */}
       <div>

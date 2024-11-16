@@ -6,24 +6,37 @@ import StepTwoSummary from "./StepSummaries/StepTwoSummary";
 
 interface StepTwoProps {
   isActive: boolean;
-  isCompleted: boolean;
-  onComplete: () => void;
+  completedSteps: any;
+  setCompletedSteps: any;
   onEdit: () => void;
 }
 
 export default function StepTwo({
   isActive,
-  isCompleted,
-  onComplete,
+  completedSteps,
+  setCompletedSteps,
   onEdit,
 }: StepTwoProps) {
   const { values, setFieldValue } = useFormikContext<any>();
   const [showSummary, setShowSummary] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  console.log(completedSteps , "complete")
 
   const handleBookNow = () => {
-    setShowSummary(true); // Show summary once vehicle is selected
-    onComplete(); // Mark this step as complete
+    if (isEditing) {
+      // If editing, just show the summary without changing steps
+      setShowSummary(true);
+      setIsEditing(false); // Exit editing mode
+    } else {
+      // Normal flow when not editing
+      setShowSummary(true);
+      setCompletedSteps((prev: any) => ({ ...prev, Step2: true }));
+    }
   };
+  
+
+
 
   const handleEdit = () => {
     setShowSummary(false); // Return to vehicle selection
@@ -31,49 +44,52 @@ export default function StepTwo({
     onEdit(); // Set this step back to active
   };
 
-  // Toggle function for the heading (only if the step is active)
-  const handleToggleSummary = () => {
-    if (isActive) {
-      setShowSummary((prev) => !prev);
-    }
-  };
+  
+ // Toggle function for the heading
+ const handleToggleSummary = () => {
+  setShowSummary((prev) => !prev);
+};
 
   return (
     <div className="w-full flex flex-col gap-y-3">
       {/* Step Header */}
       <div className="w-full h-16 bg-gray-950 hover:bg-gradient-to-l from-gray-800 via-gray-900 to-gray-950 text-white flex items-center justify-between px-3">
         <h1
-          className={`capitalize text-lg font-bold tracking-wider cursor-pointer ${
-            !isActive ? "opacity-60" : ""
+          className={`capitalize text-lg font-medium tracking-wider cursor-pointer ${
+            !isActive ? "opacity-70" : ""
           }`}
           onClick={handleToggleSummary}
         >
           Step Two: Vehicle Selection
         </h1>
-        {isCompleted && (
+        {completedSteps.Step2 && !isEditing && (
           <Button
-            onClick={handleEdit}
-            className="bg-white text-gray-950 hover:bg-white px-6 py-3.5 h-0 mt-4"
+            onClick={() => {
+              setIsEditing(true);
+              
+              onEdit();
+            }}
+            className="bg-white text-gray-950 hover:bg-white px-6 py-3.5 h-0"
           >
             Edit
           </Button>
         )}
       </div>
 
-      {/* Step Content */}
-      {isActive && (
-        <>
-          {!showSummary ? (
-            <VehicleSelector onBookNow={handleBookNow} />
-          ) : (
-            <StepTwoSummary
-              selectedVehicle={values.selectedVehicle}
-              seats={values.seats}
-              bags={values.bags}
-            />
-          )}
-        </>
-      )}
+       {/* Step2 Content */}
+        {((completedSteps.Step1 && !completedSteps.Step2) || isEditing) && (
+          <VehicleSelector onBookNow={handleBookNow} />
+        )}
+
+        {/* Show summary only when not editing and showSummary is true */}
+        {!isEditing && showSummary && (
+          <StepTwoSummary
+            selectedVehicle={values.selectedVehicle}
+            seats={values.seats}
+            bags={values.bags}
+          />
+        )}
+
     </div>
   );
 }
