@@ -19,7 +19,7 @@ const BookingForm = () => {
 
     // Form initial values...
     const initialValues = {
-        bookingType: "point",
+        bookingType: "",
         pickUpAddress: "",
         dropOffAddress: "",
         date: "",
@@ -31,7 +31,9 @@ const BookingForm = () => {
           phone: "",
         },
         bagCount: "0",
-        passengerCount: "0",
+        passengerCount: "1",
+        childCount: "0",
+        textarea: "",
         stops: [],
         hourlyCharter: "2",
         cardNumber: "",
@@ -108,8 +110,9 @@ const BookingForm = () => {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
+              
             >
-                {({ values, errors, touched, setFieldValue}) => (
+                {({ values, errors, touched, setFieldValue, setFieldTouched, handleBlur}) => (
                     <Form>
                         {/* Steps */}
                         <div className="flex flex-col gap-y-3 w-full md:w-[780px]">
