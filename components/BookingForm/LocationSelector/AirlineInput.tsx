@@ -10,7 +10,7 @@ const AirlineInput = () => {
   return (
     <div className="w-full flex lg:flex-row flex-col gap-x-3 gap-y-3">
       {/* Airline Input */}
-      <div className="h-[52px] w-1/2">
+      <div className="h-[52px] w-full lg:w-1/2">
         <Input
           type="text"
           placeholder="Enter Airline"
@@ -24,7 +24,7 @@ const AirlineInput = () => {
       </div>
 
       {/* Flight Number Input */}
-      <div className="h-[52px] w-1/2">
+      <div className="h-[52px] w-full lg:w-1/2">
         <Input
           type="text"
           placeholder="Enter Flight Number"

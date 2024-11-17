@@ -16,7 +16,9 @@ const CustomTimeSelector = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const hoursOptions = Array.from({ length: 12 }, (_, i) => i + 1);
-  const minutesOptions = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"));
+  const minutesOptions = Array.from({ length: 60 }, (_, i) =>
+    i.toString().padStart(2, "0")
+  );
   const periodOptions = ["AM", "PM"];
 
   // Sync internal state with Formik's initial value
@@ -33,7 +35,7 @@ const CustomTimeSelector = () => {
   const updateFormikTime = () => {
     if (hours !== "--" && minutes !== "--" && period) {
       const selectedTime = `${hours}:${minutes} ${period}`;
-      setFieldValue("time", selectedTime); 
+      setFieldValue("time", selectedTime);
     }
   };
 
@@ -49,18 +51,21 @@ const CustomTimeSelector = () => {
     }
   };
 
-   // Close dropdowns when clicking outside...
-   useEffect(() => {
+  // Close dropdowns when clicking outside...
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setShowHours(false);
         setShowMinutes(false);
         setShowPeriod(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -70,9 +75,7 @@ const CustomTimeSelector = () => {
   }, []);
 
   const errorMessage =
-    touched.time && typeof errors.time === "string"
-      ? errors.time
-      : null;
+    touched.time && typeof errors.time === "string" ? errors.time : null;
 
   return (
     <div ref={containerRef} className="flex flex-col w-full">
@@ -90,13 +93,18 @@ const CustomTimeSelector = () => {
         {showHours && (
           <div
             ref={dropdownRef}
-            className={`absolute z-50 left-0 lg:left-[30%] rounded-lg ${dropdownDirection === "up" ? "bottom-full" : "top-full"} bg-white shadow-lg`}
+            className={`absolute z-50 left-0 lg:left-[30%] rounded-lg ${
+              dropdownDirection === "up" ? "bottom-full" : "top-full"
+            } bg-white shadow-lg max-h-[300px] lg:max-h-[400px] overflow-y-scroll custom-scrollbar`}
           >
             {hoursOptions.map((hour) => (
               <div
                 key={hour}
                 className="py-2 px-4 hover:bg-gray-700 hover:text-white rounded-lg cursor-pointer"
-                onClick={() => { setHours(hour.toString().padStart(2, "0")); setShowHours(false); }}
+                onClick={() => {
+                  setHours(hour.toString().padStart(2, "0"));
+                  setShowHours(false);
+                }}
               >
                 {hour}
               </div>
@@ -107,13 +115,18 @@ const CustomTimeSelector = () => {
         {showMinutes && (
           <div
             ref={dropdownRef}
-            className={`absolute z-50 left-[10%] lg:left-[45%] rounded-lg ${dropdownDirection === "up" ? "bottom-full" : "top-full"} bg-white shadow-lg`}
+            className={`absolute z-50 left-[10%] lg:left-[45%] rounded-lg ${
+              dropdownDirection === "up" ? "bottom-full" : "top-full"
+            } bg-white shadow-lg max-h-[300px] lg:max-h-[400px] overflow-y-scroll custom-scrollbar`}
           >
             {minutesOptions.map((minute) => (
               <div
                 key={minute}
                 className="py-2 px-4 hover:bg-gray-700 hover:text-white rounded-lg cursor-pointer"
-                onClick={() => { setMinutes(minute); setShowMinutes(false); }}
+                onClick={() => {
+                  setMinutes(minute);
+                  setShowMinutes(false);
+                }}
               >
                 {minute}
               </div>
@@ -124,13 +137,18 @@ const CustomTimeSelector = () => {
         {showPeriod && (
           <div
             ref={dropdownRef}
-            className={`absolute z-50 left-[20%] lg:left-[58%] rounded-lg ${dropdownDirection === "up" ? "bottom-full" : "top-full"} bg-white shadow-lg`}
+            className={`absolute z-50 left-[20%] lg:left-[58%] rounded-lg ${
+              dropdownDirection === "up" ? "bottom-full" : "top-full"
+            } bg-white shadow-lg`}
           >
             {periodOptions.map((p) => (
               <div
                 key={p}
                 className="py-2 px-4 hover:bg-gray-700 hover:text-white rounded-lg cursor-pointer"
-                onClick={() => { setPeriod(p); setShowPeriod(false); }}
+                onClick={() => {
+                  setPeriod(p);
+                  setShowPeriod(false);
+                }}
               >
                 {p}
               </div>
