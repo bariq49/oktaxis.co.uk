@@ -49,7 +49,8 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full text-[14px] font-normal border-none bg-white pl-4 pr-28 py-4 shadow-none focus:ring-0 focus:ring-offset-0"
+      className="w-[99%] text-[14px] font-normal border-none bg-white pl-4 pr-28 py-4 m-[2px] shadow-none focus:ring-0 focus:ring-offset-0"
+      style={{outline: "none"}}
     />
   );
 };

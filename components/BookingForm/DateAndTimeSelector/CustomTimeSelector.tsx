@@ -49,6 +49,21 @@ const CustomTimeSelector = () => {
     }
   };
 
+   // Close dropdowns when clicking outside...
+   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setShowHours(false);
+        setShowMinutes(false);
+        setShowPeriod(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     window.addEventListener("resize", checkDropdownPosition);
     return () => window.removeEventListener("resize", checkDropdownPosition);
@@ -61,8 +76,8 @@ const CustomTimeSelector = () => {
 
   return (
     <div ref={containerRef} className="flex flex-col w-full">
-      <div className="relative bg-white rounded-lg flex items-center w-full flex-row-reverse md:flex-row">
-        <div className="flex bg-gray-50 w-[95px] md:w-[114px] items-center py-7 rounded-r-lg md:rounded-r-none md:rounded-l-lg">
+      <div className="relative bg-white rounded-lg flex items-center w-full h-[54px] flex-row-reverse md:flex-row">
+        <div className="flex bg-gray-50 w-[95px] md:w-[114px] items-center py-[26px] rounded-r-lg md:rounded-r-none md:rounded-l-lg">
           <Clock3 className="absolute right-5 md:left-[30px] top-[17px] text-2xl text-gray-950" />
         </div>
 
@@ -75,12 +90,12 @@ const CustomTimeSelector = () => {
         {showHours && (
           <div
             ref={dropdownRef}
-            className={`absolute z-50 left-[30%] rounded-lg ${dropdownDirection === "up" ? "bottom-full" : "top-full"} bg-white shadow-lg`}
+            className={`absolute z-50 left-0 lg:left-[30%] rounded-lg ${dropdownDirection === "up" ? "bottom-full" : "top-full"} bg-white shadow-lg`}
           >
             {hoursOptions.map((hour) => (
               <div
                 key={hour}
-                className="py-2 px-4 hover:bg-gray-950 hover:text-white rounded-lg cursor-pointer"
+                className="py-2 px-4 hover:bg-gray-700 hover:text-white rounded-lg cursor-pointer"
                 onClick={() => { setHours(hour.toString().padStart(2, "0")); setShowHours(false); }}
               >
                 {hour}
@@ -92,12 +107,12 @@ const CustomTimeSelector = () => {
         {showMinutes && (
           <div
             ref={dropdownRef}
-            className={`absolute z-50 left-[45%] rounded-lg ${dropdownDirection === "up" ? "bottom-full" : "top-full"} bg-white shadow-lg`}
+            className={`absolute z-50 left-[10%] lg:left-[45%] rounded-lg ${dropdownDirection === "up" ? "bottom-full" : "top-full"} bg-white shadow-lg`}
           >
             {minutesOptions.map((minute) => (
               <div
                 key={minute}
-                className="py-2 px-4 hover:bg-gray-950 hover:text-white rounded-lg cursor-pointer"
+                className="py-2 px-4 hover:bg-gray-700 hover:text-white rounded-lg cursor-pointer"
                 onClick={() => { setMinutes(minute); setShowMinutes(false); }}
               >
                 {minute}
@@ -109,12 +124,12 @@ const CustomTimeSelector = () => {
         {showPeriod && (
           <div
             ref={dropdownRef}
-            className={`absolute z-50 left-[58%] rounded-lg ${dropdownDirection === "up" ? "bottom-full" : "top-full"} bg-white shadow-lg`}
+            className={`absolute z-50 left-[20%] lg:left-[58%] rounded-lg ${dropdownDirection === "up" ? "bottom-full" : "top-full"} bg-white shadow-lg`}
           >
             {periodOptions.map((p) => (
               <div
                 key={p}
-                className="py-2 px-4 hover:bg-gray-950 hover:text-white rounded-lg cursor-pointer"
+                className="py-2 px-4 hover:bg-gray-700 hover:text-white rounded-lg cursor-pointer"
                 onClick={() => { setPeriod(p); setShowPeriod(false); }}
               >
                 {p}
@@ -124,7 +139,7 @@ const CustomTimeSelector = () => {
         )}
       </div>
 
-      {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+      {errorMessage && <p className="text-red-500 text-xs pl-2">{errorMessage}</p>}
     </div>
   );
 };

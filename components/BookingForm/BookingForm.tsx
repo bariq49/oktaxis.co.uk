@@ -37,7 +37,9 @@ const BookingForm = () => {
         cardNumber: "",
         expiry: "",
         cvc: "",
-        country: ""
+        country: "",
+        airline: "",
+        flightNumber: "",
       };
       
       

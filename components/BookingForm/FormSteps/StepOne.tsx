@@ -7,6 +7,7 @@ import CustomTimeSelector from "../DateAndTimeSelector/CustomTimeSelector";
 import DropOffAddressInput from "../LocationSelector/DropOffAddressInput";
 import PickUpAddressInput from "../LocationSelector/PickUpAddressInput";
 import StepOneSummary from "./StepSummaries/StepOneSumary";
+import AirlineInput from "../LocationSelector/AirlineInput";
 
 interface StepOneProps {
   isActive: boolean;
@@ -63,14 +64,14 @@ export default function StepOne({
 
   return (
     <div className={`w-full flex flex-col gap-y-3 ${isActive ? "" : "opacity-90"}`}>
-      <div className="w-full h-16 bg-gray-950 hover:bg-gradient-to-l from-gray-800 via-gray-900 to-gray-950 text-white flex align-middle items-center px-3 justify-between">
+      <div className="w-full h-12 text-lg flex bg-gray-800 text-white rounded-lg   align-middle items-center px-3 justify-between">
         <h1
           className={`capitalize text-lg font-medium tracking-wider cursor-pointer ${
-            !isActive ? "opacity-70" : ""
+            !isActive ? "opacity-100" : ""
           }`}
           onClick={handleToggleSummary}
         >
-          Step One: Ride Info
+          Step 1: Ride Info
         </h1>
         {completedSteps.Step1 && !isEditing && (
           <Button
@@ -94,6 +95,7 @@ export default function StepOne({
             </div>
             <div className="flex flex-col gap-3">
               <PickUpAddressInput showAirportSelector={airportSelectorFor === "from"} />
+              {airportSelectorFor === "from" && <AirlineInput />}
               <DropOffAddressInput showAirportSelector={airportSelectorFor === "to"} />
               <div className="flex w-full gap-x-3 flex-wrap md:flex-nowrap gap-y-3">
                 <CustomTimeSelector />
@@ -118,6 +120,8 @@ export default function StepOne({
             date={values.date}
             time={values.time}
             hourlyCharter={values.hourlyCharter}
+            airline={values.airline}
+            flightNumber={values.flightNumber}
           />
         )
       )}
