@@ -5,6 +5,9 @@ import { DialogTitle, Dialog, DialogContent } from "@/components/ui/dialog";
 import PaymentCardModal from "../PaymentCardModal/PaymentCardModal";
 import { useFormikContext } from "formik";
 import StepThreeSummary from "./StepSummaries/StepThreeSummary";
+import ChildCount from "../PassengerAndLuggageSelector/ChildCount";
+import { Textarea } from "@/components/ui/textarea";
+import { TextareaInstruction } from "../PassengerPersonalInfo/TextArea";
 
 interface StepThreeProps {
   isActive: boolean;
@@ -75,13 +78,17 @@ export default function StepThree({
 {((completedSteps.Step2 && !completedSteps.Step3) || isEditing) ? (
   <div className="flex flex-col gap-y-3">
     <PassengerInfo />
+    <div className="flex gap-x-3">
+      <ChildCount/>
+      <TextareaInstruction/>
+    </div>
 
     {/* Book Now Button */}
     <Button
       className="p-4 bg-green-600 hover:bg-green-500 text-white rounded-lg mt-4"
       onClick={handleBookNow}
     >
-      Book Now
+      {isEditing ? "Save Changes" : "Book Now"}
     </Button>
   </div>
 ) : (
@@ -91,6 +98,8 @@ export default function StepThree({
       bagCount={values.bagCount || "Not Provided"}
       passengerCount={values.passengerCount || "Not Provided"}
       passengerNotes={values.passengerNotes}
+      textarea={values.textarea}
+      childCount={values.childCount}
     />
   )
 )}

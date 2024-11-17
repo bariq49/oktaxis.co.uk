@@ -7,6 +7,8 @@ interface StepThreeSummaryProps {
     bagCount: string;
     passengerCount: string;
     passengerNotes?: string;
+    textarea: string;
+    childCount: string;
   }
   
   const StepThreeSummary = ({
@@ -14,6 +16,8 @@ interface StepThreeSummaryProps {
     bagCount,
     passengerCount,
     passengerNotes,
+    textarea,
+    childCount,
   }: StepThreeSummaryProps) => {
     return (
       <div className="bg-white shadow-lg rounded-lg p-6 text-gray-800 space-y-4">
@@ -42,6 +46,16 @@ interface StepThreeSummaryProps {
         <div className="flex items-center gap-2">
           <p className="font-semibold">Passengers:</p>
           <span>{passengerCount || 'Not Provided'}</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <p className="font-semibold">Children:</p>
+          <span>{childCount || ''}</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <p className="font-semibold">Passenger Instructions:</p>
+          <span>{textarea || 'Not Provided'}</span>
         </div>
   
         {passengerNotes && (
