@@ -37,13 +37,13 @@ const CustomDateSelector = () => {
       : null;
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex  flex-col">
       <div>
         <Popover>
           <PopoverTrigger asChild>
-            <div className="relative bg-white rounded-lg flex items-center w-full flex-row-reverse md:flex-row">
+            <div className="relative bg-white rounded-lg h-[54px] flex items-center w-full flex-row-reverse md:flex-row">
               <div
-                className="flex bg-gray-50 w-[95px] md:w-[105px] items-center py-7 rounded-r-lg md:rounded-r-none md:rounded-l-lg"
+                className="flex bg-gray-50 w-[95px] md:w-[105px] items-center py-[26px] rounded-r-lg md:rounded-r-none md:rounded-l-lg"
               >
                 <CalendarIcon className="absolute right-5 md:left-[30px] top-[17px] text-2xl text-gray-950" />
               </div>
@@ -65,14 +65,14 @@ const CustomDateSelector = () => {
               selected={date}
               onSelect={handleSelect}
               initialFocus
-              className="rounded-md [&_button:hover:not([disabled])]:bg-gray-900 [&_button:hover:not([disabled])]:text-white [&_button[aria-selected='true']]:bg-gray-950 [&_button[aria-selected='true']]:text-white"
+              className="rounded-md [&_button:hover:not([disabled])]:bg-gray-700 [&_button:hover:not([disabled])]:text-white [&_button[aria-selected='true']]:bg-gray-800 [&_button[aria-selected='true']]:text-white"
               defaultMonth={date || new Date()} // Default to the selected date or today's date
             />
           </PopoverContent>
         </Popover>
       </div>
 
-      {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+      {errorMessage && <p className="text-red-500 text-xs pl-2">{errorMessage}</p>}
     </div>
   );
 };

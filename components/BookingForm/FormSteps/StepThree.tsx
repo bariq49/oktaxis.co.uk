@@ -49,10 +49,10 @@ export default function StepThree({
   return (
     <div className="w-full flex flex-col gap-y-3">
       {/* Step Three Header */}
-      <div className="w-full h-16 bg-gray-950 hover:bg-gradient-to-l from-gray-800 via-gray-900 to-gray-950 text-white flex items-center justify-between px-3">
+      <div className="w-full h-12 bg-gray-800 text-white text-lg rounded-lg flex items-center justify-between px-3">
         <h1 
           className={`capitalize text-lg font-medium tracking-wider cursor-pointer ${
-            !isActive ? "opacity-70" : ""
+            !isActive ? "opacity-100" : ""
           }`}
           onClick={handleToggleSummary}
       >

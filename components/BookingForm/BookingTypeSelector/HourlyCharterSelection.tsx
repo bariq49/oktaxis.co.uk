@@ -26,7 +26,7 @@ export default function HourlyCharterSelection() {
             <SelectItem 
               key={hour} 
               value={hour.toString()} 
-              className="cursor-pointer focus:bg-gray-800 focus:text-white"
+              className="cursor-pointer focus:bg-gray-700 focus:text-white"
             >
               <span className="block py-2 px-2 rounded transition-colors">
                 {hour} HRS

@@ -11,7 +11,7 @@ interface BookingTypeOptionProps {
 
 const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) => {
   const [field, , helpers] = useField("bookingType");
-  const { value: selected  } = field;
+  const { value: selected = "to" } = field;
   const { setValue } = helpers;
 
   // Toggle state for mobile only
@@ -49,17 +49,17 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
               htmlFor="to"
               className={`flex gap-x-3 items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
                 selected === "to"
-                  ? "bg-gray-950 text-white"
-                  : "bg-white hover:bg-gray-800 hover:text-white"
+                  ? "bg-gray-800 text-white"
+                  : "bg-white hover:bg-gray-700 hover:text-white"
               }`}
             >
               <RadioGroupItem value="to" id="to" className="sr-only" />
               <span
                 className={`w-4 h-4 rounded-full ${
-                  selected === "to" ? "bg-gray-500 flex items-center justify-center" : "bg-gray-500"
+                  selected === "to" ? "bg-gray-500 flex items-center justify-center" : "bg-green-500"
                 }`}
               >
-                {selected === "to" && <Check className="w-10 h-10 text-white font-bold" />}
+                {selected === "to" && <Check className="w-10 h-10 text-white font-semibold" />}
               </span>
               To Airport
             </Label>
@@ -69,14 +69,14 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
               htmlFor="from"
               className={`flex gap-x-3 items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
                 selected === "from"
-                  ? "bg-gray-950 text-white"
-                  : "bg-white hover:bg-gray-800 hover:text-white"
+                  ? "bg-green-600 hover:bg-green-500 text-black"
+                  : "bg-white hover:bg-gray-700 hover:text-white"
               }`}
             >
               <RadioGroupItem value="from" id="from" className="sr-only" />
               <span
                 className={`w-4 h-4 rounded-full ${
-                  selected === "from" ? "bg-gray-500 flex items-center justify-center" : "bg-gray-500"
+                  selected === "from" ? "bg-gray-500 flex items-center justify-center" : "bg-green-500"
                 }`}
               >
                 {selected === "from" && <Check className="w-10 h-10 text-white font-bold" />}
@@ -89,14 +89,14 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
               htmlFor="point"
               className={`flex gap-x-3 items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
                 selected === "point"
-                  ? "bg-gray-950 text-white"
-                  : "bg-white hover:bg-gray-800 hover:text-white"
+                  ? "bg-gray-800 text-white"
+                  : "bg-white hover:bg-gray-700 hover:text-white"
               }`}
             >
               <RadioGroupItem value="point" id="point" className="sr-only" />
               <span
                 className={`w-4 h-4 rounded-full ${
-                  selected === "point" ? "bg-gray-500 flex items-center justify-center" : "bg-gray-500"
+                  selected === "point" ? "bg-gray-500 flex items-center justify-center" : "bg-green-500"
                 }`}
               >
                 {selected === "point" && <Check className="w-10 h-10 text-white font-bold" />}
@@ -109,14 +109,14 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
               htmlFor="hourly"
               className={`flex gap-x-3 items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
                 selected === "hourly"
-                  ? "bg-gray-950 text-white"
-                  : "bg-white hover:bg-gray-800 hover:text-white"
+                  ? "bg-green-600 hover:bg-green-500 text-black"
+                  : "bg-white hover:bg-gray-700 hover:text-white"
               }`}
             >
               <RadioGroupItem value="hourly" id="hourly" className="sr-only" />
               <span
                 className={`w-4 h-4 rounded-full ${
-                  selected === "hourly" ? "bg-gray-500 flex items-center justify-center" : "bg-gray-500"
+                  selected === "hourly" ? "bg-gray-500 flex items-center justify-center" : "bg-green-500"
                 }`}
               >
                 {selected === "hourly" && <Check className="w-10 h-10 text-white font-bold" />}
@@ -125,7 +125,7 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
             </Label>
           </RadioGroup>
         ) : (
-          <div className="relative flex items-center gap-3 p-4 rounded-lg border bg-gray-950 text-white">
+          <div className="relative flex items-center gap-3 p-4 rounded-lg border bg-gray-800 text-white">
             <span className="text-lg font-semibold">
               {selected === "to" && "To Airport"}
               {selected === "from" && "From Airport"}
@@ -157,19 +157,19 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
           {/* To Airport */}
           <Label
             htmlFor="to"
-            className={`flex gap-x-3 items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
+            className={`flex gap-x-3 h-[54px] items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
               selected === "to"
-                ? "bg-gray-950 text-white"
-                : "bg-white hover:bg-gray-800 hover:text-white"
+                ? "bg-gray-800 text-white"
+                : "bg-white hover:bg-gray-700 hover:text-white"
             }`}
           >
             <RadioGroupItem value="to" id="to" className="sr-only" />
             <span
               className={`w-4 h-4 rounded-full ${
-                selected === "to" ? "bg-gray-500 flex items-center justify-center" : "bg-gray-500"
+                selected === "to" ? "bg-white flex items-center justify-center" : "bg-green-500"
               }`}
             >
-              {selected === "to" && <Check className="w-10 h-10 text-white font-bold" />}
+              {selected === "to" && <Check className="w-10 h-10 text-green-500 font-bold" />}
             </span>
             To Airport
           </Label>
@@ -177,19 +177,19 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
           {/* From Airport */}
           <Label
             htmlFor="from"
-            className={`flex gap-x-3 items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
+            className={`flex h-[54px] gap-x-3 items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
               selected === "from"
-                ? "bg-gray-950 text-white"
-                : "bg-white hover:bg-gray-800 hover:text-white"
+                ? "bg-gray-800 text-white"
+                : "bg-white hover:bg-gray-700 hover:text-white"
             }`}
           >
             <RadioGroupItem value="from" id="from" className="sr-only" />
             <span
               className={`w-4 h-4 rounded-full ${
-                selected === "from" ? "bg-gray-500 flex items-center justify-center" : "bg-gray-500"
+                selected === "from" ? "bg-white flex items-center justify-center" : "bg-green-500"
               }`}
             >
-              {selected === "from" && <Check className="w-10 h-10 text-white font-bold" />}
+              {selected === "from" && <Check className="w-10 h-10 text-green-500 font-bold" />}
             </span>
             From Airport
           </Label>
@@ -197,19 +197,19 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
           {/* Point to Point */}
           <Label
             htmlFor="point"
-            className={`flex gap-x-3 items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
+            className={`flex h-[54px] gap-x-3 items-center w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
               selected === "point"
-                ? "bg-gray-950 text-white"
-                : "bg-white hover:bg-gray-800 hover:text-white"
+                ? "bg-gray-800 text-white"
+                : "bg-white hover:bg-gray-700 hover:text-white"
             }`}
           >
             <RadioGroupItem value="point" id="point" className="sr-only" />
             <span
               className={`w-4 h-4 rounded-full ${
-                selected === "point" ? "bg-gray-500 flex items-center justify-center" : "bg-gray-500"
+                selected === "point" ? "bg-white flex items-center justify-center" : "bg-green-500"
               }`}
             >
-              {selected === "point" && <Check className="w-10 h-10 text-white font-bold" />}
+              {selected === "point" && <Check className="w-10 h-10 text-green-500 font-bold" />}
             </span>
             Point to Point
           </Label>
@@ -217,20 +217,20 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
           {/* Hourly Charter */}
           <Label
             htmlFor="hourly"
-            className={`flex flex-col gap-y-3 w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
+            className={`flex flex-col  gap-y-3 w-full px-4 py-[19px] rounded-lg cursor-pointer border ${
               selected === "hourly"
-                ? "bg-gray-950 text-white"
-                : "bg-white hover:bg-gray-800 hover:text-white"
+                ? "bg-gray-800 text-white"
+                : "bg-white hover:bg-gray-700 hover:text-white"
             }`}
           >
             <div className="flex gap-x-3 items-center">
               <RadioGroupItem value="hourly" id="hourly" className="sr-only" />
               <span
                 className={`w-4 h-4 rounded-full ${
-                  selected === "hourly" ? "bg-gray-500 flex items-center justify-center" : "bg-gray-500"
+                  selected === "hourly" ? "bg-white flex items-center justify-center" : "bg-green-500"
                 }`}
               >
-                {selected === "hourly" && <Check className="w-10 h-10 text-white font-bold" />}
+                {selected === "hourly" && <Check className="w-10 h-10 text-green-500 font-bold" />}
               </span>
               Hourly Charter
             </div>
@@ -240,6 +240,7 @@ const BookingTypeOption = ({ onAirportSelectChange }: BookingTypeOptionProps) =>
               </div>
             )}
           </Label>
+
         </RadioGroup>
       </div>
 

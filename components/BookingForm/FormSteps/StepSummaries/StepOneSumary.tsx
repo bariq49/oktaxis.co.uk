@@ -1,6 +1,6 @@
 import { CalendarIcon, ClockIcon } from "@radix-ui/react-icons";
-import { Car, MapPin } from "lucide-react";
-import dayjs from "dayjs"
+import { Car, MapPin, Plane } from "lucide-react"; // Added Plane icon for Airline
+import dayjs from "dayjs";
 
 interface StepOneSummaryProps {
   bookingType: string;
@@ -9,6 +9,8 @@ interface StepOneSummaryProps {
   stops?: string[];
   date: string;
   time: string;
+  airline?: string;
+  flightNumber?: string;
   hourlyCharter?: string;
 }
 
@@ -19,6 +21,8 @@ const StepOneSummary = ({
   stops = [],
   date,
   time,
+  airline,
+  flightNumber,
   hourlyCharter,
 }: StepOneSummaryProps) => {
   // Helper function to format the date
@@ -36,6 +40,7 @@ const StepOneSummary = ({
         <span>{bookingType || "Not Selected"}</span>
       </div>
 
+      {/* Display the selected hours for hourly booking type */}
       {bookingType === "hourly" && (
         <div className="flex items-center gap-2">
           <ClockIcon className="text-yellow-500" />
@@ -49,6 +54,23 @@ const StepOneSummary = ({
         <p className="font-semibold">Pickup Address:</p>
         <span>{pickUpAddress || "Not Selected"}</span>
       </div>
+
+      {/* Display Airline and Flight Number if provided */}
+      {airline && (
+        <div className="flex items-center gap-2">
+          <Plane className="text-blue-500" />
+          <p className="font-semibold">Airline:</p>
+          <span>{airline || "Not Provided"}</span>
+        </div>
+      )}
+
+      {flightNumber && (
+        <div className="flex items-center gap-2">
+          <Plane className="text-blue-500" />
+          <p className="font-semibold">Flight Number:</p>
+          <span>{flightNumber || "Not Provided"}</span>
+        </div>
+      )}
 
       <div className="flex items-center gap-2">
         <MapPin className="text-red-500" />

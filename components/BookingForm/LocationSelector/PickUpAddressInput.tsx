@@ -10,6 +10,8 @@ const PickUpAddressInput = ({ showAirportSelector }: any) => {
     stops: string[];
   }>();
 
+  
+
   // Error handling for pickUpAddress
   const errorMessage =
     touched.pickUpAddress && typeof errors.pickUpAddress === "string"
@@ -21,15 +23,19 @@ const PickUpAddressInput = ({ showAirportSelector }: any) => {
   };
 
   return (
-    <div className="relative flex h-20 lg:h-14 flex-col md:flex-row overflow-hidden rounded-lg bg-gray-50 shadow-sm ">
+    <>
+    <div className="relative flex h-20 lg:h-[55px] flex-col md:flex-row overflow-hidden rounded-lg bg-gray-50 shadow-sm ">
       <div className="flex w-full h-8 md:h-14 md:w-[80px] items-center justify-start md:justify-end px-4 py-1 text-sm font-medium text-gray-700">
         From:
       </div>
       <div className="w-full flex-1">
         {showAirportSelector ? (
-          <div className="absolute mt-0 lg:-mt-2.5 top-[68%] -translate-y-1/2 z-10 w-full p-0 border-none shadow-none outline-none">
-            <AirportSelector onSelect={handleAirportSelect} />
-          </div>
+          <>
+            <div className="absolute mt-0 lg:-mt-2.5 top-[68%] -translate-y-1/2 z-10 w-full p-0 border-none shadow-none outline-none">
+              <AirportSelector onSelect={handleAirportSelect} />
+            </div>
+          
+          </>
         ) : (
           <Autocomplete
             value={values.pickUpAddress}
@@ -37,7 +43,7 @@ const PickUpAddressInput = ({ showAirportSelector }: any) => {
             placeholder="Enter Full Pick-Up Address & Select From Autocomplete"
           />
         )}
-        {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+        
         {/* <Button
           type="button"
           size="sm"
@@ -48,6 +54,8 @@ const PickUpAddressInput = ({ showAirportSelector }: any) => {
         </Button> */}
       </div>
     </div>
+      {errorMessage && <p className="text-red-500 text-xs !-mt-2 pl-2">{errorMessage}</p>}
+    </>
   );
 };
 

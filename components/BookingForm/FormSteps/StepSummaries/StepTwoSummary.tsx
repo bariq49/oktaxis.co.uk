@@ -5,12 +5,14 @@ interface StepTwoSummaryProps {
   selectedVehicle: string | null;
   seats: number | null;
   bags: number | null;
+  category: string | null;
 }
 
 const StepTwoSummary = ({
   selectedVehicle,
   seats,
   bags,
+  category
 }: StepTwoSummaryProps) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 text-gray-800 space-y-4">
@@ -30,6 +32,11 @@ const StepTwoSummary = ({
       <div className="flex items-center gap-2">
         <p className="font-semibold">Bags:</p>
         <span>{bags !== null ? bags : "Not Specified"}</span>
+      </div>
+      
+      <div className="flex items-center gap-2">
+        <p className="font-semibold">Category:</p>
+        <span>{category !== null ? category : "Not Specified"}</span>
       </div>
     </div>
   );
