@@ -64,9 +64,9 @@ export default function StepOne({
 
   return (
     <div className={`w-full flex flex-col gap-y-3 ${isActive ? "" : "opacity-90"}`}>
-      <div className="w-full h-12 text-lg flex bg-gray-800 text-white rounded-lg   align-middle items-center px-3 justify-between">
+      <div className="w-full h-12  flex bg-gray-800 text-white rounded-lg   align-middle items-center px-3 justify-between">
         <h1
-          className={`capitalize text-lg font-medium tracking-wider cursor-pointer ${
+          className={`capitalize text-[16px] lg:text-lg font-medium tracking-wider cursor-pointer ${
             !isActive ? "opacity-100" : ""
           }`}
           onClick={handleToggleSummary}

@@ -53,14 +53,14 @@ export default function StepTwo({
   return (
     <div className="w-full flex flex-col gap-y-3">
       {/* Step Header */}
-      <div className="w-full h-12 text-lg rounded-lg bg-gray-800 text-white flex items-center justify-between px-3">
+      <div className="w-full h-12 rounded-lg bg-gray-800 text-white flex items-center justify-between px-3">
         <h1
-          className={`capitalize text-lg font-medium tracking-wider cursor-pointer ${
+          className={`capitalize text-[16px] lg:text-lg font-medium tracking-wider cursor-pointer ${
             !isActive ? "opacity-100" : ""
           }`}
           onClick={handleToggleSummary}
         >
-          Step Two: Vehicle Selection
+          Step 2: Vehicle Selection
         </h1>
         {completedSteps.Step2 && !isEditing && (
           <Button

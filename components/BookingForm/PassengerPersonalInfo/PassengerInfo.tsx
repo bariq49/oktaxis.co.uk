@@ -84,7 +84,7 @@ export default function PassengerInfo() {
           )}
         </div>
       </div>
-      <div className="flex gap-x-3">
+      <div className="flex flex-col lg:flex-row gap-x-3 gap-y-3 w-full">
         <BagCount />
         <PassengerCount />
       </div>

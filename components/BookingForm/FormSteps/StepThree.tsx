@@ -52,14 +52,14 @@ export default function StepThree({
   return (
     <div className="w-full flex flex-col gap-y-3">
       {/* Step Three Header */}
-      <div className="w-full h-12 bg-gray-800 text-white text-lg rounded-lg flex items-center justify-between px-3">
+      <div className="w-full h-12 bg-gray-800 text-white rounded-lg flex items-center justify-between px-3">
         <h1 
-          className={`capitalize text-lg font-medium tracking-wider cursor-pointer ${
+          className={`capitalize text-[16px] lg:text-lg font-medium tracking-wider cursor-pointer ${
             !isActive ? "opacity-100" : ""
           }`}
           onClick={handleToggleSummary}
       >
-          Step Three: Passenger Details
+          Step 3: Passenger Details
         </h1>
         {completedSteps.Step3 && !isEditing && (
           <Button
@@ -78,7 +78,7 @@ export default function StepThree({
 {((completedSteps.Step2 && !completedSteps.Step3) || isEditing) ? (
   <div className="flex flex-col gap-y-3">
     <PassengerInfo />
-    <div className="flex gap-x-3">
+    <div className="flex flex-col lg:flex-row gap-x-3 gap-y-3 w-full">
       <ChildCount/>
       <TextareaInstruction/>
     </div>
