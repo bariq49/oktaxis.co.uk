@@ -36,12 +36,12 @@ export default function PassengerInfo() {
             value={values.passengerInfo.name}
             onChange={(e) => setFieldValue('passengerInfo.name', e.target.value)}
             className={`w-full bg-white border-gray-200 py-7 focus-visible:ring-0 ${
-              touched?.passengerInfo?.name && errors?.passengerInfo?.name
+            errors?.passengerInfo?.name
                 ? 'border-red-500'
                 : ''
             }`}
           />
-          {touched?.passengerInfo?.name && errors?.passengerInfo?.name && (
+          {errors?.passengerInfo?.name && (
             <p className="mt-1 text-xs text-red-500">{errors.passengerInfo.name}</p>
           )}
         </div>

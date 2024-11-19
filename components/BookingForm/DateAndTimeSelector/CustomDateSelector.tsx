@@ -13,6 +13,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 const CustomDateSelector = () => {
   const { values, setFieldValue, errors, touched } = useFormikContext<any>();
   const [date, setDate] = React.useState<Date | undefined>(undefined);
+  const [popoverOpen, setPopoverOpen] = React.useState(false);
 
   // Sync internal state with Formik's initial value
   React.useEffect(() => {
@@ -27,7 +28,8 @@ const CustomDateSelector = () => {
   const handleSelect = (newDate: Date | undefined) => {
     setDate(newDate);
     if (newDate) {
-      setFieldValue("date", newDate.toISOString()); // Update Formik's 'date' field in ISO format
+      setFieldValue("date", newDate.toISOString()); 
+      setPopoverOpen(false); 
     }
   };
 
@@ -37,9 +39,9 @@ const CustomDateSelector = () => {
       : null;
 
   return (
-    <div className="w-full flex  flex-col">
+    <div className="w-full flex flex-col">
       <div>
-        <Popover>
+        <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
             <div className="relative bg-white rounded-lg h-[54px] flex items-center w-full flex-row-reverse md:flex-row">
               <div

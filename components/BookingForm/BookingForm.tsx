@@ -19,7 +19,7 @@ const BookingForm = () => {
 
     // Form initial values...
     const initialValues = {
-        bookingType: "",
+        bookingType: "to",
         pickUpAddress: "",
         dropOffAddress: "",
         date: "",
@@ -51,6 +51,8 @@ const BookingForm = () => {
             bookingType: Yup.string().required("Booking type is required"),
             pickUpAddress: Yup.string().required("Pick-up address is required"),
             dropOffAddress: Yup.string().required("Drop-off address is required"),
+            airline: Yup.string().required("Airline name is required"),
+            flightNumber: Yup.string().required("Flight number is required"),
             date: Yup.string().required("Date is required"),
             time: Yup.string().required("Time is required"),
             vehicleType: Yup.string().required("Vehicle type is required"),

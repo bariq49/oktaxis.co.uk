@@ -1,3 +1,5 @@
+import { FolderPen, Phone, Mail, Briefcase, PersonStanding, Baby, StickyNote } from 'lucide-react';
+
 interface StepThreeSummaryProps {
     passengerInfo: {
       name: string;
@@ -20,49 +22,57 @@ interface StepThreeSummaryProps {
     childCount,
   }: StepThreeSummaryProps) => {
     return (
-      <div className="bg-white shadow-lg rounded-lg p-6 text-gray-800 space-y-4">
-        <h2 className="text-xl font-bold mb-4 border-b pb-2">Passenger Info Summary</h2>
+      <div className="bg-white shadow-lg rounded-lg px-6 py-2 text-gray-800 space-y-2">
+        <h2 className="text-[16px] font-bold mb-3 border-b pb-1">Passenger Info Summary</h2>
   
         <div className="flex items-center gap-2">
-          <p className="font-semibold">Name:</p>
-          <span>{passengerInfo?.name || 'Not Provided'}</span>
+          <FolderPen className="text-green-500 w-4 h-4" />
+          <p className="font-semibold text-sm">Name:</p>
+          <span className="text-sm">{passengerInfo?.name || 'Not Provided'}</span>
         </div>
   
         <div className="flex items-center gap-2">
-          <p className="font-semibold">Phone:</p>
-          <span>{passengerInfo?.phone || 'Not Provided'}</span>
+          <Phone className="text-orange-500 w-4 h-4" />
+          <p className="font-semibold text-sm">Phone:</p>
+          <span className="text-sm">{passengerInfo?.phone || 'Not Provided'}</span>
         </div>
   
         <div className="flex items-center gap-2">
-          <p className="font-semibold">Email:</p>
-          <span>{passengerInfo?.email || 'Not Provided'}</span>
+          <Mail className="text-sky-500 w-4 h-4" />
+          <p className="font-semibold text-sm">Email:</p>
+          <span className="text-sm">{passengerInfo?.email || 'Not Provided'}</span>
         </div>
   
         <div className="flex items-center gap-2">
-          <p className="font-semibold">Bags:</p>
-          <span>{bagCount || 'Not Provided'}</span>
+          <Briefcase className="text-gray-500 w-4 h-4" />
+          <p className="font-semibold text-sm">Bags:</p>
+          <span className="text-sm">{bagCount || 'Not Provided'}</span>
         </div>
   
         <div className="flex items-center gap-2">
-          <p className="font-semibold">Passengers:</p>
-          <span>{passengerCount || 'Not Provided'}</span>
+          <PersonStanding className="text-blue-500 w-4 h-4" />
+          <p className="font-semibold text-sm">Passengers:</p>
+          <span className="text-sm">{passengerCount || 'Not Provided'}</span>
         </div>
 
         <div className="flex items-center gap-2">
-          <p className="font-semibold">Children:</p>
-          <span>{childCount || ''}</span>
+          <Baby className="text-yellow-500 w-4 h-4" />
+          <p className="font-semibold text-sm">Children:</p>
+          <span className="text-sm">{childCount || ''}</span>
         </div>
 
         <div className="flex items-center gap-2">
-          <p className="font-semibold">Passenger Instructions:</p>
-          <span>{textarea || 'Not Provided'}</span>
+          <StickyNote className="text-stone-500 w-4 h-4" />
+          <p className="font-semibold text-sm">Passenger Instructions:</p>
+          <span className="text-sm">{textarea || 'Not Provided'}</span>
         </div>
   
         {passengerNotes && (
           <div className="flex flex-col gap-2">
-            <p className="font-semibold">Notes:</p>
+            {/* <RockingChair className="text-blue-500 w-4 h-4" /> */}
+            <p className="font-semibold text-sm">Notes:</p>
             <div className="bg-gray-100 rounded-lg p-2">
-              <span>{passengerNotes}</span>
+              <span className="text-sm">{passengerNotes}</span>
             </div>
           </div>
         )}

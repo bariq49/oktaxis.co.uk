@@ -9,7 +9,7 @@ export function TextareaInstruction() {
     <div className="w-full">
       <Textarea
         placeholder="Add your instructions here. (optional)"
-        className="w-full h-[56px] p-4 text-sm lg:text-lg !bg-white border border-none rounded-lg shadow-sm focus:ring-0 focus-visible:ring-0"
+        className="w-full h-[56px] p-4 text-[16px] lg:text-lg !bg-white border border-none rounded-lg shadow-sm focus:ring-0 focus-visible:ring-0"
         aria-label="Your message"
         onChange={(e) => setFieldValue("textarea", e.target.value)}
       />

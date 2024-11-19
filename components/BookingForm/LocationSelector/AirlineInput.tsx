@@ -7,6 +7,17 @@ const AirlineInput = () => {
     flightNumber: string;
   }>();
 
+  // Error handling for both fields
+  const airlineError =
+    touched.airline && typeof errors.airline === "string"
+      ? errors.airline
+      : null;
+
+  const flightNumberError =
+    touched.flightNumber && typeof errors.flightNumber === "string"
+      ? errors.flightNumber
+      : null;
+
   return (
     <div className="w-full flex lg:flex-row flex-col gap-x-3 gap-y-3">
       {/* Airline Input */}
@@ -18,8 +29,8 @@ const AirlineInput = () => {
           onChange={(e) => setFieldValue("airline", e.target.value)}
           className="w-full py-[26px] bg-white focus-visible:ring-0"
         />
-        {touched.airline && errors.airline && (
-          <p className="text-red-500 text-xs mt-1">{errors.airline}</p>
+        {airlineError && (
+          <p className="text-red-500 text-xs -mt-1">{airlineError}</p>
         )}
       </div>
 
@@ -32,11 +43,10 @@ const AirlineInput = () => {
           onChange={(e) => setFieldValue("flightNumber", e.target.value)}
           className="w-full py-[26px] bg-white focus-visible:ring-0"
         />
-        {touched.flightNumber && errors.flightNumber && (
-          <p className="text-red-500 text-xs mt-1">{errors.flightNumber}</p>
+        {flightNumberError && (
+          <p className="text-red-500 text-xs -mt-1">{flightNumberError}</p>
         )}
       </div>
-
     </div>
   );
 };
