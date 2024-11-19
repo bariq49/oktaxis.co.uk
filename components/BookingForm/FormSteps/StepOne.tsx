@@ -27,22 +27,30 @@ export default function StepOne({
   const [isEditing, setIsEditing] = useState(false);
   const [showSummary, setShowSummary] = useState(true);
 
-  // State to determine which airport selector to show
-  const [airportSelectorFor, setAirportSelectorFor] = useState<"to" | "from" | null>(null);
+  const [airportSelectorFor, setAirportSelectorFor] = useState<"to" | "from" | null>("to");
 
-  // Toggle function for the heading
+  const handleAirportSelectChange = (value: "to" | "from" | null) => {
+    if (value === "to" || value === "from") {
+      setAirportSelectorFor(value);
+    } else {
+      setAirportSelectorFor(null);
+    }
+  };
+
   const handleToggleSummary = () => {
     setShowSummary((prev) => !prev);
   };
 
-  // Function to validate all required fields
-  const validateAllFields =  () => {
-    const validationErrors =  validateForm();
+  const validateAllFields = () => {
+    const validationErrors = validateForm();
 
-    // Check if required fields have values
-    const areFieldsFilled = values.bookingType && values.pickUpAddress && values.dropOffAddress && values.date && values.time;
+    const areFieldsFilled =
+      values.bookingType &&
+      values.pickUpAddress &&
+      values.dropOffAddress &&
+      values.date &&
+      values.time;
 
-    // If there are validation errors or missing fields, do not proceed
     if (Object.keys(validationErrors).length > 0 || !areFieldsFilled) {
       return false;
     }
@@ -50,48 +58,67 @@ export default function StepOne({
     return true;
   };
 
-  // Function to handle validation and next step
   const handleValidationAndNextStep = () => {
-    const isValid =  validateAllFields();
+    const isValid = validateAllFields();
 
     if (isValid) {
       setIsEditing(false);
-      setCompletedSteps((prev:any)=>({...prev,Step1:true})) // Move to next step
+      setShowSummary(true); // Show the summary after saving
+      setCompletedSteps((prev: any) => ({ ...prev, Step1: true }));
     } else {
-      console.log(isValid ,"Please fill in all required fields correctly.");
+      console.log("Please fill in all required fields correctly.");
     }
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setShowSummary(false); // Hide the summary during editing
+    onEdit();
   };
 
   return (
     <div className={`w-full flex flex-col gap-y-3 ${isActive ? "" : "opacity-90"}`}>
-      <div className="w-full h-12  flex bg-gray-800 text-white rounded-lg   align-middle items-center px-3 justify-between">
-        <h1
-          className={`capitalize text-[16px] lg:text-lg font-medium tracking-wider cursor-pointer ${
-            !isActive ? "opacity-100" : ""
-          }`}
-          onClick={handleToggleSummary}
-        >
-          Step 1: Ride Info
-        </h1>
-        {completedSteps.Step1 && !isEditing && (
+      {/* Step 1 Header and Summary */}
+      {completedSteps.Step1 && (
+        <div className="w-full h-12 flex bg-gray-800 text-white rounded-lg align-middle items-center px-3 justify-between">
+          <h1
+            className={`capitalize text-[15px] lg:text-lg font-medium tracking-wider cursor-pointer ${
+              !isActive ? "opacity-100" : ""
+            }`}
+            onClick={handleToggleSummary}
+          >
+            Step 1: Ride Info
+          </h1>
           <Button
-            onClick={() => {
-              setIsEditing(true);
-              onEdit();
-            }}
+            onClick={handleEditClick}
             className="bg-white text-gray-950 hover:bg-white px-6 py-3.5 h-0"
           >
             Edit
           </Button>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* Show Form Fields if Editing, otherwise show Summary */}
-      {isActive && (isEditing || !completedSteps.Step1) ? (
+      {/* Show StepOneSummary if not editing */}
+      {completedSteps.Step1 && showSummary && !isEditing && (
+        <StepOneSummary
+          bookingType={values.bookingType}
+          pickUpAddress={values.pickUpAddress}
+          dropOffAddress={values.dropOffAddress}
+          stops={values.stops}
+          date={values.date}
+          time={values.time}
+          hourlyCharter={values.hourlyCharter}
+          airline={values.airline}
+          flightNumber={values.flightNumber}
+        />
+      )}
+
+      {/* Show Form Fields if Editing */}
+      {isActive && (isEditing || !completedSteps.Step1) && (
         <>
           <div className="flex md:flex-row flex-col gap-y-3">
             <div>
-              <BookingTypeOption onAirportSelectChange={setAirportSelectorFor} />
+              <BookingTypeOption onAirportSelectChange={handleAirportSelectChange} />
             </div>
             <div className="flex flex-col gap-3">
               <PickUpAddressInput showAirportSelector={airportSelectorFor === "from"} />
@@ -110,20 +137,6 @@ export default function StepOne({
             {isEditing ? "Save Changes" : "Select Vehicle"}
           </Button>
         </>
-      ) : (
-        showSummary && (
-          <StepOneSummary
-            bookingType={values.bookingType}
-            pickUpAddress={values.pickUpAddress}
-            dropOffAddress={values.dropOffAddress}
-            stops={values.stops}
-            date={values.date}
-            time={values.time}
-            hourlyCharter={values.hourlyCharter}
-            airline={values.airline}
-            flightNumber={values.flightNumber}
-          />
-        )
       )}
     </div>
   );

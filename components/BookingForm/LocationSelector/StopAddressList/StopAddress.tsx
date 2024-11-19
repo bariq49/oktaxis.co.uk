@@ -1,6 +1,6 @@
-import { Field } from "formik";
+import { useFormikContext } from "formik";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Autocomplete from "../AddressAutoComplete";
 import { X } from "lucide-react";
 
 interface StopInputProps {
@@ -9,19 +9,28 @@ interface StopInputProps {
 }
 
 export default function StopInput({ index, onRemove }: StopInputProps) {
+  const { values, setFieldValue, errors, touched } = useFormikContext<{
+    stops: string[];
+  }>();
+
+  const stopError = errors.stops?.[index];
+  // const stopTouched = touched.stops?.[index];
+  
+
   return (
     <div className="flex overflow-hidden rounded-lg bg-gray-50 h-[54px] shadow-sm">
       <div className="flex w-[80px] items-center justify-end px-4 text-sm font-medium text-gray-700">
         Stop {index + 1}:
       </div>
       <div className="relative flex-1">
-        <Field
-          name={`stops[${index}]`}
-          as={Input}
-          type="text"
-          className="border-0 text-[16px] bg-white py-7 pr-12 focus-visible:ring-0 focus-visible:ring-offset-0"
+        <Autocomplete
+          value={values.stops[index] || ""}
+          onChange={(value) => setFieldValue(`stops[${index}]`, value)}
           placeholder="Enter Stop Address"
         />
+        {stopError && (
+          <p className="text-red-500 text-xs mt-1 pl-2">{stopError}</p>
+        )}
         <Button
           type="button"
           onClick={onRemove}
