@@ -4,7 +4,7 @@ import { useFormikContext } from "formik";
 import AirportSelector from "./AirportSelector/AirportSelector";
 import Autocomplete from "./AddressAutoComplete";
 
-const PickUpAddressInput = ({ showAirportSelector }: any) => {
+const PickUpAddressInput = ({ showAirportSelector, bookingType }: any) => {
   const { values, setFieldValue, errors, touched } = useFormikContext<{
     pickUpAddress: string;
     stops: string[];
@@ -40,6 +40,7 @@ const PickUpAddressInput = ({ showAirportSelector }: any) => {
           <Autocomplete
             value={values.pickUpAddress}
             onChange={(value) => setFieldValue('pickUpAddress', value)}
+            restrictAirports={bookingType === 'point'} 
             placeholder="Enter Full Pick-Up Address & Select From Autocomplete"
           />
         )}

@@ -124,6 +124,7 @@ const BookingForm = () => {
                                 completedSteps = {completedSteps}
                                 setCompletedSteps={setCompletedSteps}
                                 onEdit = {() => handleEditStep(1)}
+                                bookingType={values.bookingType} 
                             
                             />
                         

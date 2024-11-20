@@ -1,9 +1,27 @@
 "use client"
 
-const Home = () => {
+import { homePageData } from "@/constants/homePageData"
+
+const HomePage = () => {
+  const { heroSection } = homePageData;
   return (
-    <div>Home Page</div>
+    <main
+      className=""
+    >
+
+      {/* Hero Section */}
+      <section
+        className="w-full"
+        style={{
+          backgroundImage: `url('${heroSection.backgroundImage}')`
+        }}
+      >
+      
+        
+      </section>
+
+    </main>
   )
 }
 
-export default Home
+export default HomePage;
