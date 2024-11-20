@@ -14,6 +14,7 @@ interface StepOneProps {
   completedSteps: any;
   setCompletedSteps: any;
   onEdit: () => void;
+  bookingType: any;
 }
 
 export default function StepOne({
@@ -21,6 +22,7 @@ export default function StepOne({
   completedSteps,
   setCompletedSteps,
   onEdit,
+  bookingType
 }: StepOneProps) {
   const { values, errors, validateForm } = useFormikContext<any>();
 
@@ -118,12 +120,21 @@ export default function StepOne({
         <>
           <div className="flex md:flex-row flex-col gap-y-3">
             <div>
-              <BookingTypeOption onAirportSelectChange={handleAirportSelectChange} />
+              <BookingTypeOption 
+                onAirportSelectChange={handleAirportSelectChange} 
+                
+              />
             </div>
             <div className="flex flex-col gap-3">
-              <PickUpAddressInput showAirportSelector={airportSelectorFor === "from"} />
+              <PickUpAddressInput 
+                showAirportSelector={airportSelectorFor === "from"} 
+                bookingType={bookingType}
+              />
               {airportSelectorFor === "from" && <AirlineInput />}
-              <DropOffAddressInput showAirportSelector={airportSelectorFor === "to"} />
+              <DropOffAddressInput 
+                showAirportSelector={airportSelectorFor === "to"} 
+                bookingType={bookingType}
+              />
               <div className="flex w-full gap-x-3 flex-wrap md:flex-nowrap gap-y-3">
                 <CustomTimeSelector />
                 <CustomDateSelector />

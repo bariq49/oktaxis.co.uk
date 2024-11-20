@@ -5,13 +5,15 @@ import { Input } from "@/components/ui/input";
 import AirportSelector from "./AirportSelector/AirportSelector";
 import Autocomplete from "./AddressAutoComplete";
 
-export default function DropOffAddressInput({ showAirportSelector = true }: { showAirportSelector?: boolean }) {
+
+
+export default function DropOffAddressInput({ bookingType, showAirportSelector = true, }: { showAirportSelector?: boolean, bookingType: string, }) {
   const { values, setFieldValue, errors, touched } = useFormikContext<{
     dropOffAddress: string;
     stops: string[];
   }>();
 
-  // Error handling for dropOffAddress...
+  // Error handling for dropOffAddress...s
   const errorMessage =
     touched.dropOffAddress && typeof errors.dropOffAddress === "string"
       ? errors.dropOffAddress
@@ -54,6 +56,7 @@ export default function DropOffAddressInput({ showAirportSelector = true }: { sh
                   value={values.dropOffAddress}
                   onChange={(value) => setFieldValue('dropOffAddress', value)}
                   placeholder="Enter Full Drop-Off Address & Select From Autocomplete"
+                  restrictAirports={bookingType === 'point'} 
 
                 />
                   // <Field

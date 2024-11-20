@@ -41,9 +41,9 @@ export default function PassengerInfo() {
                 : ''
             }`}
           />
-          {errors?.passengerInfo?.name && (
+          {/* {errors?.passengerInfo?.name && (
             <p className="mt-1 text-xs text-red-500">{errors.passengerInfo.name}</p>
-          )}
+          )} */}
         </div>
 
         {/* Email Input */}
@@ -60,9 +60,9 @@ export default function PassengerInfo() {
                 : ''
             }`}
           />
-          {touched?.passengerInfo?.email && errors?.passengerInfo?.email && (
+          {/* {touched?.passengerInfo?.email && errors?.passengerInfo?.email && (
             <p className="mt-1 text-xs text-red-500">{errors.passengerInfo.email}</p>
-          )}
+          )} */}
         </div>
 
         {/* Phone Number Input */}
@@ -79,9 +79,9 @@ export default function PassengerInfo() {
                 : ''
             }`}
           />
-          {touched?.passengerInfo?.phone && errors?.passengerInfo?.phone && (
+          {/* {touched?.passengerInfo?.phone && errors?.passengerInfo?.phone && (
             <p className="mt-1 text-xs text-red-500">{errors.passengerInfo.phone}</p>
-          )}
+          )} */}
         </div>
       </div>
       <div className="flex flex-col lg:flex-row gap-x-3 gap-y-3 w-full">
