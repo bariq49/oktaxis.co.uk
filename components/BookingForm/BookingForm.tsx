@@ -98,13 +98,13 @@ const BookingForm = () => {
   
   return (
     <div 
-        className="container flex flex-col m-auto justify-center items-center"
+        className="w-full flex flex-col"
     >
         <div 
-            className="w-[95%] md:w-[80%] h-fit mt-[2%] flex flex-col gap-y-7 items-center border rounded-md shadow-xl p-[2%] group bg-gray-300 backdrop-blur-lg"
+            className="w-full h-fit  flex flex-col gap-y-4 py-4 px-3 items-center border rounded-lg shadow-xl group bg-gray-300 backdrop-blur-lg"
         >
 
-            <div className="font-bold text-xl md:text-2xl">
+            <div className="font-bold text-xl md:text-2xl text-center lg:text-start">
                 <h1>Please Select a Vehicle & Date/Times</h1>
             </div>
 
