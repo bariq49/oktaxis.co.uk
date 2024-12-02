@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import VehicleSelector from "../VehicleSelector/VehicleSelector";
+import VehicleSelector, { fareStructure } from "../VehicleSelector/VehicleSelector";
 import { useFormikContext } from "formik";
 import StepTwoSummary from "./StepSummaries/StepTwoSummary";
 
@@ -20,35 +20,73 @@ export default function StepTwo({
   const { values, setFieldValue } = useFormikContext<any>();
   const [showSummary, setShowSummary] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [showHeader, setShowHeader] = useState(false); // New state for header visibility
+  const [showHeader, setShowHeader] = useState(false);
+  
+
+  const calculatePrice = (category: string, distance: number): number => {
+    if (!category || distance <= 0) {
+      console.error("Invalid category or distance", { category, distance });
+      return 0;
+    }
+    
+    const fareDetails = fareStructure[category];
+    if (!fareDetails) {
+      console.error("No fare details found for category:", category);
+      return 0;
+    }
+    
+    for (const tier of fareDetails.tiers) {
+      if (distance <= tier.maxMiles) {
+        return tier.flatRate;
+      }
+    }
+
+    return fareDetails.baseFare + distance * fareDetails.perMile;
+  };
 
   const handleBookNow = () => {
     if (isEditing) {
-      // If editing, just show the summary without changing steps
       setShowSummary(true);
-      setIsEditing(false); // Exit editing mode
+      setIsEditing(false);
     } else {
-      // Normal flow when not editing
       setShowSummary(true);
-      setShowHeader(true); // Show the header after completing the step
+      setShowHeader(true);
       setCompletedSteps((prev: any) => ({ ...prev, Step2: true }));
     }
   };
 
   const handleEdit = () => {
-    setShowSummary(false); // Return to vehicle selection
-    setIsEditing(true); // Enter editing mode
-    onEdit(); // Set this step back to active
+    setShowSummary(false);
+    setIsEditing(true);
+    onEdit();
   };
 
-  // Toggle function for the summary visibility
   const handleToggleSummary = () => {
     setShowSummary((prev) => !prev);
   };
 
+  useEffect(() => {
+    const distance = values.distance || 0;
+    const selectedCategory = values.category || null;
+    const totalPrice = selectedCategory
+      ? calculatePrice(selectedCategory, distance)
+      : null;
+
+    if (totalPrice !== null) {
+      setFieldValue("totalPrice", totalPrice);
+    }
+  }, [values.distance, values.category, setFieldValue]);
+
+    // console.log("Fare Structure:", fareStructure);
+    // console.log("Selected Category:", values.category);
+    // console.log("selected Distance:", values.distance);
+    // console.log("Category:", selectedCategory);
+    // console.log("Distance:", distance);
+    // console.log("Total Price:", totalPrice);
+
+
   return (
     <div className="w-full flex flex-col gap-y-3">
-      {/* Step Header */}
       {showHeader && (
         <div className="w-full h-12 rounded-lg bg-gray-800 text-white flex items-center justify-between px-3">
           <h1
@@ -70,18 +108,20 @@ export default function StepTwo({
         </div>
       )}
 
-      {/* Step 2 Content */}
       {((completedSteps.Step1 && !completedSteps.Step2) || isEditing) && (
-        <VehicleSelector onBookNow={handleBookNow} />
+        <VehicleSelector 
+          onBookNow={handleBookNow} 
+          distance={values.distance}
+        />
       )}
 
-      {/* Show summary only when not editing and showSummary is true */}
       {!isEditing && showSummary && (
         <StepTwoSummary
           selectedVehicle={values.selectedVehicle}
           seats={values.seats}
           bags={values.bags}
           category={values.category}
+          totalPrice={values.totalPrice} 
         />
       )}
     </div>

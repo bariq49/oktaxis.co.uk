@@ -1,5 +1,5 @@
 import { CalendarIcon, ClockIcon } from "@radix-ui/react-icons";
-import { Car, MapPin, Plane } from "lucide-react"; // Added Plane icon for Airline
+import { Car, MapPin, Plane, LandPlot } from "lucide-react"; // Added Plane icon for Airline
 import dayjs from "dayjs";
 
 interface StepOneSummaryProps {
@@ -12,6 +12,7 @@ interface StepOneSummaryProps {
   airline?: string;
   flightNumber?: string;
   hourlyCharter?: string;
+  distance: number;
 }
 
 const StepOneSummary = ({
@@ -24,6 +25,7 @@ const StepOneSummary = ({
   airline,
   flightNumber,
   hourlyCharter,
+  distance
 }: StepOneSummaryProps) => {
   // Helper function to format the date
   const formatDate = (date: string) => {
@@ -104,6 +106,12 @@ const StepOneSummary = ({
         <ClockIcon className="text-yellow-500 w-4 h-4" />
         <p className="font-semibold text-sm">Time:</p>
         <span className="text-sm">{time || "Not Selected"}</span>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <LandPlot className="text-gray-800 w-4 h-4" />
+        <p className="font-semibold text-sm">Distance:</p>
+        <span className="text-sm">{`${distance} miles` || "Not Calculated"}</span>
       </div>
     </div>
   );

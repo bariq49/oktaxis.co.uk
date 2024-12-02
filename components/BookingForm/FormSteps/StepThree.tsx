@@ -122,7 +122,7 @@ export default function StepThree({
           <Dialog open={isPaymentDialogOpen} onOpenChange={setPaymentDialogOpen}>
             <DialogTitle></DialogTitle>
             <DialogContent className="sm:max-w-[425px] bg-transparent border-0 shadow-none">
-              <PaymentCardModal onCloseAction={handleCloseDialog} />
+            <PaymentCardModal onClose={() => setPaymentDialogOpen(false)} />
             </DialogContent>
           </Dialog>
         </div>

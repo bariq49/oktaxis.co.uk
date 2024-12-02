@@ -15,8 +15,8 @@ export default function HourlyCharterSelection() {
     <div className="w-full space-y-2">
       <p className="text-sm text-gray-500">Enter hours (Minimum 2 hours)</p>
       <Select
-        value={values.hourlyCharter || "2"} // Set the selected value from Formik state, default to "2"
-        onValueChange={handleChange} // Handle value change
+        value={values.hourlyCharter || "2"}
+        onValueChange={handleChange} 
       >
         <SelectTrigger className="w-full bg-white text-gray-950 outline-none py-6 focus:ring-0">
           <SelectValue placeholder="Select hours" />

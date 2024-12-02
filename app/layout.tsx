@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import Head from 'next/head';
+import Head from "next/head";
 import "./globals.css";
 
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import StripeProvider from "@/components/BookingForm/PaymentCardModal/StripeProvider";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "700", "900"],
@@ -35,7 +36,7 @@ export default function RootLayout({
       </Head>
       <body className={`${roboto.variable} antialiased`}>
         <Header />
-        {children}
+        <StripeProvider>{children}</StripeProvider>
         <Footer />
       </body>
     </html>

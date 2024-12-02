@@ -31,7 +31,7 @@ export default function AirportSelector({
         value={selectedAirport}
         onValueChange={handleAirportChange}
       >
-        <SelectTrigger className="w-full bg-white py-7 pl-3 md:pl-3 flex rounded-lg focus:ring-0 border-none shadow-none">
+        <SelectTrigger className="lg:w-[70%] w-full bg-white py-7 pl-3 md:pl-3 flex rounded-lg focus:ring-0 border-none shadow-none">
           <SelectValue
             placeholder="Select Airport"
             className="text-sm text-gray-500 "

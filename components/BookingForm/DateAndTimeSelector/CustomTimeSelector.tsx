@@ -1,165 +1,179 @@
-import { useState, useEffect, useRef } from "react";
-import { Clock3 } from "lucide-react";
-import { useFormikContext } from "formik";
+'use client'
+
+import { useState, useEffect, useRef } from "react"
+import { Clock3 } from 'lucide-react'
+import { useFormikContext } from "formik"
+import { cn } from "@/lib/utils"
 
 const CustomTimeSelector = () => {
-  const { values, setFieldValue, errors, touched } = useFormikContext<any>();
-  const [hours, setHours] = useState("--");
-  const [minutes, setMinutes] = useState("--");
-  const [period, setPeriod] = useState("AM");
-  const [showHours, setShowHours] = useState(false);
-  const [showMinutes, setShowMinutes] = useState(false);
-  const [showPeriod, setShowPeriod] = useState(false);
-  const [dropdownDirection, setDropdownDirection] = useState("down");
+  const { values, setFieldValue, errors, touched } = useFormikContext<any>()
+  const [hours, setHours] = useState("--")
+  const [minutes, setMinutes] = useState("--")
+  const [period, setPeriod] = useState("AM")
+  const [showPicker, setShowPicker] = useState(false)
+  const [dropdownDirection, setDropdownDirection] = useState("down")
 
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const inputRef = useRef<HTMLDivElement | null>(null)
 
-  const hoursOptions = Array.from({ length: 12 }, (_, i) => i + 1);
-  const minutesOptions = Array.from({ length: 60 }, (_, i) =>
-    i.toString().padStart(2, "0")
-  );
-  const periodOptions = ["AM", "PM"];
+  const hoursOptions = Array.from({ length: 12 }, (_, i) => (i + 1).toString().padStart(2, "0"))
+  const minutesOptions = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"))
+  const periodOptions = ["AM", "PM"]
 
-  // Sync internal state with Formik's initial value
   useEffect(() => {
     if (values.time) {
-      const [time, ampm] = values.time.split(" ");
-      const [selectedHours, selectedMinutes] = time.split(":");
-      setHours(selectedHours);
-      setMinutes(selectedMinutes);
-      setPeriod(ampm);
+      const [time, ampm] = values.time.split(" ")
+      const [selectedHours, selectedMinutes] = time.split(":")
+      setHours(selectedHours)
+      setMinutes(selectedMinutes)
+      setPeriod(ampm)
     }
-  }, [values.time]);
+  }, [values.time])
 
   const updateFormikTime = () => {
     if (hours !== "--" && minutes !== "--" && period) {
-      const selectedTime = `${hours}:${minutes} ${period}`;
-      setFieldValue("time", selectedTime);
+      const selectedTime = `${hours}:${minutes} ${period}`
+      setFieldValue("time", selectedTime)
     }
-  };
+  }
 
   useEffect(() => {
-    updateFormikTime();
-  }, [hours, minutes, period]);
+    updateFormikTime()
+  }, [hours, minutes, period])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setShowPicker(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  // Update dropdown width to match input field width
+  useEffect(() => {
+    if (showPicker && dropdownRef.current && inputRef.current) {
+      const inputWidth = inputRef.current.offsetWidth
+      dropdownRef.current.style.width = `${inputWidth}px`
+    }
+  }, [showPicker])
 
   const checkDropdownPosition = () => {
     if (dropdownRef.current) {
-      const { bottom } = dropdownRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      setDropdownDirection(bottom > windowHeight ? "up" : "down");
+      const { bottom } = dropdownRef.current.getBoundingClientRect()
+      const windowHeight = window.innerHeight
+      setDropdownDirection(bottom > windowHeight ? "up" : "down")
     }
-  };
-
-  // Close dropdowns when clicking outside...
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
-        setShowHours(false);
-        setShowMinutes(false);
-        setShowPeriod(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  }
 
   useEffect(() => {
-    window.addEventListener("resize", checkDropdownPosition);
-    return () => window.removeEventListener("resize", checkDropdownPosition);
-  }, []);
+    window.addEventListener("resize", checkDropdownPosition)
+    return () => window.removeEventListener("resize", checkDropdownPosition)
+  }, [])
 
-  const errorMessage =
-    touched.time && typeof errors.time === "string" ? errors.time : null;
+  const errorMessage = touched.time && typeof errors.time === "string" ? errors.time : null
 
   return (
     <div ref={containerRef} className="flex flex-col w-full">
-      <div className="relative bg-white rounded-lg flex items-center w-full h-[54px] flex-row-reverse md:flex-row">
+      <div 
+        ref={inputRef}
+        className="relative bg-white rounded-lg flex items-center w-full h-[54px] flex-row-reverse md:flex-row"
+      >
         <div className="flex bg-gray-50 w-[95px] md:w-[114px] items-center py-[26px] rounded-r-lg md:rounded-r-none md:rounded-l-lg">
           <Clock3 className="absolute right-5 md:left-[30px] top-[17px] text-2xl text-gray-950" />
         </div>
 
-        <div className="flex gap-x-3 font-normal text-[16px] cursor-pointer w-full pl-4">
-          <div onClick={() => setShowHours(!showHours)}>{hours}</div>:
-          <div onClick={() => setShowMinutes(!showMinutes)}>{minutes}</div>
-          <div onClick={() => setShowPeriod(!showPeriod)}>{period}</div>
+        <div 
+          className="flex gap-x-3 font-normal text-[16px] cursor-pointer w-full pl-4"
+          onClick={() => setShowPicker(!showPicker)}
+        >
+          <div>{hours}</div>:<div>{minutes}</div>
+          <div>{period}</div>
         </div>
 
-        {showHours && (
+        {showPicker && (
           <div
             ref={dropdownRef}
-            className={`absolute z-50 left-0 lg:left-[30%] rounded-lg ${
-              dropdownDirection === "up" ? "bottom-full" : "top-full"
-            } bg-white shadow-lg max-h-[300px] lg:max-h-[400px] overflow-y-scroll custom-scrollbar`}
+            className={cn(
+              "absolute !z-50 left-0",
+              dropdownDirection === "up" ? "bottom-full mb-2" : "top-full mt-2",
+              "bg-white shadow-lg rounded-lg p-4 grid grid-cols-3 gap-4"
+            )}
           >
-            {hoursOptions.map((hour) => (
-              <div
-                key={hour}
-                className="py-2 px-4 hover:bg-gray-700 hover:text-white rounded-lg cursor-pointer"
-                onClick={() => {
-                  setHours(hour.toString().padStart(2, "0"));
-                  setShowHours(false);
-                }}
-              >
-                {hour}
+            {/* Hours Column */}
+            <div className="space-y-2">
+              <div className="font-medium text-sm text-gray-600">Hour</div>
+              <div className="grid grid-cols-1 gap-1 max-h-[200px] overflow-y-auto no-scrollbar">
+                {hoursOptions.map((hour) => (
+                  <div
+                    key={hour}
+                    className={cn(
+                      "py-2 px-3 text-center rounded-md cursor-pointer transition-colors",
+                      hours === hour 
+                        ? "bg-gray-800 text-white" 
+                        : "hover:bg-gray-700 hover:text-white"
+                    )}
+                    onClick={() => setHours(hour)}
+                  >
+                    {hour}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
+            </div>
 
-        {showMinutes && (
-          <div
-            ref={dropdownRef}
-            className={`absolute z-50 left-[10%] lg:left-[45%] rounded-lg ${
-              dropdownDirection === "up" ? "bottom-full" : "top-full"
-            } bg-white shadow-lg max-h-[300px] lg:max-h-[400px] overflow-y-scroll custom-scrollbar`}
-          >
-            {minutesOptions.map((minute) => (
-              <div
-                key={minute}
-                className="py-2 px-4 hover:bg-gray-700 hover:text-white rounded-lg cursor-pointer"
-                onClick={() => {
-                  setMinutes(minute);
-                  setShowMinutes(false);
-                }}
-              >
-                {minute}
+            {/* Minutes Column */}
+            <div className="space-y-2">
+              <div className="font-medium text-sm text-gray-600">Minute</div>
+              <div className="grid grid-cols-1 gap-1 max-h-[200px] overflow-y-auto no-scrollbar">
+                {minutesOptions.map((minute) => (
+                  <div
+                    key={minute}
+                    className={cn(
+                      "py-2 px-3 text-center rounded-md cursor-pointer transition-colors",
+                      minutes === minute 
+                        ? "bg-gray-800 text-white" 
+                        : "hover:bg-gray-700 hover:text-white"
+                    )}
+                    onClick={() => setMinutes(minute)}
+                  >
+                    {minute}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
+            </div>
 
-        {showPeriod && (
-          <div
-            ref={dropdownRef}
-            className={`absolute z-50 left-[20%] lg:left-[58%] rounded-lg ${
-              dropdownDirection === "up" ? "bottom-full" : "top-full"
-            } bg-white shadow-lg`}
-          >
-            {periodOptions.map((p) => (
-              <div
-                key={p}
-                className="py-2 px-4 hover:bg-gray-700 hover:text-white rounded-lg cursor-pointer"
-                onClick={() => {
-                  setPeriod(p);
-                  setShowPeriod(false);
-                }}
-              >
-                {p}
+            {/* Period Column */}
+            <div className="space-y-2">
+              <div className="font-medium text-sm text-gray-600">Period</div>
+              <div className="grid grid-cols-1 gap-1">
+                {periodOptions.map((p) => (
+                  <div
+                    key={p}
+                    className={cn(
+                      "py-2 px-3 text-center rounded-md cursor-pointer transition-colors",
+                      period === p 
+                        ? "bg-gray-800 text-white" 
+                        : "hover:bg-gray-700 hover:text-white"
+                    )}
+                    onClick={() => setPeriod(p)}
+                  >
+                    {p}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         )}
       </div>
 
       {errorMessage && <p className="text-red-500 text-xs pl-2">{errorMessage}</p>}
     </div>
-  );
-};
+  )
+}
 
-export default CustomTimeSelector;
+export default CustomTimeSelector
+

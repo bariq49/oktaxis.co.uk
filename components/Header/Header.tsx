@@ -7,7 +7,10 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { usePathname } from 'next/navigation'
 
+import Logo from "@/assets/logo.png"
+
 import { navLinks } from '@/constants/headerFooterData'
+import Image from 'next/image'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -18,7 +21,11 @@ export default function Header() {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex-shrink-0">
           <Link href="/" className="text-2xl font-bold text-primary">
-            Oktaxis
+            <Image
+              src={Logo}
+              alt='Okataxis'
+              className='w-40'
+            />
           </Link>
         </div>
         
@@ -30,8 +37,8 @@ export default function Header() {
               href={link.path} 
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors
                 ${pathname === link.path
-                  ? 'bg-gray-900 text-white' 
-                  : 'text-gray-900 hover:bg-gray-950 hover:text-white'}`}
+                  ? 'bg-gray-800 text-white' 
+                  : 'text-gray-900 hover:bg-gray-700 hover:text-white'}`}
             >
               {link.title}
             </Link>
@@ -40,7 +47,10 @@ export default function Header() {
         
         {/* Call Us Button */}
         <div className="hidden md:block">
-          <Button variant="outline" className="flex items-center bg-gray-950 text-white hover:text-white hover:bg-gray-900 ">
+          <Button 
+              variant="outline" 
+              className="flex py-4 items-center bg-gray-800 text-white hover:text-white hover:bg-gray-700 "
+          >
             <Phone className="mr-2 h-4 w-4" />
             Call Us
           </Button>

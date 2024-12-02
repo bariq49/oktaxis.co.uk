@@ -8,6 +8,7 @@ import DropOffAddressInput from "../LocationSelector/DropOffAddressInput";
 import PickUpAddressInput from "../LocationSelector/PickUpAddressInput";
 import StepOneSummary from "./StepSummaries/StepOneSumary";
 import AirlineInput from "../LocationSelector/AirlineInput";
+import DistanceCalculator from "../DistanceCalculator/DistanceCalculator";
 
 interface StepOneProps {
   isActive: boolean;
@@ -24,19 +25,15 @@ export default function StepOne({
   onEdit,
   bookingType
 }: StepOneProps) {
-  const { values, errors, validateForm } = useFormikContext<any>();
+  const { values, setFieldValue, errors, validateForm } = useFormikContext<any>();
 
   const [isEditing, setIsEditing] = useState(false);
   const [showSummary, setShowSummary] = useState(true);
-
   const [airportSelectorFor, setAirportSelectorFor] = useState<"to" | "from" | null>("to");
 
+
   const handleAirportSelectChange = (value: "to" | "from" | null) => {
-    if (value === "to" || value === "from") {
-      setAirportSelectorFor(value);
-    } else {
-      setAirportSelectorFor(null);
-    }
+    setAirportSelectorFor(value);
   };
 
   const handleToggleSummary = () => {
@@ -53,11 +50,7 @@ export default function StepOne({
       values.date &&
       values.time;
 
-    if (Object.keys(validationErrors).length > 0 || !areFieldsFilled) {
-      return false;
-    }
-
-    return true;
+    return Object.keys(validationErrors).length === 0 && areFieldsFilled;
   };
 
   const handleValidationAndNextStep = () => {
@@ -65,7 +58,7 @@ export default function StepOne({
 
     if (isValid) {
       setIsEditing(false);
-      setShowSummary(true); // Show the summary after saving
+      setShowSummary(true);
       setCompletedSteps((prev: any) => ({ ...prev, Step1: true }));
     } else {
       console.log("Please fill in all required fields correctly.");
@@ -74,31 +67,39 @@ export default function StepOne({
 
   const handleEditClick = () => {
     setIsEditing(true);
-    setShowSummary(false); // Hide the summary during editing
+    setShowSummary(false); 
     onEdit();
   };
+
+  // Callback to pass calculated distance to parent component
+  const handleDistanceCalculated = (calculatedDistance: number) => {
+    if (values.distance !== calculatedDistance) {
+      setFieldValue("distance", calculatedDistance);
+    } 
+  };
+  
 
   return (
     <div className={`w-full flex flex-col gap-y-3 ${isActive ? "" : "opacity-90"}`}>
       {/* Step 1 Header and Summary */}
-      {completedSteps.Step1 && (
         <div className="w-full h-12 flex bg-gray-800 text-white rounded-lg align-middle items-center px-3 justify-between">
           <h1
             className={`capitalize text-[15px] lg:text-lg font-medium tracking-wider cursor-pointer ${
               !isActive ? "opacity-100" : ""
             }`}
             onClick={handleToggleSummary}
-          >
+            >
             Step 1: Ride Info
           </h1>
+        {completedSteps.Step1 && !isEditing && (
           <Button
             onClick={handleEditClick}
             className="bg-white text-gray-950 hover:bg-white px-6 py-3.5 h-0"
           >
             Edit
           </Button>
+        )}
         </div>
-      )}
 
       {/* Show StepOneSummary if not editing */}
       {completedSteps.Step1 && showSummary && !isEditing && (
@@ -112,6 +113,7 @@ export default function StepOne({
           hourlyCharter={values.hourlyCharter}
           airline={values.airline}
           flightNumber={values.flightNumber}
+          distance={values.distance} 
         />
       )}
 
@@ -120,29 +122,35 @@ export default function StepOne({
         <>
           <div className="flex md:flex-row flex-col gap-y-3">
             <div>
-              <BookingTypeOption 
-                onAirportSelectChange={handleAirportSelectChange} 
-                
+              <BookingTypeOption
+                onAirportSelectChange={handleAirportSelectChange}
               />
             </div>
             <div className="flex flex-col gap-3">
-              <PickUpAddressInput 
-                showAirportSelector={airportSelectorFor === "from"} 
+              <PickUpAddressInput
+                showAirportSelector={airportSelectorFor === "from"}
                 bookingType={bookingType}
               />
               {airportSelectorFor === "from" && <AirlineInput />}
-              <DropOffAddressInput 
-                showAirportSelector={airportSelectorFor === "to"} 
+              <DropOffAddressInput
+                showAirportSelector={airportSelectorFor === "to"}
                 bookingType={bookingType}
               />
               <div className="flex w-full gap-x-3 flex-wrap md:flex-nowrap gap-y-3">
                 <CustomTimeSelector />
                 <CustomDateSelector />
               </div>
+              <div className="flex w-full gap-x-3 flex-wrap md:flex-nowrap gap-y-3">
+                <DistanceCalculator
+                  pickUpAddress={values.pickUpAddress}
+                  dropOffAddress={values.dropOffAddress}
+                  onDistanceCalculated={handleDistanceCalculated} 
+                />
+              </div>
             </div>
           </div>
           <Button
-            className="p-4 bg-green-600 hover:bg-green-500 text-white rounded-lg mt-4"
+            className="py-6 text-[16px] bg-green-600 hover:bg-green-500 text-white rounded-lg mt-4"
             onClick={handleValidationAndNextStep}
           >
             {isEditing ? "Save Changes" : "Select Vehicle"}
