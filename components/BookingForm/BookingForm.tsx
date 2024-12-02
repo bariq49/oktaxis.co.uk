@@ -42,6 +42,8 @@ const BookingForm = () => {
         country: "",
         airline: "",
         flightNumber: "",
+        distance: 0,
+        totalPrice: 0,
       };
       
       
@@ -74,15 +76,6 @@ const BookingForm = () => {
         });
       
 
-    // // Function to complete the current step & move to next...
-    // const handleCompleteStep = (stepName: string) => {
-    //     setCompletedSteps((prev) => ({
-    //         ...prev,
-    //         [stepName]: true,
-    //     }));
-    //     setCurrentStep((prev) => prev + 1)
-    // };
-
     // Edit a specific Step...
     const handleEditStep = (stepNumber: number) => {
         setCurrentStep(stepNumber);
@@ -92,7 +85,6 @@ const BookingForm = () => {
     const handleSubmit = (values: typeof initialValues) => {
         console.log("Form Data Submitted", values)
         alert("Booking details successfully submitted!")
-        // logic for the api submission here..
     }
 
   
@@ -116,6 +108,7 @@ const BookingForm = () => {
             >
                 {({ values, errors, touched, setFieldValue, setFieldTouched, handleBlur}) => (
                     <Form>
+                        
                         {/* Steps */}
                         <div className="flex flex-col gap-y-3 w-full md:w-[780px]">
 

@@ -3,39 +3,129 @@ import sendEmail from '@/lib/sendEmail'; // Ensure this path is correct
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-
   const { passengerInfo, bookingDetails } = body;
 
+  const commonStyles = `
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+  `;
+
+  const headerStyle = `
+    background-color: #1f2937; 
+    color: white;
+    padding: 20px;
+    text-align: center;
+  `;
+
+  const contentStyle = `
+    background-color: #f9f9f9;
+    padding: 20px;
+  `;
+
+  const buttonStyle = `
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  `;
+
+  // Function to conditionally display fields
+  const renderField = (label: string, value: string | number | string[] | undefined) => {
+    if (Array.isArray(value) && value.length === 0) {
+      return ''; 
+    }
+    return value ? `<p><b>${label}:</b> ${Array.isArray(value) ? value.join(', ') : value}</p>` : '';
+  };
+
+
   try {
-    // Send email to the admin
+    const adminEmailContent = `
+      <div style="${commonStyles}">
+        <div style="${headerStyle}">
+          <h2>New Booking Received</h2>
+        </div>
+        <div style="${contentStyle}">
+          <h3>Passenger Information</h3>
+          ${renderField('Name', passengerInfo.name)}
+          ${renderField('Email', passengerInfo.email)}
+          ${renderField('Phone', passengerInfo.phone)}
+
+          <h3>Booking Details</h3>
+          ${renderField('Pickup Address', bookingDetails.pickUpAddress)}
+          ${renderField('Drop-off Address', bookingDetails.dropOffAddress)}
+          ${renderField('Date', bookingDetails.date)}
+          ${renderField('Time', bookingDetails.time)}
+          ${renderField('Booking Type', bookingDetails.bookingType)}
+          ${renderField('Vehicle', bookingDetails.vehicleTitle)}
+          ${renderField('Category', bookingDetails.category)}
+          ${renderField('Passengers', bookingDetails.passengerCount)}
+          ${renderField('Children', bookingDetails.childCount)}
+          ${renderField('Bags', bookingDetails.bagCount)}
+          ${renderField('Additional Notes', bookingDetails.textarea)}
+          ${renderField('Stops', bookingDetails.stops)}
+          ${renderField('Hourly Charter', bookingDetails.hourly)}
+          ${renderField('Distance', bookingDetails.distance)}
+          ${renderField('Booking Price', bookingDetails.price)}
+
+          <div style="margin-top: 20px;">
+            <a href="${process.env.NEXT_PUBLIC_BASE_URL}/api/booking/action?status=accept&email=${passengerInfo.email}" 
+              style="${buttonStyle} background-color: #2ecc71;">Accept</a>
+            <a href="${process.env.NEXT_PUBLIC_BASE_URL}/api/booking/action?status=decline&email=${passengerInfo.email}" 
+              style="${buttonStyle} background-color: #e74c3c;">Decline</a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Send email to admin
     await sendEmail({
-      to: 'admin@yourdomain.com',
+      to: 'muhammadalmas1286@gmail.com',
       subject: 'New Booking Confirmation',
-      html: `
-        <h3>New Booking Received</h3>
-        <p><b>Name:</b> ${passengerInfo.name}</p>
-        <p><b>Email:</b> ${passengerInfo.email}</p>
-        <p><b>Phone:</b> ${passengerInfo.phone}</p>
-        <p><b>Pickup Address:</b> ${bookingDetails.pickUpAddress}</p>
-        <p><b>Drop-off Address:</b> ${bookingDetails.dropOffAddress}</p>
-        <p><b>Date:</b> ${bookingDetails.date}</p>
-        <p><b>Time:</b> ${bookingDetails.time}</p>
-      `,
+      html: adminEmailContent,
     });
 
-    // Send email to the user
+    // Generate user email content
+    const userEmailContent = `
+      <div style="${commonStyles}">
+        <div style="${headerStyle}">
+          <h2>Welcome to OkaTaxis</h2>
+        </div>
+        <div style="${contentStyle}">
+          <h3>Thank you for your booking, ${passengerInfo.name}</h3>
+          <p>Here are your booking details:</p>
+
+          <h4>Booking Details</h4>
+          ${renderField('Pickup Address', bookingDetails.pickUpAddress)}
+          ${renderField('Drop-off Address', bookingDetails.dropOffAddress)}
+          ${renderField('Date', bookingDetails.date)}
+          ${renderField('Time', bookingDetails.time)}
+          ${renderField('Booking Type', bookingDetails.bookingType)}
+          ${renderField('Vehicle', bookingDetails.vehicleTitle)}
+          ${renderField('Category', bookingDetails.category)}
+          ${renderField('Passengers', bookingDetails.passengerCount)}
+          ${renderField('Bags', bookingDetails.bagCount)}
+          ${renderField('Children', bookingDetails.childCount)}
+          ${renderField('Additional Notes', bookingDetails.textarea)}
+          ${renderField('Stops', bookingDetails.stops)}
+          ${renderField('Hourly Charter', bookingDetails.hourly)}
+          ${renderField('Distance', bookingDetails.distance)}
+          ${renderField('Booking Price', bookingDetails.price)}
+
+          <p style="margin-top: 20px;">If you have any questions, feel free to contact us.</p>
+          <p>Best regards,<br>The OkaTaxis Team</p>
+        </div>
+      </div>
+    `;
+
+    // Send email to user
     await sendEmail({
       to: passengerInfo.email,
       subject: 'Booking Confirmation',
-      html: `
-        <h3>Thank you for your booking, ${passengerInfo.name}</h3>
-        <p>Your booking has been confirmed. Here are the details:</p>
-        <p><b>Pickup Address:</b> ${bookingDetails.pickUpAddress}</p>
-        <p><b>Drop-off Address:</b> ${bookingDetails.dropOffAddress}</p>
-        <p><b>Date:</b> ${bookingDetails.date}</p>
-        <p><b>Time:</b> ${bookingDetails.time}</p>
-        <p>We look forward to serving you.</p>
-      `,
+      html: userEmailContent,
     });
 
     return NextResponse.json({ message: 'Emails sent successfully' });
@@ -44,3 +134,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: 'Failed to send emails' }, { status: 500 });
   }
 }
+

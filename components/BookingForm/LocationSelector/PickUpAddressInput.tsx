@@ -22,6 +22,7 @@ const PickUpAddressInput = ({ showAirportSelector, bookingType }: any) => {
     setFieldValue("pickUpAddress", selectedAirport); // Update Formik's pickUpAddress field
   };
 
+
   return (
     <>
     <div className="relative flex h-20 lg:h-[55px] flex-col md:flex-row overflow-hidden rounded-lg bg-gray-50 shadow-sm ">

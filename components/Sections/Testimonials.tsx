@@ -54,22 +54,22 @@ export default function Testimonials() {
   const [isPaused, setIsPaused] = useState(false)
   const [latestReview, setLatestReview] = useState<Testimonial | null>(null)
 
-  const fetchLatestReview = useCallback(async () => {
-    try {
-      const response = await fetch('/api/latest-review')
-      if (!response.ok) {
-        throw new Error('Failed to fetch latest review')
-      }
-      const data = await response.json()
-      setLatestReview(data)
-    } catch (error) {
-      console.error('Error fetching latest review:', error)
-    }
-  }, [])
+  // const fetchLatestReview = useCallback(async () => {
+  //   try {
+  //     const response = await fetch('/api/latest-review')
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch latest review')
+  //     }
+  //     const data = await response.json()
+  //     setLatestReview(data)
+  //   } catch (error) {
+  //     console.error('Error fetching latest review:', error)
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    fetchLatestReview()
-  }, [fetchLatestReview])
+  // useEffect(() => {
+  //   fetchLatestReview()
+  // }, [fetchLatestReview])
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prevSlide) => (prevSlide + 1) % (testimonials.length + (latestReview ? 1 : 0)))

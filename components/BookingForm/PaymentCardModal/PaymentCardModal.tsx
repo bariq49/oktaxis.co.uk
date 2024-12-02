@@ -1,147 +1,270 @@
-'use client';
+'use client'
 
-import { CreditCard, X } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useFormikContext } from 'formik';
-import { sendBookingEmail } from '@/lib/utils'; // Import the utility function
+import React, { useState } from "react"
+import { loadStripe } from "@stripe/stripe-js"
+import { sendBookingEmail } from '@/lib/utils'
+import { StatusCard } from "@/components/Sections/StatusCard"
+import { useFormikContext } from 'formik'
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-export default function PaymentCardModal({ onCloseAction }: { onCloseAction: () => void }) {
-  const { values, setFieldValue, touched, errors, handleChange } = useFormikContext<any>();
+interface PaymentCardModalProps {
+  onClose: () => void;
+}
 
-  const formatCardNumber = (value: string) => {
-    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
-    const matches = v.match(/\d{4,16}/g);
-    const match = (matches && matches[0]) || "";
-    const parts = [];
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
+)
 
-    for (let i = 0, len = match.length; i < len; i += 4) {
-      parts.push(match.substring(i, i + 4));
+if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+  console.warn("Stripe publishable key is missing. Check your environment variables.");
+}
+
+const CARD_ELEMENT_OPTIONS = {
+  style: {
+    base: {
+      fontSize: '16px',
+      color: '#424770',
+      '::placeholder': {
+        color: '#87bbfd',
+      },
+      backgroundColor: 'white',
+    },
+    invalid: {
+      color: '#e25950',
+    },
+  },
+}
+
+const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const stripe = useStripe()
+  const elements = useElements()
+  const { values } = useFormikContext<any>()
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState("")
+  const [showStatusCard, setShowStatusCard] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [formData, setFormData] = useState({
+    fullName: '',
+    country: '',
+    address: '',
+  })
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+
+    if (!stripe || !elements) {
+      setMessage("Stripe.js has not loaded yet.")
+      return
     }
 
-    return parts.length ? parts.join(" ") : value;
-  };
+    setLoading(true)
 
-  const renderError = (error: any) => {
-    return typeof error === 'string' ? error : '';
-  };
+    const cardElement = elements.getElement(CardElement)
+    if (!cardElement) return
 
-  // Handle payment and email sending
-  const handlePayment = async () => {
-    // Perform payment logic here (e.g., call Stripe API)
-    console.log('Payment processed successfully');
+    try {
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: "card",
+        card: cardElement,
+        billing_details: {
+          name: formData.fullName,
+          address: {
+            line1: formData.address,
+            country: formData.country,
+          },
+        },
+      })
 
-    // Send booking email after payment is successful
-    await sendBookingEmail(values);
+      if (error) {
+        throw new Error(error.message)
+      }
 
-    // Optionally close the modal
-    onCloseAction();
-  };
+      const price = values.totalPrice
+      console.log("PRICE ==>",price)
+
+      const response = await fetch("/api/payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          paymentMethodId: paymentMethod.id,
+          amount: price,
+          customerDetails: {
+            name: formData.fullName,
+            email: values.passengerInfo.email,
+            phone: values.passengerInfo.phone,
+            address: formData.address,
+            country: formData.country
+
+          },
+          orderSummary: { ...values, formData },
+        }),
+      })
+
+      const paymentIntentResponse = await response.json()
+
+      if (!response.ok) {
+        throw new Error("Failed to create PaymentIntent.")
+      }
+
+      const { clientSecret } = paymentIntentResponse
+      const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret)
+
+      if (confirmError) {
+        throw new Error(confirmError.message)
+      }
+
+      if (paymentIntent?.status === "succeeded") {
+        setMessage("Payment succeeded!")
+        await sendBookingEmail(values)
+        setIsSuccess(true)
+        // onClose() 
+        
+        // here please add a popups success card when the payment is succeeded and after the sended the email then this component show after closing the payment card adn then show another card with beautiful happy emoji on successful and sad on not successful 
+      } else {
+        throw new Error("Payment failed.")
+      }
+    } catch (error) {
+      setIsSuccess(false)
+      setMessage(error instanceof Error ? error.message : "Payment failed.")
+    } finally {
+      setLoading(false)
+      setShowStatusCard(true)
+    }
+  }
+
+  const handleInputChange = (name: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  if (showStatusCard) {
+    return (
+      <StatusCard 
+        type={isSuccess ? 'success' : 'error'} 
+        onClose={() => {
+          setShowStatusCard(false)
+          // if (isSuccess) {
+          //   onClose()
+          // }
+        }} 
+      />
+    )
+  }
 
   return (
-    <Card className="border-0 shadow-none relative">
-      <button
-        className="absolute right-2 top-2 rounded-full border border-gray-950 p-1 text-gray-950 bg-white hover:bg-gray-950 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500"
-        onClick={onCloseAction}
-      >
-        <X className="h-4 w-4" />
-      </button>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <CreditCard className="h-5 w-5" />
-          <h1 className="tracking-wide">Stripe Payment</h1>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        {/* Card Number */}
-        <div className="space-y-2">
-          <Label htmlFor="cardNumber">Card number</Label>
-          <Input
-            id="cardNumber"
-            name="cardNumber"
-            placeholder="1234 1234 1234 1234"
-            value={formatCardNumber(values.cardNumber)}
-            onChange={(e) => setFieldValue("cardNumber", formatCardNumber(e.target.value))}
-            maxLength={19}
-            className="focus-visible:ring-0"
-          />
-          {touched.cardNumber && renderError(errors.cardNumber) && (
-            <p className="text-red-500 text-sm">{renderError(errors.cardNumber)}</p>
-          )}
-        </div>
-
-        {/* Expiry Date & CVC */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="expiry">Expiration date</Label>
-            <Input
-              id="expiry"
-              name="expiry"
-              placeholder="MM / YY"
-              value={values.expiry}
-              onChange={handleChange}
-              maxLength={7}
-              className="focus-visible:ring-0"
-            />
-            {touched.expiry && renderError(errors.expiry) && (
-              <p className="text-red-500 text-sm">{renderError(errors.expiry)}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="cvc">Security code</Label>
-            <Input
-              id="cvc"
-              name="cvc"
-              placeholder="CVC"
-              value={values.cvc}
-              onChange={handleChange}
-              maxLength={4}
-              className="focus-visible:ring-0"
-            />
-            {touched.cvc && renderError(errors.cvc) && (
-              <p className="text-red-500 text-sm">{renderError(errors.cvc)}</p>
-            )}
-          </div>
-        </div>
-
-        {/* Country Selector */}
-        <div className="space-y-2">
-          <Label htmlFor="country">Country</Label>
-          <Select
-            onValueChange={(value) => setFieldValue("country", value)}
-            defaultValue={values.country}
-          >
-            <SelectTrigger id="country">
-              <SelectValue placeholder="Select country" className="focus-visible:ring-0" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="pk">Pakistan</SelectItem>
-              <SelectItem value="us">United States</SelectItem>
-              <SelectItem value="uk">United Kingdom</SelectItem>
-              <SelectItem value="ca">Canada</SelectItem>
-              <SelectItem value="au">Australia</SelectItem>
-            </SelectContent>
-          </Select>
-          {touched.country && renderError(errors.country) && (
-            <p className="text-red-500 text-sm">{renderError(errors.country)}</p>
-          )}
-        </div>
-      </CardContent>
-
-      {/* Pay Button */}
-      <CardFooter>
-        <Button
-          type="button"
-          onClick={handlePayment} // Call handlePayment on button click
-          className="w-full bg-gray-950 hover:bg-gray-900 text-white font-medium text-lg py-6"
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <div className="font-semibold text-lg">Payment Details</div>
+        <button
+          onClick={onClose}
+          className="rounded-lg border border-gray-200 p-1 hover:bg-gray-100 transition-colors"
+          aria-label="Close payment form"
         >
-          Pay €969,648
-        </Button>
-      </CardFooter>
+          ✕
+        </button>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="fullName">Full name</Label>
+            <Input
+              id="fullName"
+              name="fullName"
+              value={formData.fullName}
+              onChange={(e) => handleInputChange('fullName', e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="country">Country</Label>
+            <Select
+              value={formData.country}
+              onValueChange={(value) => handleInputChange('country', value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select country" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="US">United States</SelectItem>
+                <SelectItem value="CA">Canada</SelectItem>
+                <SelectItem value="GB">United Kingdom</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="address">Address</Label>
+            <Input
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={(e) => handleInputChange('address', e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="card-element">Card details</Label>
+            <div className="rounded-md border p-3">
+              <CardElement id="card-element" options={CARD_ELEMENT_OPTIONS} />
+            </div>
+          </div>
+
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={!stripe || loading}
+          >
+            {loading ? "Processing..." : "Submit Order"}
+          </Button>
+
+          {message && (
+            <div 
+              className={`p-4 rounded-lg text-sm ${
+                message.includes("succeeded") 
+                  ? "bg-green-100 text-green-700 border border-green-200" 
+                  : "bg-red-100 text-red-700 border border-red-200"
+              }`}
+            >
+              {message}
+            </div>
+          )}
+        </form>
+      </CardContent>
     </Card>
-  );
+  )
 }
+
+const PaymentCardModal: React.FC<PaymentCardModalProps> = ({ onClose }) => {
+  return (
+    <div className="flex flex-col justify-center p-4">
+      <Elements stripe={stripePromise}>
+        <CheckoutForm onClose={onClose} />
+      </Elements>
+    </div>
+  )
+}
+
+export default PaymentCardModal
+
