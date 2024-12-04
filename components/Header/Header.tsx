@@ -47,13 +47,18 @@ export default function Header() {
         
         {/* Call Us Button */}
         <div className="hidden md:block">
+        
+        <a href="tel:07788710290">
           <Button 
-              variant="outline" 
-              className="flex py-4 items-center bg-gray-800 text-white hover:text-white hover:bg-gray-700 "
+            variant="outline" 
+            className="flex py-4 items-center bg-gray-800 text-white hover:text-white hover:bg-gray-700"
           >
             <Phone className="mr-2 h-4 w-4" />
             Call Us
           </Button>
+        </a>
+
+       
         </div>
 
         {/* Mobile Menu */}

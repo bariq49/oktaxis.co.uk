@@ -11,7 +11,7 @@ const AboutPage = () => {
         className="relative bg-cover bg-center h-[200px] lg:h-[400px] flex items-center justify-center"
         style={{ backgroundImage: `url(${aboutContent.bgImg.src})` }}
       >
-        <h1 className="text-black text-4xl font-bold">{aboutContent.title}</h1>
+        {/* <h1 className="text-black text-4xl font-bold">{aboutContent.title}</h1> */}
       </section>
 
       {/* Who We Are Section */}

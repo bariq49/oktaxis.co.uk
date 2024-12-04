@@ -16,12 +16,11 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-6">
               <Image
                 src={Logo}
-                alt=""
-                width={50}
-                height={50}
-                className="w-12 h-12"
+                alt="OkTaxis"
+    
+                className="w-40 h-auto"
               />
-              <h2 className="text-2xl font-bold text-gray-950">{footer.title}</h2>
+              
             </div>
             <p className="text-gray-500 mb-8 leading-relaxed">{footer.description}</p>
 
