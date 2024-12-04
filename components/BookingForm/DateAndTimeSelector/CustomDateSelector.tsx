@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { format } from "date-fns";
+import { format, isBefore, startOfToday } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { useFormikContext } from "formik";
 
@@ -14,6 +14,9 @@ const CustomDateSelector = () => {
   const { values, setFieldValue, errors, touched } = useFormikContext<any>();
   const [date, setDate] = React.useState<Date | undefined>(undefined);
   const [popoverOpen, setPopoverOpen] = React.useState(false);
+
+  // Get today's date to disable past dates
+  const today = startOfToday();
 
   // Sync internal state with Formik's initial value
   React.useEffect(() => {
@@ -28,8 +31,8 @@ const CustomDateSelector = () => {
   const handleSelect = (newDate: Date | undefined) => {
     setDate(newDate);
     if (newDate) {
-      setFieldValue("date", newDate.toISOString()); 
-      setPopoverOpen(false); 
+      setFieldValue("date", newDate.toISOString());
+      setPopoverOpen(false);
     }
   };
 
@@ -69,6 +72,7 @@ const CustomDateSelector = () => {
               initialFocus
               className="rounded-md [&_button:hover:not([disabled])]:bg-gray-700 [&_button:hover:not([disabled])]:text-white [&_button[aria-selected='true']]:bg-gray-800 [&_button[aria-selected='true']]:text-white"
               defaultMonth={date || new Date()} // Default to the selected date or today's date
+              disabled={(day) => isBefore(day, today)} // Disable past dates
             />
           </PopoverContent>
         </Popover>

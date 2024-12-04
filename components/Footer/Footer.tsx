@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { homePageData } from "@/constants/homePageData";
+import Logo from "@/assets/logo.png"
 
 export default function Footer() {
   const { footer } = homePageData;
@@ -14,7 +15,7 @@ export default function Footer() {
           <div className="lg:col-span-5">
             <div className="flex items-center gap-2 mb-6">
               <Image
-                src="/placeholder.svg?height=50&width=50"
+                src={Logo}
                 alt=""
                 width={50}
                 height={50}

@@ -82,6 +82,7 @@ export default function StepOne({
   return (
     <div className={`w-full flex flex-col gap-y-3 ${isActive ? "" : "opacity-90"}`}>
       {/* Step 1 Header and Summary */}
+          {completedSteps.Step1 && !isEditing && (
         <div className="w-full h-12 flex bg-gray-800 text-white rounded-lg align-middle items-center px-3 justify-between">
           <h1
             className={`capitalize text-[15px] lg:text-lg font-medium tracking-wider cursor-pointer ${
@@ -91,15 +92,14 @@ export default function StepOne({
             >
             Step 1: Ride Info
           </h1>
-        {completedSteps.Step1 && !isEditing && (
           <Button
             onClick={handleEditClick}
             className="bg-white text-gray-950 hover:bg-white px-6 py-3.5 h-0"
           >
             Edit
           </Button>
-        )}
         </div>
+        )}
 
       {/* Show StepOneSummary if not editing */}
       {completedSteps.Step1 && showSummary && !isEditing && (

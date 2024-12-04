@@ -16,18 +16,6 @@ export const navLinks = [
         id: "fleet",
         title: "Fleets",
         path: "/fleet",
-        // submenu: [
-        //     {
-        //         id: "shuttle-service",
-        //         title: "Shuttle Service",
-        //         path: "/shuttle-service",
-        //     },
-        //     {
-        //         id: "corporate-serice",
-        //         title: "Corporate Service",
-        //         path: "/corporate-service",
-        //     },
-        // ],
     },
     {
         id: "driver",

@@ -36,8 +36,8 @@ export default function DistanceCalculator({
   
               setDistance((prev) => {
                 const newDistance = `${totalDistanceMiles.toFixed(2)} miles`;
-                return prev !== newDistance ? newDistance : prev; 
-              });
+                return prev !== newDistance ? newDistance : prev;
+              });              
   
               onDistanceCalculated(totalDistanceMiles); 
             } else {
