@@ -28,34 +28,34 @@ interface Car {
 }
 
 const CarList: Car[] = [
-  {
-    image: Toyota,
-    title: "Toyota Prius",
-    category: "Economy",
-    seats: 4,
-    bags: 3,
-  },
+  // {
+  //   image: Toyota,
+  //   title: "Toyota Prius",
+  //   category: "Economy",
+  //   seats: 4,
+  //   bags: 3,
+  // },
   {
     image: Skoda,
-    title: "Skoda Octavia",
+    title: "Skoda Octavia | ToyotaPrius",
     category: "Economy",
     seats: 4,
     bags: 3,
   },
   {
     image: BMW,
-    title: "BMW 5 Series",
+    title: "BMW 5 Series | MERC E Class",
     category: "Executive",
     seats: 4,
     bags: 3,
   },
-  {
-    image: MERC,
-    title: "MERC E Class",
-    category: "Executive",
-    seats: 4,
-    bags: 3,
-  },
+  // {
+  //   image: MERC,
+  //   title: "MERC E Class",
+  //   category: "Executive",
+  //   seats: 4,
+  //   bags: 3,
+  // },
   {
     image: Tesla,
     title: "Tesla Model S",

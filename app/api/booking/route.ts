@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import sendEmail from '@/lib/sendEmail'; // Ensure this path is correct
+import sendEmail from '@/lib/sendEmail';
+import { format } from "date-fns";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -34,13 +35,26 @@ export async function POST(req: NextRequest) {
   `;
 
   // Function to conditionally display fields
-  const renderField = (label: string, value: string | number | string[] | undefined) => {
-    if (Array.isArray(value) && value.length === 0) {
-      return ''; 
+  const renderField = (label: string, value: string | number | string[] | undefined, condition = true) => {
+    if (!value || !condition) return ''; // Only display if condition is met
+  
+    if (Array.isArray(value)) {
+      return value.length > 0
+        ? `<p><b>${label}:</b><br> ${value.map(stop => `- ${stop}`).join('<br>')}</p>`
+        : '';
     }
-    return value ? `<p><b>${label}:</b> ${Array.isArray(value) ? value.join(', ') : value}</p>` : '';
+  
+    if (label.toLowerCase().includes('date')) {
+      const parsedDate = new Date(value);
+      if (!isNaN(parsedDate.getTime())) {
+        const formattedDate = format(parsedDate, 'PPP');
+        return `<p><b>${label}:</b> ${formattedDate}</p>`;
+      }
+    }
+  
+    return `<p><b>${label}:</b> ${value}</p>`;
   };
-
+  
 
   try {
     const adminEmailContent = `
@@ -67,9 +81,9 @@ export async function POST(req: NextRequest) {
           ${renderField('Bags', bookingDetails.bagCount)}
           ${renderField('Additional Notes', bookingDetails.textarea)}
           ${renderField('Stops', bookingDetails.stops)}
-          ${renderField('Hourly Charter', bookingDetails.hourly)}
-          ${renderField('Distance', bookingDetails.distance)}
-          ${renderField('Booking Price', bookingDetails.price)}
+          ${renderField('Hourly Charter', bookingDetails.hourly, bookingDetails.bookingType === 'Hourly')}
+          ${renderField('Distance', parseFloat(bookingDetails.distance).toFixed(2))} 
+          ${renderField('Booking Price £', bookingDetails.price)}
 
           <div style="margin-top: 20px;">
             <a href="${process.env.NEXT_PUBLIC_BASE_URL}/api/booking/action?status=accept&email=${passengerInfo.email}" 
@@ -111,9 +125,9 @@ export async function POST(req: NextRequest) {
           ${renderField('Children', bookingDetails.childCount)}
           ${renderField('Additional Notes', bookingDetails.textarea)}
           ${renderField('Stops', bookingDetails.stops)}
-          ${renderField('Hourly Charter', bookingDetails.hourly)}
-          ${renderField('Distance', bookingDetails.distance)}
-          ${renderField('Booking Price', bookingDetails.price)}
+          ${renderField('Hourly Charter', bookingDetails.hourly, bookingDetails.bookingType === 'Hourly')}
+          ${renderField('Distance', parseFloat(bookingDetails.distance).toFixed(2))} 
+          ${renderField('Booking Price £', bookingDetails.price)}
 
           <p style="margin-top: 20px;">If you have any questions, feel free to contact us.</p>
           <p>Best regards,<br>The OkaTaxis Team</p>
