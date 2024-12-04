@@ -120,11 +120,11 @@ export const homePageData = {
     rightSec: {
       title: "Manchester Airport Taxi/ Instant Manchester Airport Transfer Quote",
       description: `
-      Find the cheapest taxi to or from Manchester Airport with OKTAXIS. Book a taxi to Manchester Airport Online. **Top-tier Luxury, Comfort, Style, and Reliability await.
+      Find the cheapest taxi to or from Manchester Airport with OKTAXIS. Book a taxi to Manchester Airport Online. Top-tier Luxury, Comfort, Style, and Reliability await.
 
       OKTAXIS offers guaranteed pickups and tracks flight landing times. If a flight is delayed or early, they will adjust the requested time.
 
-      <b>OKTAXIS</b> offers luxury airport transfers and taxis to or from Manchester Airport and Liverpool Airport. We aim to ensure that customers arrive at the airport on time and are picked up on return in a timely manner.
+      OKTAXIS offers luxury airport transfers and taxis to or from Manchester Airport and Liverpool Airport. We aim to ensure that customers arrive at the airport on time and are picked up on return in a timely manner.
 
       OKTAXIS: Offers pre-booked vehicles, private car services, and hourly services.
       OKTAXIS: Offers Manchester Airport transfers and Liverpool Airport Transfers.
@@ -134,7 +134,7 @@ export const homePageData = {
 
   // Fleets Page...
   ourFleets: {
-    serviceName: "Okatxis",
+    serviceName: "Oktaxis",
     title: "Our Fleets",
     bgImg: FleetBg,
     fleet: [
@@ -208,24 +208,23 @@ aboutContent: {
     description:
       "Oktaxis introduces the top-rated limousine and car service in Illinois and its suburban areas.",
     socialLinks: [
-      { icon: Facebook, href: "#", label: "Facebook" },
-      { icon: Linkedin, href: "#", label: "LinkedIn" },
-      { icon: Twitter, href: "#", label: "Twitter" },
-      { icon: Youtube, href: "#", label: "YouTube" },
-      { icon: Instagram, href: "#", label: "Instagram" },
+      { icon: Facebook, href: "https://www.facebook.com/share/1AoLuwA75A/?mibextid=LQQJ4d", label: "Facebook" },
+      // { icon: Linkedin, href: "#", label: "LinkedIn" },
+      // { icon: Twitter, href: "#", label: "Twitter" },
+      // { icon: Youtube, href: "#", label: "YouTube" },
+      { icon: Instagram, href: "https://www.instagram.com/ok_taxis?igsh=MWV2aDJmc3FuYWVxNA==", label: "Instagram" },
     ],
     quickLinks: [
       { href: "/", label: "Home" },
       { href: "/about", label: "About Us" },
-      { href: "/services", label: "Our Services" },
-      { href: "/vehicles", label: "Our Vehicles" },
-      { href: "/testimonials", label: "Testimonials" },
-      { href: "/contact", label: "Contact Us" },
+      { href: "/fleet", label: "Our Services" },
+      { href: "/driver", label: "Our Vehicles" },
+      { href: "/contact", label: "Testimonials" },
     ],
     contact: {
-      address: "1016 W Jackson Blvd Chicago IL 60607",
-      phone: "630-290-3475",
-      email: "contact@oktaxis.com",
+      address: "07788710290",
+      phone: "07788710290",
+      email: "info@oktaxis.co.uk",
     },
   },
 };
