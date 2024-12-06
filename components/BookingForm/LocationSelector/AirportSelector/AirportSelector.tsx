@@ -42,7 +42,7 @@ export default function AirportSelector({
             <SelectItem
               key={airport}
               value={airport}
-              className="cursor-pointer focus:bg-gray-800 focus:text-white outline-none focus-visible:ring-0"
+              className="cursor-pointer focus:bg-black focus:text-white outline-none focus-visible:ring-0"
             >
               <span className="block py-2 px-1 hover:text-white rounded-lg transition-colors">
                 {airport}

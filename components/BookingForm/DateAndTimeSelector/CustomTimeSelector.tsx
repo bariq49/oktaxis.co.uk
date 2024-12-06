@@ -114,7 +114,7 @@ const CustomTimeSelector = () => {
                     className={cn(
                       "py-2 px-3 text-center rounded-md cursor-pointer transition-colors",
                       hours === hour 
-                        ? "bg-gray-800 text-white" 
+                        ? "bg-black text-white" 
                         : "hover:bg-gray-700 hover:text-white"
                     )}
                     onClick={() => setHours(hour)}
@@ -135,7 +135,7 @@ const CustomTimeSelector = () => {
                     className={cn(
                       "py-2 px-3 text-center rounded-md cursor-pointer transition-colors",
                       minutes === minute 
-                        ? "bg-gray-800 text-white" 
+                        ? "bg-black text-white" 
                         : "hover:bg-gray-700 hover:text-white"
                     )}
                     onClick={() => setMinutes(minute)}
@@ -156,7 +156,7 @@ const CustomTimeSelector = () => {
                     className={cn(
                       "py-2 px-3 text-center rounded-md cursor-pointer transition-colors",
                       period === p 
-                        ? "bg-gray-800 text-white" 
+                        ? "bg-black text-white" 
                         : "hover:bg-gray-700 hover:text-white"
                     )}
                     onClick={() => setPeriod(p)}

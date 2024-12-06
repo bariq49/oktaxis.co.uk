@@ -70,7 +70,7 @@ const CustomDateSelector = () => {
               selected={date}
               onSelect={handleSelect}
               initialFocus
-              className="rounded-md [&_button:hover:not([disabled])]:bg-gray-700 [&_button:hover:not([disabled])]:text-white [&_button[aria-selected='true']]:bg-gray-800 [&_button[aria-selected='true']]:text-white"
+              className="rounded-md [&_button:hover:not([disabled])]:bg-gray-700 [&_button:hover:not([disabled])]:text-white [&_button[aria-selected='true']]:bg-black [&_button[aria-selected='true']]:text-white"
               defaultMonth={date || new Date()} // Default to the selected date or today's date
               disabled={(day) => isBefore(day, today)} // Disable past dates
             />

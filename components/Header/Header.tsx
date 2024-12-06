@@ -37,7 +37,7 @@ export default function Header() {
               href={link.path} 
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors
                 ${pathname === link.path
-                  ? 'bg-gray-800 text-white' 
+                  ? 'bg-black text-white' 
                   : 'text-gray-900 hover:bg-gray-700 hover:text-white'}`}
             >
               {link.title}
@@ -51,7 +51,7 @@ export default function Header() {
         <a href="tel:07788710290">
           <Button 
             variant="outline" 
-            className="flex py-4 items-center bg-gray-800 text-white hover:text-white hover:bg-gray-700"
+            className="flex py-4 items-center bg-black text-white hover:text-white hover:bg-gray-700"
           >
             <Phone className="mr-2 h-4 w-4" />
             Call Us
@@ -78,7 +78,7 @@ export default function Header() {
                   className={`block px-4 py-2 rounded-md text-lg font-medium transition-colors
                     ${pathname === link.path
                       ? 'bg-gray-200 text-gray-900' 
-                      : 'text-gray-600 hover:bg-gray-800 hover:text-white'}`}
+                      : 'text-gray-600 hover:bg-black hover:text-white'}`}
                   onClick={() => setIsOpen(false)}
                 >
                   {link.title}
