@@ -54,7 +54,6 @@ export default function StepOne({
 
     return Object.keys(validationErrors).length === 0 && areFieldsFilled;
   };
-  //   comment
 
   const handleValidationAndNextStep = () => {
     const isValid = validateAllFields();
