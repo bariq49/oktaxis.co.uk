@@ -1,14 +1,14 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useFormikContext } from "formik";
+import { useState } from "react";
 import BookingTypeOption from "../BookingTypeSelector/BookingTypeOption";
 import CustomDateSelector from "../DateAndTimeSelector/CustomDateSelector";
 import CustomTimeSelector from "../DateAndTimeSelector/CustomTimeSelector";
+import DistanceCalculator from "../DistanceCalculator/DistanceCalculator";
+import AirlineInput from "../LocationSelector/AirlineInput";
 import DropOffAddressInput from "../LocationSelector/DropOffAddressInput";
 import PickUpAddressInput from "../LocationSelector/PickUpAddressInput";
 import StepOneSummary from "./StepSummaries/StepOneSumary";
-import AirlineInput from "../LocationSelector/AirlineInput";
-import DistanceCalculator from "../DistanceCalculator/DistanceCalculator";
 
 interface StepOneProps {
   isActive: boolean;
@@ -23,14 +23,16 @@ export default function StepOne({
   completedSteps,
   setCompletedSteps,
   onEdit,
-  bookingType
+  bookingType,
 }: StepOneProps) {
-  const { values, setFieldValue, errors, validateForm } = useFormikContext<any>();
+  const { values, setFieldValue, errors, validateForm } =
+    useFormikContext<any>();
 
   const [isEditing, setIsEditing] = useState(false);
   const [showSummary, setShowSummary] = useState(true);
-  const [airportSelectorFor, setAirportSelectorFor] = useState<"to" | "from" | null>("to");
-
+  const [airportSelectorFor, setAirportSelectorFor] = useState<
+    "to" | "from" | null
+  >("to");
 
   const handleAirportSelectChange = (value: "to" | "from" | null) => {
     setAirportSelectorFor(value);
@@ -52,6 +54,7 @@ export default function StepOne({
 
     return Object.keys(validationErrors).length === 0 && areFieldsFilled;
   };
+  //   comment
 
   const handleValidationAndNextStep = () => {
     const isValid = validateAllFields();
@@ -67,7 +70,7 @@ export default function StepOne({
 
   const handleEditClick = () => {
     setIsEditing(true);
-    setShowSummary(false); 
+    setShowSummary(false);
     onEdit();
   };
 
@@ -75,21 +78,22 @@ export default function StepOne({
   const handleDistanceCalculated = (calculatedDistance: number) => {
     if (values.distance !== calculatedDistance) {
       setFieldValue("distance", calculatedDistance);
-    } 
+    }
   };
-  
 
   return (
-    <div className={`w-full flex flex-col gap-y-3 ${isActive ? "" : "opacity-90"}`}>
+    <div
+      className={`w-full flex flex-col gap-y-3 ${isActive ? "" : "opacity-90"}`}
+    >
       {/* Step 1 Header and Summary */}
-          {completedSteps.Step1 && !isEditing && (
+      {completedSteps.Step1 && !isEditing && (
         <div className="w-full h-12 flex bg-gray-800 text-white rounded-lg align-middle items-center px-3 justify-between">
           <h1
             className={`capitalize text-[15px] lg:text-lg font-medium tracking-wider cursor-pointer ${
               !isActive ? "opacity-100" : ""
             }`}
             onClick={handleToggleSummary}
-            >
+          >
             Step 1: Ride Info
           </h1>
           <Button
@@ -99,7 +103,7 @@ export default function StepOne({
             Edit
           </Button>
         </div>
-        )}
+      )}
 
       {/* Show StepOneSummary if not editing */}
       {completedSteps.Step1 && showSummary && !isEditing && (
@@ -113,7 +117,7 @@ export default function StepOne({
           hourlyCharter={values.hourlyCharter}
           airline={values.airline}
           flightNumber={values.flightNumber}
-          distance={values.distance} 
+          distance={values.distance}
         />
       )}
 
@@ -144,7 +148,7 @@ export default function StepOne({
                 <DistanceCalculator
                   pickUpAddress={values.pickUpAddress}
                   dropOffAddress={values.dropOffAddress}
-                  onDistanceCalculated={handleDistanceCalculated} 
+                  onDistanceCalculated={handleDistanceCalculated}
                 />
               </div>
             </div>
