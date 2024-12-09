@@ -26,7 +26,7 @@ import Img6 from "@/assets/homeImages/img6.jpg";
 import BgImg from "@/assets/homeImages/about-us-bg-img.webp"
 import TeslaImg from "@/assets/homeImages/about-us-tesla.webp"
 
-export const homePageData = {
+const homePageData = {
   // Hero Section...
   heroSection: {
     heading: "Welcome to Spotlimo",
@@ -42,31 +42,31 @@ export const homePageData = {
 
   // Trip Working Section...
   tripWorking: {
-    title: "How Trip Works",
-    description: "We are a pre-booked fixed-price taxi and minibus service",
+    title: "Why Choose Ok Taxis?",
+    description: "For those who expect nothing short of perfection in their journey experience, Ok Taxis Chauffeur Service Manchester sets the standard. Here’s why we remain the preferred choice for luxury transport.",
     contents: [
       {
-        title: "Where are you going?",
+        title: "24/7 Customer Service",
         description:
-          "Provide your destination, dates, and group size, and we'll find the most competitive fares from our wide range of suppliers.",
+          "In a city that never sleeps, neither do we. Our support team is always at your service, available to answer queries and manage bookings with expert precision, day or night.",
         backgroundImage: vec1,
       },
       {
-        title: "Choose your ride",
+        title: "60-Minute Free Waiting Time",
         description:
-          "Pick your supplier based on price, customer reviews and the company's historical performance score.",
+          "Time is invaluable, and we honor yours by allowing a generous 60-minute waiting period for airport collections. This ensures a stress-free experience, even when flights are delayed, or unforeseen circumstances arise.",
         backgroundImage: vec2,
       },
       {
-        title: "Pay securely",
+        title: "Confidentiality Assurance",
         description:
-          "Make secure payments online using our trusted payment gateway. We accept VISA, MasterCard, and American Express, as well as Apple Pay and Google Pay wallets.",
+          "Discipline is paramount for high-profile clients and those who value their privacy. We uphold the highest standards of confidentiality so that your personal and professional matters remain entirely private.",
         backgroundImage: vec3,
       },
       {
-        title: "Ride with Trip",
+        title: "Professionally Trained Chauffeurs",
         description:
-          "That's it! You are all booked in! We will keep you up-to-date by emails and SMS.",
+          "Our chauffeurs deliver a perfect balance of sophistication and reliability. They precisely navigate Manchester streets, offering first-class service in luxurious Mercedes chauffeur cars, ensuring every journey meets the highest standards.",
         backgroundImage: vec4,
       },
     ],
@@ -108,28 +108,6 @@ export const homePageData = {
         description: "Impress clients and partners with our premium corporate transportation.",
       },
     ],
-  },
-
-  // Our Story Section...
-  ourStory: {
-    leftSec: {
-      title: "Our Story",
-      description: "Voyage is an executive chauffeur dedicated to those who appreciate luxurious travel across the UK",
-      button: "Explore",
-    },
-    rightSec: {
-      title: "Manchester Airport Taxi/ Instant Manchester Airport Transfer Quote",
-      description: `
-      Find the cheapest taxi to or from Manchester Airport with OKTAXIS. Book a taxi to Manchester Airport Online. Top-tier Luxury, Comfort, Style, and Reliability await.
-
-      OKTAXIS offers guaranteed pickups and tracks flight landing times. If a flight is delayed or early, they will adjust the requested time.
-
-      OKTAXIS offers luxury airport transfers and taxis to or from Manchester Airport and Liverpool Airport. We aim to ensure that customers arrive at the airport on time and are picked up on return in a timely manner.
-
-      OKTAXIS: Offers pre-booked vehicles, private car services, and hourly services.
-      OKTAXIS: Offers Manchester Airport transfers and Liverpool Airport Transfers.
-    `,
-    },
   },
 
   // Fleets Page...
@@ -216,15 +194,110 @@ aboutContent: {
     ],
     quickLinks: [
       { href: "/", label: "Home" },
-      { href: "/about", label: "About Us" },
-      { href: "/fleet", label: "Our Services" },
-      { href: "/driver", label: "Our Vehicles" },
-      { href: "/contact", label: "Testimonials" },
+      { href: "/about", label: "About" },
+      { href: "/fleet", label: "Fleets" },
+      { href: "/driver", label: "Driver" },
+      { href: "/contact", label: "Contact" },
     ],
     contact: {
-      address: "07788710290",
+      address: "Bailey Lane, Airport, Wythenshawe",
       phone: "07788710290",
       email: "info@oktaxis.co.uk",
     },
   },
 };
+
+const okTaxisContent = {
+  heading: "Reliable Manchester Airport Transfers – OkTaxis",
+  description: `
+    Travel hassle-free with OkTaxis, your trusted partner for Manchester Airport transfers. We provide punctual, affordable, and professional services tailored to your needs, ensuring comfort and convenience every step of the way.
+  `,
+  reasons: [
+    {
+      title: "Transparent Fixed Pricing",
+      details: `
+        No hidden charges, just competitive fixed rates.
+        Know your fare upfront for stress-free budgeting.
+      `,
+    },
+    {
+      title: "24/7 Availability",
+      details: `
+        Round-the-clock service to match your flight schedule.
+        Reliable transfers for early departures or late-night arrivals.
+      `,
+    },
+    {
+      title: "Experienced, Friendly Drivers",
+      details: `
+        Professional drivers with extensive route knowledge.
+        Committed to your safety and comfort.
+      `,
+    },
+    {
+      title: "Exclusive Meet-and-Greet Service",
+      details: `
+        Personalized welcome at the arrivals hall.
+        Assistance with luggage for seamless onward travel.
+      `,
+    },
+    {
+      title: "Easy Booking System",
+      details: `
+        Simple online reservations with instant confirmation.
+        Dedicated support for inquiries or special requests.
+      `,
+    },
+  ],
+  footer: `
+    Choose OkTaxis for a smooth Manchester Airport transfer. Experience fixed pricing, reliable service, and top-notch comfort.
+    Book now and enjoy stress-free travel.
+  `,
+};
+
+const faqData = [
+  {
+    question: "What is the cost of a taxi from Manchester Airport to Heathrow Airport?",
+    answer: "The fare for a taxi from Manchester Airport to Heathrow Airport starts at £300. This price includes all charges, such as airport pick-up and drop-off fees. There are no hidden costs."
+  },
+  {
+    question: "What is the cost of a taxi from Manchester Airport to Stansted Airport?",
+    answer: "The taxi fare from Manchester Airport to Stansted Airport begins at £313, with all airport-related fees included in the price. No additional charges apply."
+  },
+  {
+    question: "What is the cost of a taxi from Manchester Airport to Gatwick Airport?",
+    answer: "A taxi ride from Manchester Airport to Gatwick Airport starts at £353. This rate covers all expenses, including pick-up and drop-off fees at the airport."
+  },
+  {
+    question: "What is the cost of a taxi from Manchester Airport to Central London?",
+    answer: "The fare for a taxi from Manchester Airport to Central London starts at £357. There are no additional charges; the fare includes airport-related fees."
+  },
+  {
+    question: "Are there additional charges for late arrivals?",
+    answer: "For airport collections, passengers are given a maximum of 45 minutes from the flight's actual landing time to meet their driver. After this period, a waiting time fee of £20 per hour (calculated on a pro-rata basis) is applied. To avoid issues, passengers should account for possible delays, such as immigration processing, and request a later pick-up time if necessary.\n\nImportant Notes:\n- Passengers will not be compensated if they are ready earlier than scheduled and need to wait for the driver.\n- No refunds will be issued to passengers who leave without waiting for their driver and arrange alternate transportation."
+  },
+  {
+    question: "What is the cancellation policy?",
+    answer: "Cancellations are fully refundable if notice is given at least 5 hours before the scheduled pick-up time. Cancellations must be made online or via email, with confirmation received from the company. If no confirmation is received, passengers should contact customer service. Refunds are not issued in the following situations:\n- Passengers fail to show up for pre-paid bookings.\n- Cancellations made less than 5 hours before pick-up time."
+  },
+  {
+    question: "Do you offer child car seats?",
+    answer: "Child car seats are provided as a complimentary service but cannot be guaranteed for availability or suitability. Passengers are responsible for their usage. According to UK law, children can travel without a car seat in taxis if one is not provided, but only if seated in the rear."
+  },
+  {
+    question: "What is the Meet & Greet service?",
+    answer: "This service helps reduce stress by having your driver meet you in the airport arrivals area, holding a sign with your name to welcome you."
+  },
+  {
+    question: "How can I locate my driver at the airport?",
+    answer: "Airports usually have designated pick-up and drop-off zones with clear signage. Additionally, the driver will contact you upon your arrival to guide you to the pick-up location."
+  },
+  {
+    question: "Is there a waiting time fee at the airport?",
+    answer: "A complimentary 20-minute waiting period is offered in case of flight delays. After this time, a waiting fee of £20 per hour is applied, calculated on a pro-rata basis."
+  }
+];``
+
+
+
+export { homePageData, okTaxisContent, faqData };

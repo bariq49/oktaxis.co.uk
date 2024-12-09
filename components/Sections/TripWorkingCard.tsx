@@ -13,7 +13,7 @@ const TripWorking = () => {
         <div className="w-full px-[2%] py-[2%]">
             <div className="flex flex-col items-center">
                 <h1 className="text-4xl font-bold">{tripWorking.title}</h1>
-                <p className="text-lg font-semibold text-gray-500 text-center">{tripWorking.description}</p>
+                <p className="text-[16px] font-medium text-gray-500 text-center px-24 lg:px-52 py-4">{tripWorking.description}</p>
             </div>
             <div className="flex flex-col items-center lg:flex-row">
                 {tripWorking.contents.map((content, index) => (

@@ -7,6 +7,9 @@ import TripWorking from "@/components/Sections/TripWorkingCard";
 import ServiceCard from "@/components/Sections/ServiceCard";
 import OurStory from "@/components/Sections/OurStory";
 import Testimonials from "@/components/Sections/Testimonials";
+import WhyChooseUs from "@/components/Sections/WhyChooseUs";
+import FAQSection from "@/components/Sections/FaqSection";
+
 
 const Home = () => {
   const { heroSection } = homePageData;
@@ -17,10 +20,10 @@ const Home = () => {
       {/* Hero Section */}
       <div
         className={`w-full h-auto lg:h-[100vh] overflow-x-hidden bg-cover bg-no-repeat bg-center flex text-black overflow-hidden`}
-        style={{
-            backgroundImage: `url(${heroSection.backgroundImage.src})`
+        // style={{
+        //     backgroundImage: `url(${heroSection.backgroundImage.src})`
             
-        }}
+        // }}
         >
 
         <div className="container flex flex-col gap-y-4 md:flex-row m-auto gap-x-5 md:gap-y-4 py-5 px-[2%]">
@@ -34,7 +37,7 @@ const Home = () => {
 
       </div>
 
-      <div className="w-full bg-gray-200">
+      <div className="w-full bg-gray-50">
             <div className="container flex m-auto justify-center  gap-x-5 md:gap-y-4 py-5 px-[2%]">
                 <TripWorking/>
             </div>
@@ -42,10 +45,15 @@ const Home = () => {
             <div className="w-full">
               <ServiceCard/>
               <OurStory/>
+              <WhyChooseUs/>
             </div>
 
             <div className="w-full flex items-center justify-center mb-16 m-auto">
               <Testimonials/>
+
+            </div>
+            <div className="w-full flex items-center justify-center">
+              <FAQSection/>
 
             </div>
       

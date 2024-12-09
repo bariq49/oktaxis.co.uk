@@ -1,81 +1,94 @@
-import { homePageData } from "@/constants/homePageData"; 
-import Image from "next/image";
+import Image from "next/image"
+import HeroImg from "@/assets/aboutUsImages/hero-img.webp";
+import { aboutUsContent } from "@/constants/aboutUsData" 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-const AboutPage = () => {
-  const { aboutContent } = homePageData;
-
+export default function AboutPage() {
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section
-        className="relative bg-cover bg-center h-[200px] lg:h-[400px] flex items-center justify-center"
-        style={{ backgroundImage: `url(${aboutContent.bgImg.src})` }}
-      >
-        {/* <h1 className="text-black text-4xl font-bold">{aboutContent.title}</h1> */}
-      </section>
+      <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url('${HeroImg.src}')` }}>
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="container m-auto px-4 md:px-6 relative z-10">
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-white">
+              {aboutUsContent.hero.title}
+            </h1>
+            <p className="mx-auto max-w-[700px] text-lg md:text-xl text-gray-200">
+              {aboutUsContent.hero.description}
+            </p>
 
-      {/* Who We Are Section */}
-      <section className="py-16 px-4 md:px-16 bg-white">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          {/* Left Content */}
-          <div>
-            <h2 className="text-2xl font-bold mb-6">Who We Are</h2>
-            <p className="text-gray-600 mb-4">{aboutContent.whoWeAre}</p>
-            <p className="text-gray-600">{aboutContent.additionalInfo}</p>
-          </div>
-          {/* Right Image */}
-          <div className="flex justify-center">
-            <Image
-              src={aboutContent.contentImg} // Replace with your actual image path
-              alt="Our Company Building"
-              width={500}
-              height={300}
-              className="rounded-lg shadow-lg "
-            />
           </div>
         </div>
       </section>
 
-      {/* Contact Details */}
-      <section className="py-8 px-4 md:px-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-xl font-bold mb-4">Contact Details</h2>
-          <ul className="space-y-2 text-gray-600">
-            <li>
-              <strong>Address:</strong> {aboutContent.contactDetails.address}
-            </li>
-            <li>
-              <strong>Email:</strong>{" "}
-              <a
-                href={`mailto:${aboutContent.contactDetails.email}`}
-                className="text-blue-600 hover:underline"
-              >
-                {aboutContent.contactDetails.email}
-              </a>
-            </li>
-            <li>
-              <strong>Phone:</strong>{" "}
-              <a
-                href={`tel:${aboutContent.contactDetails.phone}`}
-                className="text-blue-600 hover:underline"
-              >
-                {aboutContent.contactDetails.phone}
-              </a>
-            </li>
-            <li>
-              <strong>WhatsApp:</strong>{" "}
-              <a
-                href={`https://wa.me/${aboutContent.contactDetails.whatsapp}`}
-                className="text-blue-600 hover:underline"
-              >
-                {aboutContent.contactDetails.whatsapp}
-              </a>
-            </li>
-          </ul>
+      {/* Why Choose Us Section */}
+      <section className="w-full m-auto py-12 md:py-24 lg:py-32">
+        <div className="container m-auto px-4 md:px-6">
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              {aboutUsContent.whyChooseUs.title}
+            </h2>
+            <p className="text-xl text-gray-500 dark:text-gray-400">
+              {aboutUsContent.whyChooseUs.subtitle}
+            </p>
+            <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+              {aboutUsContent.whyChooseUs.description}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="w-full m-auto py-12 md:py-24 lg:py-32 bg-white dark:bg-gray-800">
+        <div className="container m-auto px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-3">
+            {aboutUsContent.features.map((feature, index) => (
+              <Card key={index} className="flex flex-col items-center text-center">
+                <CardHeader>
+                  <Image
+                    src={feature.image}
+                    alt={feature.title}
+                    width={200}
+                    height={200}
+                    className="rounded-full object-fit"
+                  />
+                  <CardTitle className="mt-4">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>{feature.description}</CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="w-full m-auto py-12 md:py-24 lg:py-32">
+        <div className="container m-auto px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-3">
+            {aboutUsContent.services.map((service, index) => (
+              <Card key={index} className="flex flex-col">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  width={400}
+                  height={300}
+                  className="object-cover w-full h-[200px]"
+                />
+                <CardHeader>
+                  <CardTitle>{service.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>{service.description}</CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default AboutPage;
