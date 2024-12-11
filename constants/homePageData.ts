@@ -188,7 +188,7 @@ aboutContent: {
   footer: {
     title: "Oktaxis",
     description:
-      "Oktaxis introduces the top-rated limousine and car service in Illinois and its suburban areas.",
+      "We take pride in offering premium services, including convenient pick-up and drop-off to your desired destination. Experience safe and luxurious travel with our top-tier chauffeur-driven cars, serving the entire Manchester area.",
     socialLinks: [
       { icon: Facebook, href: "https://www.facebook.com/share/1AoLuwA75A/?mibextid=LQQJ4d", label: "Facebook" },
       // { icon: Linkedin, href: "#", label: "LinkedIn" },

@@ -15,7 +15,7 @@ export default function ServiceCard() {
   return (
     <div className="container px-4 m-auto py-12 md:py-16 lg:py-20">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-semibold mb-4">Our Services</h2>
+        <h2 className="text-3xl font-semibold mb-4">Our <span className="text-blue-700">Services</span></h2>
         <p className="text-muted-foreground">Affordable Transportation Services we offer</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
