@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { okTaxisContent } from "@/constants/homePageData"
+import Image from "next/image"
+import TeamImage from "@/assets/homeImages/team.jpg"
 
 export default function OurStory() {
   const { heading, description, reasons, footer } = okTaxisContent
@@ -7,8 +9,13 @@ export default function OurStory() {
   return (
     <>
       {/* First Section */}
-      <section className="w-full py-12">
-        <Card className="w-full max-w-[1200px] mx-auto">
+      <section className="container flex flex-col-reverse lg:flex-row m-auto py-6 md:py-16 lg:py-20 px-4">
+        <Image
+          src={TeamImage}
+          alt="Image"
+          className="w-full lg:w-[50%] object-cover"
+        />
+        <Card className="border-none shadow-none">
           <CardContent className="p-8">
             <div className="text-center space-y-6">
               <h1 className="text-3xl font-bold">

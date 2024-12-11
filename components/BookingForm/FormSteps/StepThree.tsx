@@ -116,9 +116,9 @@ export default function StepThree({
             className="w-full p-6 bg-gray-800 hover:bg-gradient-to-l from-gray-700 via-gray-800 to-gray-700 text-white rounded-lg"
             onClick={handleOpenDialog}
           >
-            <span>
-              {values.totalPrice}
-              Pay Now
+            <span className="flex flex-col ">
+              {values.totalPrice} £
+              <p>Pay Now</p>
             </span>
           </Button>
 

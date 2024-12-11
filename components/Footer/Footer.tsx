@@ -22,7 +22,7 @@ export default function Footer() {
         </div>
 
         <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="grid grid-cols-1 items-center m-auto lg:grid-cols-12 gap-8">
             {/* Logo and Description Section */}
             <div className="lg:col-span-5">
               <div className="flex items-center gap-2 mb-6">

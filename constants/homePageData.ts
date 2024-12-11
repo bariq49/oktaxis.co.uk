@@ -26,6 +26,10 @@ import Img6 from "@/assets/homeImages/img6.jpg";
 import BgImg from "@/assets/homeImages/about-us-bg-img.webp"
 import TeslaImg from "@/assets/homeImages/about-us-tesla.webp"
 
+// Why Choose us images...
+import { Headset, Clock2, Blend, UserRound, Rocket } from 'lucide-react';
+
+
 const homePageData = {
   // Hero Section...
   heroSection: {
@@ -219,6 +223,7 @@ const okTaxisContent = {
         No hidden charges, just competitive fixed rates.
         Know your fare upfront for stress-free budgeting.
       `,
+      icon: Blend,
     },
     {
       title: "24/7 Availability",
@@ -226,6 +231,7 @@ const okTaxisContent = {
         Round-the-clock service to match your flight schedule.
         Reliable transfers for early departures or late-night arrivals.
       `,
+      icon: Clock2,
     },
     {
       title: "Experienced, Friendly Drivers",
@@ -233,6 +239,7 @@ const okTaxisContent = {
         Professional drivers with extensive route knowledge.
         Committed to your safety and comfort.
       `,
+      icon: UserRound,
     },
     {
       title: "Exclusive Meet-and-Greet Service",
@@ -240,6 +247,7 @@ const okTaxisContent = {
         Personalized welcome at the arrivals hall.
         Assistance with luggage for seamless onward travel.
       `,
+      icon: Headset,
     },
     {
       title: "Easy Booking System",
@@ -247,6 +255,7 @@ const okTaxisContent = {
         Simple online reservations with instant confirmation.
         Dedicated support for inquiries or special requests.
       `,
+      icon: Rocket,
     },
   ],
   footer: `

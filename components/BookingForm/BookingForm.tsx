@@ -93,7 +93,7 @@ const BookingForm = () => {
         className="w-full flex flex-col"
     >
         <div 
-            className="w-full h-fit  flex flex-col gap-y-4 py-4 px-3 items-center border rounded-lg shadow-xl group bg-gray-300 backdrop-blur-lg"
+            className="w-full h-fit  flex flex-col gap-y-4 py-4 px-3 items-center border rounded-lg shadow-xl group bg-gray-100 backdrop-blur-lg"
         >
 
             <div className="font-bold text-xl md:text-2xl text-center lg:text-start">

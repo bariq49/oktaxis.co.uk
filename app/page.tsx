@@ -9,6 +9,7 @@ import OurStory from "@/components/Sections/OurStory";
 import Testimonials from "@/components/Sections/Testimonials";
 import WhyChooseUs from "@/components/Sections/WhyChooseUs";
 import FAQSection from "@/components/Sections/FaqSection";
+import Image from "next/image";
 
 
 const Home = () => {
@@ -19,26 +20,34 @@ const Home = () => {
 
       {/* Hero Section */}
       <div
-        className={`w-full h-auto lg:h-[100vh] overflow-x-hidden bg-cover bg-no-repeat bg-center flex text-black overflow-hidden`}
+        className={`w-full h-auto lg:h-[100vh] overflow-x-hidden bg-contain object-cover bg-no-repeat flex text-black overflow-hidden`}
         // style={{
         //     backgroundImage: `url(${heroSection.backgroundImage.src})`
             
         // }}
         >
 
-        <div className="container flex flex-col gap-y-4 md:flex-row m-auto gap-x-5 md:gap-y-4 py-5 px-[2%]">
-                <div className="w-full lg:w-[70%] h-[90vh] lg:max-h-[70vh] overflow-auto custom-scrollbar">
+        <div className="container flex flex-col justify-center items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 py-5 px-[2%]">
+              <Image
+                src={heroSection.backgroundImage}
+                alt="Hero Image"
+                className="w-[30%]"
+              />
+              <div className="w-full flex flex-col lg:flex-row gap-y-5 lg:gap-x-5">
+                <div className="w-full lg:w-[70%] h-[90vh] lg:h-[100vh] overflow-auto custom-scrollbar">
                     <BookingForm/>
                 </div>   
                 <div className="w-full lg:w-[30%]">
                     <HeroCard/>
                 </div>
+
+              </div>
         </div>
 
       </div>
 
       <div className="w-full bg-gray-50">
-            <div className="container flex m-auto justify-center  gap-x-5 md:gap-y-4 py-5 px-[2%]">
+            <div className="">
                 <TripWorking/>
             </div>
       </div>
@@ -48,11 +57,11 @@ const Home = () => {
               <WhyChooseUs/>
             </div>
 
-            <div className="w-full flex items-center justify-center mb-16 m-auto">
+            <div className="w-full flex items-center justify-center py-12 md:py-16 lg:py-20">
               <Testimonials/>
 
             </div>
-            <div className="w-full flex items-center justify-center">
+            <div className="w-full flex items-center justify-center py-12 md:py-16 lg:py-20">
               <FAQSection/>
 
             </div>

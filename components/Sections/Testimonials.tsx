@@ -96,8 +96,7 @@ export default function Testimonials() {
 
   return (
     <div 
-      className="w-full lg:w-3/4  
-       min-h-[400px] bg-[#004D4D]"
+      className="w-full lg:w-3/4 min-h-[400px] bg-[#004D4D] "
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils"
 
 const CustomTimeSelector = () => {
   const { values, setFieldValue, errors, touched } = useFormikContext<any>()
-  const [hours, setHours] = useState("--")
-  const [minutes, setMinutes] = useState("--")
-  const [period, setPeriod] = useState("AM")
+  const [hours, setHours] = useState("HH")
+  const [minutes, setMinutes] = useState("MM")
+  const [period, setPeriod] = useState("")
   const [showPicker, setShowPicker] = useState(false)
   const [dropdownDirection, setDropdownDirection] = useState("down")
 
@@ -35,6 +35,7 @@ const CustomTimeSelector = () => {
     if (hours !== "--" && minutes !== "--" && period) {
       const selectedTime = `${hours}:${minutes} ${period}`
       setFieldValue("time", selectedTime)
+      setShowPicker(false);
     }
   }
 
