@@ -10,7 +10,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full relative bg-white text-gray-950 pt-12 px-4 md:px-6 lg:px-8 border-t">
+      <footer className="w-full relative bg-[#111828] text-gray-950 pt-12 px-4 md:px-6 lg:px-8 border-t">
         <div className="fixed right-[1%] bottom-[4%]">
           <a href="https://wa.me/447788710290" target="_blank" rel="noopener noreferrer">
             <Image

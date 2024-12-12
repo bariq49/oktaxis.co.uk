@@ -53,9 +53,9 @@ const Home = () => {
       </div>
 
       <div className="w-full bg-gray-50">
-            <div className="">
+            {/* <div className="">
                 <TripWorking/>
-            </div>
+            </div> */}
             <div className="">
                 <BookingProcess/>
             </div>

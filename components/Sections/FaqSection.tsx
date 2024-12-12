@@ -11,7 +11,7 @@ export default function FAQSection() {
         <Accordion type="single" collapsible className="container mx-auto">
           {faqData.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className="text-left text-lg font-semibold">
+              <AccordionTrigger className="text-left text-lg font-semibold text-blue-700">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="text-gray-700 dark:text-gray-300">
