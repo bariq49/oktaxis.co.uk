@@ -28,8 +28,8 @@ const Home = () => {
         // }}
         >
 
-        <div className=" flex flex-col items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 px-[2%]">
-              <div className="!z-50 flex flex-col items-center m-auto">
+        <div className="w-full flex flex-col items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 px-[2%]">
+              <div className=" flex flex-col items-center m-auto">
                     <h2 className="font-bold py-4 px-4 lg:px-[10%] text-center text-2xl lg:text-4xl">
                         <span className="text-green-700">Manchester</span> Airport Taxi & Airport  <span className="text-green-700">Transfers</span>
                     </h2>
@@ -39,14 +39,14 @@ const Home = () => {
                       className="w-full lg:w-[30%] flex lg:hidden"
                     />
               </div>
-              <div className=" w-full flex flex-col lg:flex-row gap-y-5 lg:gap-x-5 m-auto items-center">
-                <div className="container lg:w-[70%] h-[90vh] lg:h-[80vh] overflow-auto custom-scrollbar">
+              <div className="container flex flex-col lg:flex-row gap-y-5 lg:gap-x-5 ">
+                <div className="w-full lg:w-[70%] h-[90vh] lg:h-[80vh] overflow-auto custom-scrollbar">
                     <BookingForm/>
                 </div>   
+
                 <div className="w-full lg:w-[30%]">
                     <HeroCard/>
                 </div>
-
               </div>
         </div>
 
