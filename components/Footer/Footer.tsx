@@ -10,7 +10,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full relative bg-[#111828] text-gray-950 pt-12 px-4 md:px-6 lg:px-8 border-t">
+      <footer className="w-full relative bg-[#111828] text-white pt-12 px-4 md:px-6 lg:px-8 border-t">
         <div className="fixed right-[1%] bottom-[4%]">
           <a href="https://wa.me/447788710290" target="_blank" rel="noopener noreferrer">
             <Image
@@ -38,13 +38,13 @@ export default function Footer() {
 
               {/* Social Links */}
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-gray-950 mb-4">Social Links</h3>
+                <h3 className="text-xl font-semibold text-white mb-4">Social Links</h3>
                 <div className="flex gap-4">
                   {footer.socialLinks.map(({ icon: Icon, href, label }) => (
                     <Link
                       key={label}
                       href={href}
-                      className="text-gray-800 hover:text-700 transition-colors"
+                      className="text-white hover:text-700 transition-colors"
                     >
                       <Icon className="w-6 h-6" />
                       <span className="sr-only">{label}</span>
@@ -56,12 +56,12 @@ export default function Footer() {
 
             {/* Quick Links Section */}
             <div className="lg:col-span-3 lg:ml-8">
-              <h3 className="text-xl font-semibold text-gray-950 mb-4">Quick Links</h3>
+              <h3 className="text-xl font-semibold text-white mb-4">Quick Links</h3>
               <nav>
                 <ul className="space-y-2">
                   {footer.quickLinks.map(({ href, label }) => (
                     <li key={label}>
-                      <Link href={href} className="text-gray-950 hover:text-gray-800 transition-colors">
+                      <Link href={href} className="text-white hover:text-white transition-colors">
                         {label}
                       </Link>
                     </li>
@@ -72,26 +72,26 @@ export default function Footer() {
 
             {/* Contact Section */}
             <div className="lg:col-span-4">
-              <h3 className="text-xl font-semibold text-gray-950 mb-4">Contact Us</h3>
+              <h3 className="text-xl font-semibold text-white mb-4">Contact Us</h3>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-gray-800 mt-1" />
-                  <p className="text-gray-950">{footer.contact.address}</p>
+                  <MapPin className="w-5 h-5 text-white mt-1" />
+                  <p className="text-white">{footer.contact.address}</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-gray-800" />
+                  <Phone className="w-5 h-5 text-white" />
                   <Link
                     href={`tel:${footer.contact.phone}`}
-                    className="text-gray-950 hover:text-gray-700 transition-colors"
+                    className="text-white transition-colors"
                   >
                     {footer.contact.phone}
                   </Link>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-gray-800" />
+                  <Mail className="w-5 h-5 text-white" />
                   <Link
                     href={`mailto:${footer.contact.email}`}
-                    className="text-gray-950 hover:text-gray-700 transition-colors"
+                    className="text-white transition-colors"
                   >
                     {footer.contact.email}
                   </Link>
