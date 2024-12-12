@@ -12,7 +12,8 @@ export default function AboutPage() {
         <div className="container m-auto px-4 md:px-6 relative z-10">
           <div className="flex flex-col items-center space-y-4 text-center">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-white">
-              {aboutUsContent.hero.title}
+              {/* {aboutUsContent.hero.title} */}
+              We make sure that your every trip is <span className="text-green-700">reliable</span> & <span className="text-green-700">comfortable</span>
             </h1>
             <p className="mx-auto max-w-[700px] text-lg md:text-xl text-gray-200">
               {aboutUsContent.hero.description}
@@ -27,7 +28,8 @@ export default function AboutPage() {
         <div className="container m-auto px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              {aboutUsContent.whyChooseUs.title}
+              {/* {aboutUsContent.whyChooseUs.title} */}
+              <span className="text-green-700">Why</span> Choose Us
             </h2>
             <p className="text-xl text-gray-500 dark:text-gray-400">
               {aboutUsContent.whyChooseUs.subtitle}
@@ -42,9 +44,9 @@ export default function AboutPage() {
       {/* Features Section */}
       <section className="w-full m-auto py-12 md:py-24 lg:py-32 bg-white dark:bg-gray-800">
         <div className="container m-auto px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3 ">
             {aboutUsContent.features.map((feature, index) => (
-              <Card key={index} className="flex flex-col items-center text-center">
+              <Card key={index} className="flex flex-col items-center text-center hover:bg-gray-100">
                 <CardHeader>
                   <Image
                     src={feature.image}
@@ -69,7 +71,7 @@ export default function AboutPage() {
         <div className="container m-auto px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-3">
             {aboutUsContent.services.map((service, index) => (
-              <Card key={index} className="flex flex-col">
+              <Card key={index} className="flex flex-col hover:bg-gray-100">
                 <Image
                   src={service.image}
                   alt={service.title}

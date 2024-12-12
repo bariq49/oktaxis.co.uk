@@ -39,7 +39,7 @@ export default function BookingProcess() {
       <div className="container px-4 mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Our <span className="text-blue-600">Booking Process</span>
+            Our <span className="text-green-700">Booking Process</span>
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
             A simple and hassle-free way to book your journey with Oktaxis.
@@ -78,10 +78,10 @@ export default function BookingProcess() {
                     className={cn(
                       "w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center",
                       "transition-transform duration-300 group-hover:scale-110",
-                      "border-2 border-transparent group-hover:border-blue-600"
+                      "border-2 border-transparent group-hover:border-black-600"
                     )}
                   >
-                    <span className="text-xl font-semibold text-blue-600">
+                    <span className="text-xl font-semibold text-green-700">
                       {step.number}
                     </span>
                   </div>

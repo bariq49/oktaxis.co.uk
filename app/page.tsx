@@ -31,7 +31,7 @@ const Home = () => {
         <div className=" flex flex-col items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 px-[2%]">
               <div className="!z-50 flex flex-col items-center m-auto">
                     <h2 className="font-bold py-4 px-4 lg:px-[10%] text-center text-2xl lg:text-4xl">
-                        <span className="text-blue-700">Manchester</span> Airport Taxi & Airport  <span className="text-blue-700">Transfers</span>
+                        <span className="text-green-700">Manchester</span> Airport Taxi & Airport  <span className="text-green-700">Transfers</span>
                     </h2>
                     <Image
                       src={heroSection.backgroundImage}

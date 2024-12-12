@@ -14,7 +14,10 @@ export default function VehicleGrid() {
             }}
             
         >
-            <h1 className="text-lg lg:text-2xl font-semibold text-white">{serviceName}</h1>
+            <h1 className="text-lg lg:text-2xl font-semibold text-green-700">
+                {/* {serviceName} */}
+                Oktaxis
+            </h1>
             <h1 className="text-3xl lg:text-5xl font-semibold text-white">{title}</h1>
 
 

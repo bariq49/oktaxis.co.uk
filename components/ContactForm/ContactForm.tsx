@@ -71,7 +71,7 @@ export default function ContactForm() {
       <div className="text-center">
         <Button
           type="submit"
-          className="w-48 bg-gray-800 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
+          className="w-48 bg-green-800 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
         >
           Submit Your Request
         </Button>

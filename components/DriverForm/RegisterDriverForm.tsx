@@ -165,7 +165,7 @@ export const RegisterDriverForm: React.FC<RegisterDriverFormProps> = ({
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-700"
+            className="w-full bg-green-800 text-white py-2 rounded-lg hover:bg-green-700"
           >
             Submit
           </button>
