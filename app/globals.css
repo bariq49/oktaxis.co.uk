@@ -31,6 +31,27 @@ body {
   }
 }
 
+@keyframes progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-progress-line {
+  animation: progress 3s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(59, 130, 246, 0.4) 50%,
+    transparent 100%
+  );
+}
+
+
+
 .custom-scrollbar {
   scrollbar-width: thin; 
   scrollbar-color: #1f2937 #e5e7eb;  

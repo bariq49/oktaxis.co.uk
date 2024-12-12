@@ -10,6 +10,7 @@ import Testimonials from "@/components/Sections/Testimonials";
 import WhyChooseUs from "@/components/Sections/WhyChooseUs";
 import FAQSection from "@/components/Sections/FaqSection";
 import Image from "next/image";
+import BookingProcess from "@/components/Sections/BookingProcess";
 
 
 const Home = () => {
@@ -27,14 +28,19 @@ const Home = () => {
         // }}
         >
 
-        <div className="container flex flex-col justify-center items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 py-5 px-[2%]">
-              <Image
-                src={heroSection.backgroundImage}
-                alt="Hero Image"
-                className="w-[30%]"
-              />
-              <div className="w-full flex flex-col lg:flex-row gap-y-5 lg:gap-x-5">
-                <div className="w-full lg:w-[70%] h-[90vh] lg:h-[100vh] overflow-auto custom-scrollbar">
+        <div className=" flex flex-col items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 px-[2%]">
+              <div className="!z-50 flex flex-col items-center m-auto">
+                    <h2 className="font-bold py-4 px-4 lg:px-[10%] text-center text-2xl lg:text-4xl">
+                        <span className="text-blue-700">Manchester</span> Airport Taxi & Airport  <span className="text-blue-700">Transfers</span>
+                    </h2>
+                    <Image
+                      src={heroSection.backgroundImage}
+                      alt="Hero Image"
+                      className="w-full lg:w-[30%] flex lg:hidden"
+                    />
+              </div>
+              <div className=" w-full flex flex-col lg:flex-row gap-y-5 lg:gap-x-5 m-auto justify-center items-center">
+                <div className="w-full lg:w-[70%] h-[90vh] lg:h-full overflow-auto custom-scrollbar">
                     <BookingForm/>
                 </div>   
                 <div className="w-full lg:w-[30%]">
@@ -49,6 +55,9 @@ const Home = () => {
       <div className="w-full bg-gray-50">
             <div className="">
                 <TripWorking/>
+            </div>
+            <div className="">
+                <BookingProcess/>
             </div>
       </div>
             <div className="w-full">
