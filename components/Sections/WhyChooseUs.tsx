@@ -17,7 +17,8 @@ import { Button } from "../ui/button"
         <div className="container items-center m-auto px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <h2 className="text-4xl font-semibold">
-              {okTaxisContent.heading}
+              {/* {okTaxisContent.heading} */}
+              Reliable <span className="text-blue-700">Manchester Airport</span> Transfers – OkTaxis
             </h2>
             <p className="mx-auto max-w-[700px] text-gray-500 text-sm lg:text-[17px] leading-[24px]  dark:text-gray-400">
               {okTaxisContent.description}
@@ -46,7 +47,7 @@ import { Button } from "../ui/button"
               href="/"
             >
               <Button
-                className="hover:bg-gray-800"
+                className="bg-blue-700 hover:bg-blue-800"
               >
                 Book Now
               </Button>

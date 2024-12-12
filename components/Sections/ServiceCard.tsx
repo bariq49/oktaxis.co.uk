@@ -8,7 +8,7 @@ interface Service {
   description: string
 }
 
-export default function ServiceCard() {
+export default function sServiceCard() {
   const { servicesSection } = homePageData
 
   return (
@@ -16,7 +16,7 @@ export default function ServiceCard() {
       <div className="container px-4 mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">
-            Our <span className="text-primary">Services</span>
+            Our <span className="text-blue-700">Services</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             Premium Transportation Solutions Tailored to Your Needs

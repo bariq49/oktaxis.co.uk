@@ -34,7 +34,7 @@ export default function Footer() {
                 />
                 
               </div>
-              <p className="text-gray-500 mb-8 leading-relaxed">{footer.description}</p>
+              <p className="text-white mb-8 leading-relaxed">{footer.description}</p>
 
               {/* Social Links */}
               <div className="mb-8">

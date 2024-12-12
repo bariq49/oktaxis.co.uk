@@ -11,11 +11,11 @@ import {
 const HeroCard = () => {
   return (
     <div>
-      <div className="bg-gray-950/90 text-white w-full max-w-md p-6 rounded-lg shadow-lg">
+      <div className="bg-green-500 text-white w-full max-w-md p-6 rounded-lg shadow-lg">
         {/* Top Bar */}
-        <div className=" bg-gray-700 text-sm px-3 py-4 rounded-full flex items-center gap-2 shadow-md">
-          <Car className="text-white w-4 h-4" />
-          <span className="font-semibold">
+        <div className=" bg-white text-sm px-3 py-4 rounded-full flex items-center gap-2 shadow-md">
+          <Car className="text-black w-4 h-4" />
+          <span className="font-semibold text-black">
             UK'S Leading Minicab Comparison Platform
           </span>
         </div>

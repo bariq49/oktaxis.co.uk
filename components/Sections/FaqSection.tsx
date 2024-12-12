@@ -6,7 +6,7 @@ export default function FAQSection() {
     <section className="w-full py-12 md:py-20 lg:py-28 px-4 bg-gray-50 dark:bg-gray-900">
       <div className="w-full m-auto">
         <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 text-gray-900 dark:text-gray-100">
-          Frequently  <span className="font-bold text-blue-700">Asked Questions</span>
+          Frequently  <span className="font-bold text-green-700">Asked Questions</span>
         </h2>
         <Accordion type="single" collapsible className="container mx-auto">
           {faqData.map((faq, index) => (
