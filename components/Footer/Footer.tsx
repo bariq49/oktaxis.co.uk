@@ -101,14 +101,14 @@ export default function Footer() {
           </div>
         </div>
 
-      </footer>
-        <div className="w-full border-t flex flex-col items-center py-2 text-sm text-white bg-black">
+        <div className="w-full border-t flex flex-col items-center py-2 text-sm text-white">
           <p>Developed By: <span>The Dev Square</span></p>
           <p>
               © 2024 Oktaxis. All Rights Reserved.
           </p>
 
         </div>
+      </footer>
     </>
   );
 }
