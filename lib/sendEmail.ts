@@ -13,13 +13,13 @@ const sendEmail = async ({ to, subject, html }: EmailParams) => {
       port: 587,
       secure: false,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: "info@oktaxis.co.uk", 
+        pass: ";U3nJxy=hs",
       },
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: "info@oktaxis.co.uk",
       to,
       subject,
       html,
