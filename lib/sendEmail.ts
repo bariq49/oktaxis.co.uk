@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
 interface EmailParams {
   to: string;
@@ -9,7 +9,9 @@ interface EmailParams {
 const sendEmail = async ({ to, subject, html }: EmailParams) => {
   try {
     const transporter = nodemailer.createTransport({
-      service: 'Gmail', // Change this if not using Gmail
+      host: "smtp.hostinger.com",
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -24,14 +26,14 @@ const sendEmail = async ({ to, subject, html }: EmailParams) => {
     };
 
     // Debug: log mail options
-    console.log('Mail Options:', mailOptions);
+    console.log("Mail Options:", mailOptions);
 
     // Send the email
     await transporter.sendMail(mailOptions);
     console.log(`Email sent to ${to}`);
   } catch (error) {
-    console.error('Error details:', error); // Log full error details
-    throw new Error('Email sending failed');
+    console.error("Error details:", error); // Log full error details
+    throw new Error("Email sending failed");
   }
 };
 
