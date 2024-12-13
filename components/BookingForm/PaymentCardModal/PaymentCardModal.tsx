@@ -203,7 +203,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               onValueChange={(value) => handleInputChange('country', value)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select country" />
+                <SelectValue placeholder="United Kingdom" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="US">United States</SelectItem>

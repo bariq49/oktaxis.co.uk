@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { homePageData } from "@/constants/homePageData";
-import Logo from "@/assets/logo.png"
+import Logo from "@/assets/homeImages/footer-logo.png"
 import Whatsapp from "@/assets/whatsapp.png";
 
 export default function Footer() {

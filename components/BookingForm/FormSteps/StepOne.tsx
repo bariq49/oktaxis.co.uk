@@ -88,7 +88,7 @@ export default function StepOne({
     >
       {/* Step 1 Header and Summary */}
       {completedSteps.Step1 && !isEditing && (
-        <div className="w-full h-12 flex bg-gray-800 text-white rounded-lg align-middle items-center px-3 justify-between">
+        <div className="w-[390px] lg:w-full h-12 flex bg-gray-800 text-white rounded-lg align-middle items-center px-3 justify-between">
           <h1
             className={`capitalize text-[15px] lg:text-lg font-medium tracking-wider cursor-pointer ${
               !isActive ? "opacity-100" : ""
@@ -125,7 +125,7 @@ export default function StepOne({
       {/* Show Form Fields if Editing */}
       {isActive && (isEditing || !completedSteps.Step1) && (
         <>
-          <div className="flex md:flex-row flex-col gap-y-3">
+          <div className="w-full flex md:flex-row flex-col gap-y-3">
             <div>
               <BookingTypeOption
                 onAirportSelectChange={handleAirportSelectChange}

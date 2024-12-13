@@ -59,7 +59,7 @@ export default function StepThree({
     <div className="w-full flex flex-col gap-y-3">
       {/* Step Three Header */}
       {showHeader && (
-        <div className="w-full h-12 bg-gray-800 text-white rounded-lg flex items-center justify-between px-3">
+        <div className="w-[390px] lg:w-full h-12 bg-gray-800 text-white rounded-lg flex items-center justify-between px-3">
           <h1
             className={`capitalize text-[15px] lg:text-lg font-medium tracking-wider cursor-pointer ${
               !isActive ? "opacity-100" : ""
@@ -116,7 +116,7 @@ export default function StepThree({
             className="w-full p-6 bg-gray-800 hover:bg-gradient-to-l from-gray-700 via-gray-800 to-gray-700 text-white rounded-lg"
             onClick={handleOpenDialog}
           >
-            <span className="flex flex-col ">
+            <span className="flex flex-col font-bold">
               {values.totalPrice} £
               <p>Pay Now</p>
             </span>

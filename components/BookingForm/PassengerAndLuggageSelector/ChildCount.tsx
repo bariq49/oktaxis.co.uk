@@ -4,13 +4,13 @@ import { useFormikContext } from "formik";
 export default function ChildCount() {
   const { values, setFieldValue } = useFormikContext<any>();
 
-  const childNumbers = Array.from({ length: 10 }, (_, i) => i);
+  const childNumbers = Array.from({ length: 4 }, (_, i) => i);
 
   return (
     <div className="w-full">
       <Select
         defaultValue={values.childCount}
-        onValueChange={(value) => setFieldValue("childCount", value)} // Update form state
+        onValueChange={(value) => setFieldValue("childCount", value)} 
       >
         <SelectTrigger className="w-full bg-white py-7 flex gap-2 rounded-lg focus:ring-0">
           <span className="text-sm text-gray-500">Childs:</span>

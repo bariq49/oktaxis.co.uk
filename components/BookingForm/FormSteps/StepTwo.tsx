@@ -88,7 +88,7 @@ export default function StepTwo({
   return (
     <div className="w-full flex flex-col gap-y-3">
       {showHeader && (
-        <div className="w-full h-12 rounded-lg bg-gray-800 text-white flex items-center justify-between px-3">
+        <div className="w-[390px] lg:w-full h-12 rounded-lg bg-gray-800 text-white flex items-center justify-between px-3">
           <h1
             className={`capitalize text-[15px] lg:text-lg font-medium tracking-wider cursor-pointer ${
               !isActive ? "opacity-100" : ""

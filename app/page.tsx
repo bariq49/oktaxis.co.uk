@@ -21,7 +21,7 @@ const Home = () => {
 
       {/* Hero Section */}
       <div
-        className={`w-full h-auto lg:h-[100vh] overflow-x-hidden bg-contain object-cover bg-no-repeat flex text-black overflow-hidden`}
+        className={`w-full h-auto overflow-x-hidden bg-contain object-cover bg-no-repeat flex text-black overflow-auto`}
         // style={{
         //     backgroundImage: `url(${heroSection.backgroundImage.src})`
             
@@ -39,12 +39,12 @@ const Home = () => {
                       className="w-full lg:w-[30%] flex lg:hidden"
                     />
               </div>
-              <div className="container flex flex-col lg:flex-row gap-y-5 lg:gap-x-5 ">
-                <div className="w-full lg:w-[70%] h-[100vh] lg:h-[80vh] overflow-auto custom-scrollbar">
+              <div className="container h-full flex flex-col lg:flex-row gap-y-5 lg:gap-x-5">
+                <div className="w-full lg:w-[70%] h-[100vh] overflow-auto custom-scrollbar">
                     <BookingForm/>
                 </div>   
 
-                <div className="w-full lg:w-[30%]">
+                <div className="w-full lg:w-[30%] ">
                     <HeroCard/>
                 </div>
               </div>
