@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
 
     // Send email to admin
     await sendEmail({
-      to: 'muhammadalmas1286@gmail.com',
+      to: "info@oktaxis.co.uk",
       subject: 'New Booking Confirmation',
       html: adminEmailContent,
     });
