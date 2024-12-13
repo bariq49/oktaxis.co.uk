@@ -6,7 +6,7 @@ import BagCount from '../PassengerAndLuggageSelector/BagCount';
 import PassengerCount from '../PassengerAndLuggageSelector/PassengerCount';
 
 export default function PassengerInfo() {
-  const { values, setFieldValue, touched, errors, handleBlur, setFieldTouched } =
+  const { values, setFieldValue, touched, errors, handleBlur } =
     useFormikContext<{
       passengerInfo: {
         name: string;
@@ -14,11 +14,6 @@ export default function PassengerInfo() {
         phone: string;
       };
     }>();
-
-  const handleFieldBlur = (field: string) => {
-    // handleBlur({ target: { name: field } });
-    setFieldTouched(field, true); // Mark field as touched on blur
-  };
 
   return (
     <div className="flex flex-col w-full space-y-4">
@@ -32,16 +27,16 @@ export default function PassengerInfo() {
           <Input
             type="text"
             placeholder="Full Name"
-            onBlur={() => handleFieldBlur('passengerInfo.name')}
             value={values.passengerInfo.name}
             onChange={(e) => setFieldValue('passengerInfo.name', e.target.value)}
+            onBlur={handleBlur}
             className={`w-full bg-white border-gray-200 py-7 focus-visible:ring-0 ${
-            errors?.passengerInfo?.name
-                ? 'border-red-500'
+              touched?.passengerInfo?.name && errors?.passengerInfo?.name
+                ? ''
                 : ''
             }`}
           />
-          {/* {errors?.passengerInfo?.name && (
+          {/* {touched?.passengerInfo?.name && errors?.passengerInfo?.name && (
             <p className="mt-1 text-xs text-red-500">{errors.passengerInfo.name}</p>
           )} */}
         </div>
@@ -51,12 +46,12 @@ export default function PassengerInfo() {
           <Input
             type="email"
             placeholder="Email"
-            onBlur={() => handleFieldBlur('passengerInfo.email')}
             value={values.passengerInfo.email}
             onChange={(e) => setFieldValue('passengerInfo.email', e.target.value)}
+            onBlur={handleBlur}
             className={`w-full bg-white border-gray-200 py-7 focus-visible:ring-0 ${
               touched?.passengerInfo?.email && errors?.passengerInfo?.email
-                ? 'border-red-500'
+                ? ''
                 : ''
             }`}
           />
@@ -70,12 +65,12 @@ export default function PassengerInfo() {
           <Input
             type="text"
             placeholder="Phone Number"
-            onBlur={() => handleFieldBlur('passengerInfo.phone')}
             value={values.passengerInfo.phone}
             onChange={(e) => setFieldValue('passengerInfo.phone', e.target.value)}
+            onBlur={handleBlur}
             className={`w-full bg-white border-gray-200 py-7 focus-visible:ring-0 ${
               touched?.passengerInfo?.phone && errors?.passengerInfo?.phone
-                ? 'border-red-500'
+                ? ''
                 : ''
             }`}
           />
@@ -84,6 +79,7 @@ export default function PassengerInfo() {
           )} */}
         </div>
       </div>
+
       <div className="flex flex-col lg:flex-row gap-x-3 gap-y-3 w-full">
         <BagCount />
         <PassengerCount />

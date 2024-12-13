@@ -65,11 +65,12 @@ const CustomTimeSelector = () => {
 
   const checkDropdownPosition = () => {
     if (dropdownRef.current) {
-      const { bottom } = dropdownRef.current.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-      setDropdownDirection(bottom > windowHeight ? "up" : "down")
+      const { bottom } = dropdownRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      setDropdownDirection(bottom > windowHeight ? "up" : "down");
     }
-  }
+  };
+  
 
   useEffect(() => {
     window.addEventListener("resize", checkDropdownPosition)
@@ -100,7 +101,7 @@ const CustomTimeSelector = () => {
           <div
             ref={dropdownRef}
             className={cn(
-              "absolute !z-50 left-0",
+              "absolute !z-[1000] left-0",
               dropdownDirection === "up" ? "bottom-full mb-2" : "top-full mt-2",
               "bg-white shadow-lg rounded-lg p-4 grid grid-cols-3 gap-4"
             )}

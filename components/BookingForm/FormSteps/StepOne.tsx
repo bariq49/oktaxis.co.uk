@@ -55,7 +55,6 @@ export default function StepOne({
     return Object.keys(validationErrors).length === 0 && areFieldsFilled;
   };
 
-  //   commit
 
   const handleValidationAndNextStep = () => {
     const isValid = validateAllFields();
@@ -155,7 +154,7 @@ export default function StepOne({
             </div>
           </div>
           <Button
-            className="py-6 text-[16px] bg-green-600 hover:bg-green-500 text-white rounded-lg mt-4"
+            className="w-full backdrop:py-6 text-[16px] bg-green-600 hover:bg-green-500 text-white rounded-lg mt-4"
             onClick={handleValidationAndNextStep}
           >
             {isEditing ? "Save Changes" : "Select Vehicle"}
