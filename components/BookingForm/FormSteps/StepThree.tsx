@@ -117,7 +117,7 @@ export default function StepThree({
             onClick={handleOpenDialog}
           >
             <span className="flex flex-col font-bold">
-              {values.totalPrice} £
+              {(values.totalPrice / 100).toFixed(2)} £
               <p>Pay Now</p>
             </span>
           </Button>

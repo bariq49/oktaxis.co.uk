@@ -1,4 +1,8 @@
+'use client'
+
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { cn } from "@/lib/utils"
+import { motion, useAnimation, useInView } from 'framer-motion'
 
 interface BookingStep {
   number: number
@@ -33,9 +37,102 @@ const bookingSteps: BookingStep[] = [
   },
 ]
 
+const CircularProgress = ({ isHovered }: { isHovered: boolean }) => (
+  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+    <circle
+      className="text-blue-100"
+      strokeWidth="4"
+      stroke="currentColor"
+      fill="transparent"
+      r="48"
+      cx="50"
+      cy="50"
+    />
+    <motion.circle
+      className="text-green-700"
+      strokeWidth="4"
+      stroke="currentColor"
+      fill="transparent"
+      r="48"
+      cx="50"
+      cy="50"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: isHovered ? 1 : 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    />
+  </svg>
+)
+
+const StepItem = ({ step, index, totalSteps }: { step: BookingStep; index: number; totalSteps: number }) => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.5 })
+  const controls = useAnimation()
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseEnter = useCallback(() => setIsHovered(true), [])
+  const handleMouseLeave = useCallback(() => setIsHovered(false), [])
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible")
+    }
+  }, [isInView, controls])
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.2 } }
+      }}
+      className={cn(
+        "flex flex-col items-center text-center group",
+        "transition-all duration-300 ease-in-out",
+        "hover:transform hover:-translate-y-1"
+      )}
+    >
+      {/* Number Badge with Circular Progress */}
+      <div 
+        className="relative mb-6"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className="w-20 h-20 relative">
+          <CircularProgress isHovered={isHovered} />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div
+              className={cn(
+                "w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center",
+                "transition-transform duration-300 group-hover:scale-110",
+                "border-2 border-transparent group-hover:border-blue-50"
+              )}
+            >
+              <span className="text-2xl font-semibold text-green-700">
+                {step.number}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="space-y-3">
+        <h3 className="text-xl font-semibold tracking-tight">
+          {step.title}
+        </h3>
+        <p className="text-muted-foreground leading-relaxed">
+          {step.description}
+        </p>
+      </div>
+    </motion.div>
+  )
+}
+
 export default function BookingProcess() {
   return (
-    <section className="w-full py-16 md:py-24 bg-white">
+    <section className="w-full py-16 md:py-24 bg-white overflow-hidden">
       <div className="container px-4 mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -47,56 +144,9 @@ export default function BookingProcess() {
         </div>
 
         <div className="relative">
-          {/* Connection Lines */}
-          <div className="hidden md:block absolute top-[60px] left-0 w-full h-[2px]">
-            <div className="relative w-full h-full">
-              {/* Main line */}
-              <div className="absolute w-[calc(100%-100px)] left-[50px] h-full bg-blue-600/20" />
-              {/* Animated progress line */}
-              <div className="absolute w-[calc(100%-100px)] left-[50px] h-full bg-blue-600 opacity-20">
-                <div className="absolute inset-0 bg-blue-600">
-                  <div className="absolute inset-0 animate-progress-line" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Steps */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 relative">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
             {bookingSteps.map((step, index) => (
-              <div
-                key={step.number}
-                className={cn(
-                  "flex flex-col items-center text-center group",
-                  "transition-all duration-300 ease-in-out",
-                  "hover:transform hover:-translate-y-1"
-                )}
-              >
-                {/* Number Badge */}
-                <div className="relative mb-6">
-                  <div
-                    className={cn(
-                      "w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center",
-                      "transition-transform duration-300 group-hover:scale-110",
-                      "border-2 border-transparent group-hover:border-black-600"
-                    )}
-                  >
-                    <span className="text-xl font-semibold text-green-700">
-                      {step.number}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="space-y-3">
-                  <h3 className="text-xl font-semibold tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
+              <StepItem key={step.number} step={step} index={index} totalSteps={bookingSteps.length} />
             ))}
           </div>
         </div>

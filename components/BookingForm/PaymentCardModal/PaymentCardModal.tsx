@@ -7,7 +7,9 @@ import { StatusCard } from "@/components/Sections/StatusCard"
 import { useFormikContext } from 'formik'
 import {
   Elements,
-  CardElement,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js"
@@ -75,17 +77,16 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
     setLoading(true)
 
-    const cardElement = elements.getElement(CardElement)
-    if (!cardElement) return
+    const cardNumberElement = elements.getElement(CardNumberElement)
+    if (!cardNumberElement) return
 
     try {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: "card",
-        card: cardElement,
+        card: cardNumberElement,
         billing_details: {
           name: formData.fullName,
           address: {
-            line1: formData.address,
             country: formData.country,
           },
         },
@@ -96,7 +97,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       }
 
       const price = values.totalPrice
-      console.log("PRICE ==>",price)
+      console.log("PRICE ==>", price)
 
       const response = await fetch("/api/payment", {
         method: "POST",
@@ -110,9 +111,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             name: formData.fullName,
             email: values.passengerInfo.email,
             phone: values.passengerInfo.phone,
-            address: formData.address,
             country: formData.country
-
           },
           orderSummary: { ...values, formData },
         }),
@@ -135,9 +134,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         setMessage("Payment succeeded!")
         await sendBookingEmail(values)
         setIsSuccess(true)
-        // onClose() 
-        
-        // here please add a popups success card when the payment is succeeded and after the sended the email then this component show after closing the payment card adn then show another card with beautiful happy emoji on successful and sad on not successful 
       } else {
         throw new Error("Payment failed.")
       }
@@ -163,9 +159,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         type={isSuccess ? 'success' : 'error'} 
         onClose={() => {
           setShowStatusCard(false)
-          // if (isSuccess) {
-          //   onClose()
-          // }
         }} 
       />
     )
@@ -186,7 +179,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="fullName">Full name</Label>
+            <Label htmlFor="fullName">Card Holder Name</Label>
             <Input
               id="fullName"
               name="fullName"
@@ -203,7 +196,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               onValueChange={(value) => handleInputChange('country', value)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="United Kingdom" />
+                <SelectValue placeholder="Select Country" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="US">United States</SelectItem>
@@ -214,20 +207,23 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="address">Address</Label>
-            <Input
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={(e) => handleInputChange('address', e.target.value)}
-              required
-            />
+            <Label htmlFor="card-number">Card Number</Label>
+            <div className="rounded-md border p-3">
+              <CardNumberElement id="card-number" options={CARD_ELEMENT_OPTIONS} />
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="card-element">Card details</Label>
+            <Label htmlFor="card-expiry">Expiration Date</Label>
             <div className="rounded-md border p-3">
-              <CardElement id="card-element" options={CARD_ELEMENT_OPTIONS} />
+              <CardExpiryElement id="card-expiry" options={CARD_ELEMENT_OPTIONS} />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="card-cvc">CVC</Label>
+            <div className="rounded-md border p-3">
+              <CardCvcElement id="card-cvc" options={CARD_ELEMENT_OPTIONS} />
             </div>
           </div>
 
@@ -267,4 +263,3 @@ const PaymentCardModal: React.FC<PaymentCardModalProps> = ({ onClose }) => {
 }
 
 export default PaymentCardModal
-

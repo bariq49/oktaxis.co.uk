@@ -1,8 +1,10 @@
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { homePageData } from "@/constants/homePageData";
-import Logo from "@/assets/homeImages/footer-logo.png"
+import Logo from "@/assets/homeImages/footer-logo.png";
 import Whatsapp from "@/assets/whatsapp.png";
 
 export default function Footer() {
@@ -11,7 +13,8 @@ export default function Footer() {
   return (
     <>
       <footer className="w-full relative bg-green-800 text-white pt-12 px-4 md:px-6 lg:px-8 border-t">
-        <div className="fixed right-[1%] bottom-[4%]">
+        {/* WhatsApp Animation Section */}
+        <div className="fixed right-[1%] bottom-[4%] animate-whatsappBounce">
           <a href="https://wa.me/447788710290" target="_blank" rel="noopener noreferrer">
             <Image
               src={Whatsapp}
@@ -29,10 +32,8 @@ export default function Footer() {
                 <Image
                   src={Logo}
                   alt="OkTaxis"
-      
                   className="w-40 h-auto"
                 />
-                
               </div>
               <p className="text-white mb-8 leading-relaxed">{footer.description}</p>
 
@@ -104,11 +105,25 @@ export default function Footer() {
         <div className="w-full border-t flex flex-col items-center py-2 text-sm text-white">
           <p>Developed By: <span>The Dev Square</span></p>
           <p>
-              © 2024 Oktaxis. All Rights Reserved.
+            © 2024 Oktaxis. All Rights Reserved.
           </p>
-
         </div>
       </footer>
+
+      {/* Add Keyframe Animation */}
+      <style jsx>{`
+        @keyframes whatsappBounce {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-8px);
+          }
+        }
+        .animate-whatsapp-bounce {
+          animation: whatsappBounce 0.5s ease-in-out infinite;
+        }
+      `}</style>
     </>
   );
 }

@@ -55,6 +55,8 @@ export default function StepOne({
     return Object.keys(validationErrors).length === 0 && areFieldsFilled;
   };
 
+  console.log("Formik Values FROM STEP:", values);
+
 
   const handleValidationAndNextStep = () => {
     const isValid = validateAllFields();

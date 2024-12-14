@@ -15,10 +15,10 @@ export async function POST(request: Request) {
       email: customerDetails.email,
       name: customerDetails.name,
       phone: customerDetails.phone,
-      address: {
-        line1: customerDetails.address,
-        country: customerDetails.country,
-      }
+      // address: {
+      //   line1: customerDetails.address,
+      //   country: customerDetails.country,
+      // }
     });
 
     // Step 2: Attach PaymentMethod to the Customer

@@ -1,17 +1,17 @@
 import Image from "next/image"
-import HeroImg from "@/assets/aboutUsImages/hero-img.webp";
+import HeroImg from "@/assets/aboutUsImages/hero-img.jpg";
 import { aboutUsContent } from "@/constants/aboutUsData" 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function AboutPage() {
   return (
-    <div className="bg-gray-50 dark:bg-gray-900">
+    <div className="bg-gray-50 dark:bg-gray-100">
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: `url('${HeroImg.src}')` }}>
-        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="absolute inset-0 bg-black/15 bg-opacity-60"></div>
         <div className="container m-auto px-4 md:px-6 relative z-10">
           <div className="flex flex-col items-center space-y-4 text-center">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-white">
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none text-black">
               {/* {aboutUsContent.hero.title} */}
               We make sure that your every trip is <span className="text-green-700">reliable</span> & <span className="text-green-700">comfortable</span>
             </h1>

@@ -46,7 +46,7 @@ const StepTwoSummary = ({
       <div className="flex items-center gap-2">
         <ChartBarStacked className="text-green-500 w-4 h-4" />
         <p className="font-semibold text-sm">Total Price:</p>
-        <span className="text-sm">{totalPrice !== null ? `£${totalPrice.toFixed(2)}` : "N/A"}</span>
+        <span className="text-sm">{totalPrice !== null ? `£${(totalPrice / 100).toFixed(2)}` : "N/A"}</span>
       </div>
     </div>
   );

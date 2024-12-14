@@ -74,58 +74,76 @@ const CarList: Car[] = [
 
 export const fareStructure: Record<string, any> = {
   Economy: {
-    baseFare: 5,
+    baseRate: 25,
     perMile: 1.3,
-    tiers: [
-      { maxMiles: 10, flatRate: 25 },
-      { maxMiles: 20, flatRate: 35 },
-      { maxMiles: Infinity, flatRate: 45 },
-    ],
+    perStop: 10,
+    perHour: 15,
   },
   Executive: {
-    baseFare: 7,
+    baseRate: 35,
     perMile: 1.45,
-    tiers: [
-      { maxMiles: 10, flatRate: 35 },
-      { maxMiles: 20, flatRate: 45 },
-      { maxMiles: Infinity, flatRate: 55 },
-    ],
+    perStop: 10,
+    perHour: 17,
   },
   "Executive Premium": {
-    baseFare: 10,
+    baseRate: 45,
     perMile: 1.6,
-    tiers: [
-      { maxMiles: 10, flatRate: 45 },
-      { maxMiles: 20, flatRate: 65 },
-      { maxMiles: Infinity, flatRate: 75 },
-    ],
+    perStop: 10,
+    perHour: 20,
+  },
+  "XL Mini Van": {
+    baseRate: 65,
+    perMile: 1.8,
+    perStop: 15,
+    perHour: 30,
   },
 };
 
 interface VehicleSelectorProps {
   onBookNow: () => void;
-  distance: number; // Distance in miles
 }
 
 export default function VehicleSelector({
   onBookNow,
-  distance,
+  
 }: VehicleSelectorProps) {
   const { values ,setFieldValue } = useFormikContext<any>();
   const [selectedVehicle, setSelectedVehicle] = useState<string | null>(null);
 
-  const calculatePrice = (category: string, distance: number): number => {
+  const calculatePrice = (
+    category: string,
+    distance: number,
+    stops: number,
+    hourlyCharter: number
+  ): number => {
     const fareDetails = fareStructure[category];
     if (!fareDetails) return 0;
 
-    for (const tier of fareDetails.tiers) {
-      if (distance <= tier.maxMiles) {
-        return tier.flatRate;
-      }
+    // Calculate base rate
+    let totalPrice = fareDetails.baseRate;
+
+    // Add extra charges for distance above 10 miles
+    if (distance > 10) {
+      totalPrice += (distance - 10) * fareDetails.perMile;
     }
 
-    // Fallback: Base fare + per-mile rate
-    return fareDetails.baseFare + distance * fareDetails.perMile;
+     // Add extra charges for stops if provided
+     if (stops > 0) {
+      console.log(`Adding stop charges: ${stops} stops @ £${fareDetails.perStop}`);
+      totalPrice += stops * fareDetails.perStop;
+    }
+
+     // Add extra charges for stops if provided
+     if (hourlyCharter >= 2) {
+      console.log(`Adding hourly charges: ${hourlyCharter} hours @ £${fareDetails.perHour}`);
+      totalPrice += hourlyCharter * fareDetails.perHour;
+    }
+    const totalPriceInCents = Math.round(totalPrice * 100);
+
+    console.log("Total Price in Cents:", totalPriceInCents);
+  
+    return totalPriceInCents; // Return price in cents
+    
   };
 
   const handleBookNow = (
@@ -135,19 +153,43 @@ export default function VehicleSelector({
     category: string
   ) => {
     setSelectedVehicle(vehicleTitle);
+  
+    // Calculate the total price
+    const totalPrice = calculatePrice(
+      category,
+      values.distance,
+      values.stops?.length || 0,
+      values.hourlyCharter || 0
+    );
+  
+    // Set values in Formik context
     setFieldValue("selectedVehicle", vehicleTitle);
     setFieldValue("seats", seats);
     setFieldValue("bags", bags);
     setFieldValue("category", category);
+    setFieldValue("totalPrice", totalPrice); // Update totalPrice in Formik
+  
     onBookNow();
   };
+
+  console.log("Formik Values:", values);
+
+  
 
   return (
     <div className="w-full">
       <div className="w-full px-2 md:px-0 md:max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
           {CarList.map((car, index) => {
-            const price = calculatePrice(car.category, values.distance);
+           const price = calculatePrice(
+            car.category,
+            values.distance,
+            values.stops?.length || 0,
+            values.hourlyCharter || 0
+          );
+
+          console.log("PRICE+====>>>", price)
+
 
             return (
               <Card
@@ -179,7 +221,7 @@ export default function VehicleSelector({
                     </div>
                   </div>
                   <div className="text-center mt-2 font-medium">
-                    Price: £{price.toFixed(2)}
+                  Price: £{(price / 100).toFixed(2)} 
                   </div>
                 </CardContent>
                 <CardFooter className="p-2 pt-0">

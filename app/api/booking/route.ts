@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
   // Function to conditionally display fields
   const renderField = (label: string, value: string | number | string[] | undefined, condition = true) => {
-    if (!value || !condition) return ''; // Only display if condition is met
+    if (!value || !condition) return ''; 
   
     if (Array.isArray(value)) {
       return value.length > 0
@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
         : '';
     }
   
+    // Format Date...
     if (label.toLowerCase().includes('date')) {
       const parsedDate = new Date(value);
       if (!isNaN(parsedDate.getTime())) {
@@ -51,12 +52,20 @@ export async function POST(req: NextRequest) {
         return `<p><b>${label}:</b> ${formattedDate}</p>`;
       }
     }
+
+      // Format prices...
+      if (label.toLowerCase().includes('price')) {
+        const actualPrice = parseFloat(value as string) / 100; // Divide by 100
+        const formattedPrice = `£${actualPrice.toFixed(2)}`;
+        return `<p><b>${label}:</b> ${formattedPrice}</p>`;
+      }
   
     return `<p><b>${label}:</b> ${value}</p>`;
   };
   
 
   try {
+    // Admin Email...
     const adminEmailContent = `
       <div style="${commonStyles}">
         <div style="${headerStyle}">
@@ -86,23 +95,22 @@ export async function POST(req: NextRequest) {
           ${renderField('Booking Price £', bookingDetails.price)}
 
           <div style="margin-top: 20px;">
-            <a href="${process.env.NEXT_PUBLIC_BASE_URL}/api/booking/action?status=accept&email=${passengerInfo.email}" 
+            <a href="https://oktaxis.co.uk/api/booking/action?status=accept&email=${passengerInfo.email}" 
               style="${buttonStyle} background-color: #2ecc71;">Accept</a>
-            <a href="${process.env.NEXT_PUBLIC_BASE_URL}/api/booking/action?status=decline&email=${passengerInfo.email}" 
+            <a href="https://oktaxis.co.uk/api/booking/action?status=decline&email=${passengerInfo.email}" 
               style="${buttonStyle} background-color: #e74c3c;">Decline</a>
           </div>
         </div>
       </div>
     `;
 
-    // Send email to admin
+    // Send email to User...
     await sendEmail({
       to: "info@oktaxis.co.uk",
       subject: 'New Booking Confirmation',
       html: adminEmailContent,
     });
 
-    // Generate user email content
     const userEmailContent = `
       <div style="${commonStyles}">
         <div style="${headerStyle}">
