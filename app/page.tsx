@@ -44,7 +44,7 @@ const Home = () => {
                     <BookingForm/>
                 </div>   
 
-                <div className="w-full lg:w-[30%] ">
+                <div className="w-full lg:w-[30%] flex items-center m-auto justify-center">
                     <HeroCard/>
                 </div>
               </div>

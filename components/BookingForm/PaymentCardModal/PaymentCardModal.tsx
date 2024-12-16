@@ -63,8 +63,8 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [isSuccess, setIsSuccess] = useState(false)
   const [formData, setFormData] = useState({
     fullName: '',
-    country: '',
-    address: '',
+    // country: 'United Kingdom',
+    // address: '',
   })
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -86,9 +86,9 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         card: cardNumberElement,
         billing_details: {
           name: formData.fullName,
-          address: {
-            country: formData.country,
-          },
+          // address: {
+          //   country: formData.country,
+          // },
         },
       })
 
@@ -111,7 +111,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             name: formData.fullName,
             email: values.passengerInfo.email,
             phone: values.passengerInfo.phone,
-            country: formData.country
+            // country: formData.country
           },
           orderSummary: { ...values, formData },
         }),
@@ -188,7 +188,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               required
             />
           </div>
-
+{/* 
           <div className="space-y-2">
             <Label htmlFor="country">Country</Label>
             <Select
@@ -204,7 +204,7 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 <SelectItem value="GB">United Kingdom</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
 
           <div className="space-y-2">
             <Label htmlFor="card-number">Card Number</Label>

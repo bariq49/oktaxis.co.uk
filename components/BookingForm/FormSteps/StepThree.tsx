@@ -55,11 +55,13 @@ export default function StepThree({
     setShowSummary((prev) => !prev);
   };
 
+  
+
   return (
-    <div className="w-full flex flex-col gap-y-3">
+    <div className="w-full flex flex-col gap-y-3 items-center">
       {/* Step Three Header */}
       {showHeader && (
-        <div className="w-[350px] lg:w-full h-12 bg-gray-800 text-white rounded-lg flex items-center justify-between px-3">
+        <div className="w-[320px] lg:w-full h-12 bg-gray-800 text-white rounded-lg flex items-center align-middle justify-between px-3">
           <h1
             className={`capitalize text-[15px] lg:text-lg font-medium tracking-wider cursor-pointer ${
               !isActive ? "opacity-100" : ""
@@ -81,7 +83,7 @@ export default function StepThree({
 
       {/* Step Three Content */}
       {((completedSteps.Step2 && !completedSteps.Step3) || isEditing) ? (
-        <div className="flex flex-col gap-y-3">
+        <div className="w-full flex flex-col gap-y-3">
           <PassengerInfo />
           <div className="flex flex-col lg:flex-row gap-x-3 gap-y-3 w-full">
             <ChildCount />
@@ -111,9 +113,9 @@ export default function StepThree({
 
       {/* Pay Now Button */}
       {completedSteps.Step3 && (
-        <div className="w-full">
+        <div className="w-full flex items-center">
           <Button
-            className="w-full p-6 bg-gray-800 hover:bg-gradient-to-l from-gray-700 via-gray-800 to-gray-700 text-white rounded-lg"
+            className="w-[400px] md:w-[350px] lg:w-full p-6 bg-gray-800 hover:bg-gradient-to-l from-gray-700 via-gray-800 to-gray-700 text-white rounded-lg"
             onClick={handleOpenDialog}
           >
             <span className="flex flex-col font-bold">

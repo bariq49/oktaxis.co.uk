@@ -104,13 +104,14 @@ const BookingForm = () => {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
+                validateOnMount={false}
               
             >
                 {({ values, errors, touched, setFieldValue, setFieldTouched, handleBlur}) => (
                     <Form>
                         
                         {/* Steps */}
-                        <div className="flex flex-col gap-y-3 w-full md:w-[780px]">
+                        <div className="flex flex-col gap-y-3 w-[80%] md:w-[90%] lg:w-[780px] items-center justify-center">
 
                             <StepOne
                                 isActive= {currentStep === 1}

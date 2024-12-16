@@ -33,7 +33,7 @@ const StepOneSummary = ({
   };
 
   return (
-    <div className="w-[350px] lg:w-full bg-white shadow-lg rounded-lg px-6 py-2 text-gray-800 space-y-2">
+    <div className="w-[320px] lg:w-full bg-white shadow-lg rounded-lg px-6 py-2 text-gray-800 space-y-2">
       <h2 className="text-[16px] font-bold mb-3 border-b pb-1">Ride Info Summary</h2>
 
       <div className="flex items-center gap-2">
