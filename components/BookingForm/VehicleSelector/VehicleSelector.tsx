@@ -114,37 +114,79 @@ export default function VehicleSelector({
     category: string,
     distance: number,
     stops: number,
-    hourlyCharter: number
+    hourlyCharter: number,
+    bookingType: string
   ): number => {
     const fareDetails = fareStructure[category];
     if (!fareDetails) return 0;
-
-    // Calculate base rate
-    let totalPrice = fareDetails.baseRate;
-
-    // Add extra charges for distance above 10 miles
-    if (distance > 10) {
-      totalPrice += (distance - 10) * fareDetails.perMile;
-    }
-
-     // Add extra charges for stops if provided
-     if (stops > 0) {
-      console.log(`Adding stop charges: ${stops} stops @ £${fareDetails.perStop}`);
-      totalPrice += stops * fareDetails.perStop;
-    }
-
-     // Add extra charges for stops if provided
-     if (hourlyCharter >= 2) {
-      console.log(`Adding hourly charges: ${hourlyCharter} hours @ £${fareDetails.perHour}`);
-      totalPrice += hourlyCharter * fareDetails.perHour;
-    }
-    const totalPriceInCents = Math.round(totalPrice * 100);
-
-    console.log("Total Price in Cents:", totalPriceInCents);
   
-    return totalPriceInCents; // Return price in cents
-    
+    let totalPrice = fareDetails.baseRate; // Base rate applies to all types
+  
+    // Add distance charges only for To Airport, From Airport, and Point to Point
+    if (["to", "from", "point"].includes(bookingType)) {
+      if (distance > 10) {
+        const extraMiles = distance - 10;
+        const extraMileCharge = extraMiles * fareDetails.perMile;
+        totalPrice += extraMileCharge;
+      }
+    }
+  
+    // Add stop charges only if "Add Stop" option is valid
+    if (bookingType === "Point to Point" && stops > 0) {
+      const stopCharge = stops * fareDetails.perStop;
+      totalPrice += stopCharge;
+    }
+  
+    // Add hourly charges only for "Hourly Charter" type
+    if (bookingType === "Hourly Charter" && hourlyCharter >= 2) {
+      const hourlyCharge = hourlyCharter * fareDetails.perHour;
+      totalPrice += hourlyCharge;
+    }
+  
+    console.log(`Booking Type: ${bookingType}, Total Price: £${totalPrice}`);
+    return Math.round(totalPrice * 100); // Return price in cents
   };
+  
+
+  // const calculatePrice = (
+  //   category: string,
+  //   distance: number,
+  //   stops: number,
+  //   hourlyCharter: number
+  // ): number => {
+  //   const fareDetails = fareStructure[category];
+  //   if (!fareDetails) return 0;
+
+  //   // Calculate base rate
+  //   let totalPrice = fareDetails.baseRate;
+
+  //   if (distance <= 10 ) {
+  //     totalPrice = fareDetails.baseRate;
+  //   }
+
+  //   // Add extra charges for distance above 10 miles
+  //   if (distance > 10) {
+  //     totalPrice += (distance - 10) * fareDetails.perMile;
+  //   }
+
+  //    // Add extra charges for stops if provided
+  //    if (stops > 0) {
+  //     console.log(`Adding stop charges: ${stops} stops @ £${fareDetails.perStop}`);
+  //     totalPrice += stops * fareDetails.perStop;
+  //   }
+
+  //    // Add extra charges for stops if provided
+  //    if (hourlyCharter >= 2) {
+  //     console.log(`Adding hourly charges: ${hourlyCharter} hours @ £${fareDetails.perHour}`);
+  //     totalPrice += hourlyCharter * fareDetails.perHour;
+  //   }
+  //   const totalPriceInCents = Math.round(totalPrice * 100);
+
+  //   console.log("Total Price in Cents:", totalPriceInCents);
+  
+  //   return totalPriceInCents; // Return price in cents
+    
+  // };
 
   const handleBookNow = (
     vehicleTitle: string,
@@ -159,7 +201,8 @@ export default function VehicleSelector({
       category,
       values.distance,
       values.stops?.length || 0,
-      values.hourlyCharter || 0
+      values.hourlyCharter || 0,
+      values.bookingType
     );
   
     // Set values in Formik context
@@ -185,7 +228,8 @@ export default function VehicleSelector({
             car.category,
             values.distance,
             values.stops?.length || 0,
-            values.hourlyCharter || 0
+            values.hourlyCharter || 0,
+            values.bookingType
           );
 
           console.log("PRICE+====>>>", price)
