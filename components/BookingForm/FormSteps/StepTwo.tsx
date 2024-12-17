@@ -9,6 +9,7 @@ interface StepTwoProps {
   completedSteps: any;
   setCompletedSteps: any;
   onEdit: () => void;
+  onScrollToStep: () => void;
 }
 
 export default function StepTwo({
@@ -16,6 +17,7 @@ export default function StepTwo({
   completedSteps,
   setCompletedSteps,
   onEdit,
+  onScrollToStep 
 }: StepTwoProps) {
   const { values, setFieldValue } = useFormikContext<any>();
   const [showSummary, setShowSummary] = useState(false);
@@ -27,6 +29,7 @@ export default function StepTwo({
     setIsEditing(false);
     setShowHeader(true);
     setCompletedSteps((prev: any) => ({ ...prev, Step2: true }));
+    onScrollToStep();
   };
 
   const handleEdit = () => {

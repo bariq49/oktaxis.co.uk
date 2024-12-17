@@ -66,7 +66,7 @@ const CarList: Car[] = [
   {
     image: XLVan,
     title: "XL Passenger Van",
-    category: "Executive Premium",
+    category: "Luxury Van",
     seats: 6,
     bags: 6,
   },
@@ -91,7 +91,7 @@ export const fareStructure: Record<string, any> = {
     perStop: 10,
     perHour: 20,
   },
-  "XL Mini Van": {
+  "Luxury Van": {
     baseRate: 65,
     perMile: 1.8,
     perStop: 15,
@@ -120,7 +120,11 @@ export default function VehicleSelector({
     const fareDetails = fareStructure[category];
     if (!fareDetails) return 0;
   
-    let totalPrice = fareDetails.baseRate; // Base rate applies to all types
+    let totalPrice = 0; // Base rate applies to all types
+
+    if (bookingType !== "hourly") {
+      totalPrice = fareDetails.baseRate;
+    }
   
     // Add distance charges only for To Airport, From Airport, and Point to Point
     if (["to", "from", "point"].includes(bookingType)) {
@@ -132,13 +136,14 @@ export default function VehicleSelector({
     }
   
     // Add stop charges only if "Add Stop" option is valid
-    if (bookingType === "Point to Point" && stops > 0) {
+    if (stops > 0) {
       const stopCharge = stops * fareDetails.perStop;
       totalPrice += stopCharge;
     }
+    
   
     // Add hourly charges only for "Hourly Charter" type
-    if (bookingType === "Hourly Charter" && hourlyCharter >= 2) {
+    if (bookingType === "hourly" && hourlyCharter >= 2) {
       const hourlyCharge = hourlyCharter * fareDetails.perHour;
       totalPrice += hourlyCharge;
     }

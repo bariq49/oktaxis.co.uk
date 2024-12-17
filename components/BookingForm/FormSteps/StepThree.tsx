@@ -13,6 +13,7 @@ interface StepThreeProps {
   completedSteps: any;
   setCompletedSteps: any;
   onEdit: () => void;
+  stepThreeHeaderRef: any;
 }
 
 export default function StepThree({
@@ -20,33 +21,22 @@ export default function StepThree({
   completedSteps,
   setCompletedSteps,
   onEdit,
+  stepThreeHeaderRef,
 }: StepThreeProps) {
   const [isPaymentDialogOpen, setPaymentDialogOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [showSummary, setShowSummary] = useState(false); // Initially false to hide the summary
-  const [showHeader, setShowHeader] = useState(false); // New state for header visibility
+  const [showSummary, setShowSummary] = useState(false); 
+  const [showHeader, setShowHeader] = useState(false); 
 
-  const { values } = useFormikContext<any>();
+  const { values, validateForm } = useFormikContext<any>();
 
   const handleOpenDialog = () => setPaymentDialogOpen(true);
   const handleCloseDialog = () => setPaymentDialogOpen(false);
-
-  const handleBookNow = () => {
-    if (isEditing) {
-      // If editing, show summary without changing steps
-      setShowSummary(true);
-      setIsEditing(false); // Exit editing mode
-    } else {
-      // Normal flow when not editing
-      setShowSummary(true);
-      setShowHeader(true); // Show header on completion
-      setCompletedSteps((prev: any) => ({ ...prev, Step3: true }));
-    }
-  };
+  
 
   const handleEdit = () => {
-    setShowSummary(false); // Return to editing mode
-    setIsEditing(true); // Enter editing mode
+    setShowSummary(false); 
+    setIsEditing(true); 
     onEdit();
   };
 
@@ -54,11 +44,41 @@ export default function StepThree({
   const handleToggleSummary = () => {
     setShowSummary((prev) => !prev);
   };
+  
+  // Function to validate all fields before moving to  the next step...
+  const validateFields = () => {
+  
+    // Check if any passengerInfo field is empty
+    const passengerInfo = values.passengerInfo || {};
+    const isPassengerInfoFilled =
+      passengerInfo.name?.trim() &&
+      passengerInfo.email?.trim() &&
+      passengerInfo.phone?.trim();
+  
+    return isPassengerInfoFilled;
+  };
+  
+  
+  console.log("Form Values ==>", values);
 
+  const handleBookNow = async () => {
+    const isValid = await validateFields();
+  
+    if (isValid) {
+      setIsEditing(false);
+      setShowHeader(true);
+      setShowSummary(true);
+      setCompletedSteps((prev: any) => ({ ...prev, Step3: true }));
+    } else {
+      setShowSummary(false);
+      setCompletedSteps((prev: any) => ({ ...prev, Step3: false }));
+      console.log("Please fill all the required fields properly");
+    }
+  };
   
 
   return (
-    <div className="w-full flex flex-col gap-y-3 items-center">
+    <div className="w-full flex flex-col gap-y-3 items-center"  ref={stepThreeHeaderRef}>
       {/* Step Three Header */}
       {showHeader && (
         <div className="w-[320px] lg:w-full h-12 bg-gray-800 text-white rounded-lg flex items-center align-middle justify-between px-3">

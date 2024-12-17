@@ -41,7 +41,7 @@ export default function sServiceCard() {
               <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-transform duration-500">
                 {/* Title container with skewed edge */}
                 <div className="relative bg-primary/90 py-3 px-6 transform -translate-y-6 transition-transform duration-500 group-hover:translate-y-0 w-auto max-w-[90%]">
-                  <h3 className="text-xl font-semibold text-white text-center">
+                  <h3 className="text-xl font-semibold text-green-400 text-center">
                     {service.title}
                   </h3>
                  

@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import StepOne from "./FormSteps/StepOne"
@@ -87,6 +87,22 @@ const BookingForm = () => {
         alert("Booking details successfully submitted!")
     }
 
+    const [shouldScrollToStepThree, setShouldScrollToStepThree] = useState(false);
+    const stepThreeHeaderRef = useRef<HTMLDivElement | null>(null);
+  
+    // Scroll to StepThree when the state indicates it should
+    useEffect(() => {
+      if (shouldScrollToStepThree && stepThreeHeaderRef.current) {
+        stepThreeHeaderRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        setShouldScrollToStepThree(false); // Reset the flag after scrolling
+      }
+    }, [shouldScrollToStepThree]);
+  
+    const handleScrollToStepThree = () => {
+      setShouldScrollToStepThree(true); // Set the flag to trigger the scroll
+      setCurrentStep(3); // Move to StepThree
+    };
+
   
   return (
     <div 
@@ -127,6 +143,7 @@ const BookingForm = () => {
                                 completedSteps = {completedSteps}
                                 setCompletedSteps={setCompletedSteps}
                                 onEdit={() => handleEditStep(2)}
+                                onScrollToStep={handleScrollToStepThree}
                             />
                     
                             <StepThree
@@ -134,6 +151,7 @@ const BookingForm = () => {
                                 completedSteps = {completedSteps}
                                 setCompletedSteps={setCompletedSteps}
                                 onEdit={() => handleEditStep(3)}
+                                stepThreeHeaderRef={stepThreeHeaderRef}
                             />
                             
                         </div>

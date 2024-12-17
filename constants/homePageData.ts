@@ -77,42 +77,43 @@ const homePageData = {
   },
 
   // Services Section...
-  servicesSection: {
-    title: "Our Services",
-    description: "Discover our wide range of professional services tailored to your needs.",
-    services: [
-      {
-        title: "Airport Transportation",
-        image: Img1,
-        description: "Reliable and punctual airport transfers for a stress-free journey.",
-      },
-      {
-        title: "Chauffeur Services",
-        image: Img2,
-        description: "Professional chauffeurs for a luxurious and comfortable ride.",
-      },
-      {
-        title: "Hourly Executive Transportation",
-        image: Img3,
-        description: "Flexible hourly service for business professionals on the go.",
-      },
-      {
-        title: "Wedding Limo Services",
-        image: Img4,
-        description: "Elegant transportation to make your special day even more memorable.",
-      },
-      {
-        title: "Interview Service",
-        image: Img5,
-        description: "Arrive at your interview relaxed and confident with our reliable service.",
-      },
-      {
-        title: "Corporate Limo Transportation",
-        image: Img6,
-        description: "Impress clients and partners with our premium corporate transportation.",
-      },
-    ],
-  },
+servicesSection: {
+  title: "Our Services",
+  description: "Explore our diverse range of top-notch transportation services, designed to provide comfort, reliability, and luxury for every occasion.",
+  services: [
+    {
+      title: "Airport Transportation",
+      image: Img1,
+      description: "Experience seamless and punctual airport transfers, ensuring you reach your destination on time and in style. Our service eliminates travel stress and offers unmatched reliability.",
+    },
+    {
+      title: "Chauffeur Services",
+      image: Img2,
+      description: "Enjoy the ultimate in luxury and convenience with our professional chauffeurs, committed to providing a smooth and comfortable ride for any occasion.",
+    },
+    {
+      title: "Hourly Executive Transportation",
+      image: Img3,
+      description: "Perfect for business professionals, our flexible hourly transportation service caters to your schedule, offering convenience, privacy, and efficiency throughout your journey.",
+    },
+    {
+      title: "Wedding Limo Services",
+      image: Img4,
+      description: "Add a touch of elegance to your big day with our luxurious wedding limo services, ensuring a memorable and grand entrance for your special moments.",
+    },
+    {
+      title: "Interview Service",
+      image: Img5,
+      description: "Arrive at your interview prepared and composed with our reliable and professional transportation service, tailored to help you make a lasting impression.",
+    },
+    {
+      title: "Corporate Limo Transportation",
+      image: Img6,
+      description: "Elevate your corporate image with our premium limo transportation, designed to impress clients and partners while providing a sophisticated and comfortable travel experience.",
+    },
+  ],
+},
+
 
   // Fleets Page...
   ourFleets: {

@@ -32,7 +32,7 @@ const CustomTimeSelector = () => {
   }, [values.time])
 
   const updateFormikTime = () => {
-    if (hours !== "--" && minutes !== "--" && period) {
+    if (hours !== "HH" && minutes !== "MM" && period) {
       const selectedTime = `${hours}:${minutes} ${period}`
       setFieldValue("time", selectedTime)
       setShowPicker(false);

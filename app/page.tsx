@@ -39,8 +39,8 @@ const Home = () => {
                       className="w-full lg:w-[30%] flex lg:hidden"
                     />
               </div>
-              <div className="container h-full flex flex-col lg:flex-row gap-y-5 lg:gap-x-5">
-                <div className="w-full px-5 lg:w-[70%] h-auto overflow-visible custom-scrollbar mb-40">
+              <div className="container h-full flex flex-col align-middle items-center justify-center lg:flex-row gap-y-5 lg:gap-x-5">
+                <div className="w-full px-5 lg:w-[70%] h-auto overflow-visible custom-scrollbar my-5 lg:my-0">
                     <BookingForm/>
                 </div>   
 

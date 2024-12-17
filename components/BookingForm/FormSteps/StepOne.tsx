@@ -138,10 +138,13 @@ export default function StepOne({
                 bookingType={bookingType}
               />
               {airportSelectorFor === "from" && <AirlineInput />}
-              <DropOffAddressInput
-                showAirportSelector={airportSelectorFor === "to"}
-                bookingType={bookingType}
-              />
+              {bookingType !== "hourly" && (
+                  <DropOffAddressInput
+                    showAirportSelector={airportSelectorFor === "to"}
+                    bookingType={bookingType}
+                  />
+              )
+              }
               <div className="flex w-full gap-x-3 flex-wrap md:flex-nowrap gap-y-3">
                 <CustomTimeSelector />
                 <CustomDateSelector />
