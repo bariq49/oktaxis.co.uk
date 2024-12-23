@@ -14,11 +14,11 @@ export default function VehicleGrid() {
             }}
             
         >
-            <h1 className="text-lg lg:text-2xl font-semibold text-green-300">
-                {/* {serviceName} */}
+            {/* <h1 className="text-lg lg:text-2xl font-semibold text-green-300">
+          
                 Oktaxis
-            </h1>
-            <h1 className="text-3xl lg:text-5xl font-semibold text-green-400">{title}</h1>
+            </h1> */}
+            {/* <h1 className="text-3xl lg:text-5xl font-semibold text-green-400">{title}</h1> */}
 
 
 
@@ -40,9 +40,9 @@ export default function VehicleGrid() {
                             />
                         </div>
                         <div className="text-center">
-                            <h3 className="text-xl text-[#006D77] font-medium relative inline-block">
+                            <h3 className="text-xl text-green-600 font-medium relative inline-block">
                             {fleet.name}
-                            <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#006D77] transform scale-x-0 transition-transform group-hover:scale-x-100" />
+                            <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-green-800 transform scale-x-0 transition-transform group-hover:scale-x-100" />
                             </h3>
                         </div>
                         </div>
