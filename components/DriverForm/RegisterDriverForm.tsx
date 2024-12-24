@@ -1,176 +1,157 @@
-import { FormikErrors, FormikTouched } from "formik";
+"use client";
 
-interface RegisterDriverFormProps {
-  values: any;
-  errors: FormikErrors<any>;
-  touched: FormikTouched<any>;
-  handleChange: (e: React.ChangeEvent<any>) => void;
-  handleBlur: (e: React.FocusEvent<any>) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup"; 
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-const vehicleTypes = ["Sedan", "SUV", "Van", "Luxury", "Other"];
+// Validation schema using Yup
+const validationSchema = Yup.object({
+  name: Yup.string().required("First Name is required"),
+  email: Yup.string().email("Invalid email address").required("Email is required"),
+  phone: Yup.string().required("Phone number is required"),
+  vehicleType: Yup.string().required("Vehicle Type is required"),
+  licenseNumber: Yup.string().required("License Number is required"),
+});
 
-export const RegisterDriverForm: React.FC<RegisterDriverFormProps> = ({
-  values,
-  errors,
-  touched,
-  handleChange,
-  handleBlur,
-  handleSubmit,
-}) => {
+export default function RegisterDriverForm() {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   return (
-    <div className="min-h-screen bg-white py-12 px-4">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold mb-4">REGISTER AS DRIVER</h1>
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-[1px] w-32 bg-black"></div>
-            <div className="w-8 h-8 bg-green-600 rounded-full"></div>
-            <div className="h-[1px] w-32 bg-black"></div>
-          </div>
-        </div>
+    <Formik
+      initialValues={{
+        name: "",
+        email: "",
+        phone: "",
+        vehicleType: "",
+        licenseNumber: "",
+      }}
+      validationSchema={validationSchema}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        console.log("Form values submitted:", values);
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* First Name */}
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              value={values.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full bg-gray-200 px-3 py-2 border-b ${
-                touched.firstName && errors.firstName
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } focus:border-green-500 focus:outline-none`}
+        // Simulate API call
+        setTimeout(() => {
+          setFormSubmitted(true); // Show success message
+          setSubmitting(false); // Stop submitting state
+          resetForm(); // Reset form fields
+
+          // Hide the success message after 3 seconds
+          setTimeout(() => setFormSubmitted(false), 3000);
+        }, 1000);
+      }}
+    >
+      {({ values, setFieldValue, isSubmitting }) => (
+        <Form className="space-y-5">
+          <div className="text-2xl font-bold text-center">Register as Driver</div>
+          <div>
+            <Field
+              name="name"
+              as={Input}
+              placeholder="Enter Your Name"
+              className="w-full px-4 py-5 border-gray-300 rounded-md"
             />
-            {touched.firstName && typeof errors.firstName === "string" ? (
-              <p className="text-red-500 text-sm">{errors.firstName}</p>
-            ) : null}
-          </div>
-
-          {/* Last Name */}
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              value={values.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full bg-gray-200 px-3 py-2 border-b ${
-                touched.lastName && errors.lastName
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } focus:border-green-500 focus:outline-none`}
+            <ErrorMessage
+              name="name"
+              component="p"
+              className="text-red-500 text-sm mt-1"
             />
-            {touched.lastName && typeof errors.lastName === "string" ? (
-              <p className="text-red-500 text-sm">{errors.lastName}</p>
-            ) : null}
           </div>
 
-          {/* Email */}
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">Email</label>
-            <input
-              type="email"
+          <div>
+            <Field
               name="email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full bg-gray-200 px-3 py-2 border-b ${
-                touched.email && errors.email
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } focus:border-green-500 focus:outline-none`}
+              type="email"
+              as={Input}
+              placeholder="Enter Your Email Address"
+              className="w-full px-4 py-5 border-gray-300 rounded-md"
             />
-            {touched.email && typeof errors.email === "string" ? (
-              <p className="text-red-500 text-sm">{errors.email}</p>
-            ) : null}
+            <ErrorMessage
+              name="email"
+              component="p"
+              className="text-red-500 text-sm mt-1"
+            />
           </div>
 
-          {/* Phone Number */}
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">Phone Number</label>
-            <input
-              type="tel"
+          <div>
+            <Field
               name="phone"
-              value={values.phone}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full bg-gray-200 px-3 py-2 border-b ${
-                touched.phone && errors.phone
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } focus:border-green-500 focus:outline-none`}
+              type="tel"
+              as={Input}
+              placeholder="Enter Your Contact Number"
+              className="w-full px-4 py-5 border-gray-300 rounded-md"
             />
-            {touched.phone && typeof errors.phone === "string" ? (
-              <p className="text-red-500 text-sm">{errors.phone}</p>
-            ) : null}
+            <ErrorMessage
+              name="phone"
+              component="p"
+              className="text-red-500 text-sm mt-1"
+            />
           </div>
 
-          {/* Vehicle Type */}
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">Vehicle Type</label>
-            <select
+          {/* Dropdown for Vehicle Type */}
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div
+                  className="w-full px-4 py-3 border rounded-md cursor-pointer bg-white border-gray-300 focus:outline-none text-left"
+                >
+                  {values.vehicleType || "Select Vehicle Type"}
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-full">
+                {["Sedan", "SUV", "Van", "Luxury", "Other"].map((option) => (
+                  <DropdownMenuItem
+                    key={option}
+                    onClick={() => setFieldValue("vehicleType", option)}
+                    className="cursor-pointer hover:bg-green-700 hover:text-white"
+                  >
+                    {option}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <ErrorMessage
               name="vehicleType"
-              value={values.vehicleType}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full bg-gray-200 px-3 py-2 border-b ${
-                touched.vehicleType && errors.vehicleType
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } focus:border-green-500 focus:outline-none`}
-            >
-              <option value="">Select Vehicle Type</option>
-              {vehicleTypes.map((type) => (
-                <option key={type} value={type} className="">
-                  <span className="bg-gray-800 hover:!bg-gray-700 hover:text-white">
-                    {type}
-                  </span>
-                </option>
-              ))}
-            </select>
-            {touched.vehicleType && typeof errors.vehicleType === "string" ? (
-              <p className="text-red-500 text-sm">{errors.vehicleType}</p>
-            ) : null}
-          </div>
-
-          {/* License Number */}
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">License Number</label>
-            <input
-              type="text"
-              name="licenseNumber"
-              value={values.licenseNumber}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`w-full bg-gray-200 px-3 py-2 border-b ${
-                touched.licenseNumber && errors.licenseNumber
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } focus:border-green-500 focus:outline-none`}
+              component="p"
+              className="text-red-500 text-sm mt-1"
             />
-            {touched.licenseNumber &&
-            typeof errors.licenseNumber === "string" ? (
-              <p className="text-red-500 text-sm">{errors.licenseNumber}</p>
-            ) : null}
           </div>
-      
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-green-800 text-white py-2 rounded-lg hover:bg-green-700"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
+          <div>
+            <Field
+              name="licenseNumber"
+              as={Input}
+              placeholder="Enter Your License Number"
+              className="w-full px-4 py-5 border-gray-300 rounded-md"
+            />
+            <ErrorMessage
+              name="licenseNumber"
+              component="p"
+              className="text-red-500 text-sm mt-1"
+            />
+          </div>
+
+          <div className="text-center">
+            <Button
+              type="submit"
+              className={`w-48 ${
+                formSubmitted
+                  ? "bg-blue-500 hover:bg-blue-400"
+                  : "bg-green-800 hover:bg-green-700"
+              } text-white font-medium py-2 px-4 rounded-md transition-colors`}
+              disabled={isSubmitting}
+            >
+              {formSubmitted
+                ? "Request Submitted"
+                : isSubmitting
+                ? "Submitting..."
+                : "Submit Your Request"}
+            </Button>
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
-};
+}

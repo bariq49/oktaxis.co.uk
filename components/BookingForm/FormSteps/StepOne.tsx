@@ -48,9 +48,9 @@ export default function StepOne({
     const areFieldsFilled =
       values.bookingType &&
       values.pickUpAddress &&
-      values.dropOffAddress &&
       values.date &&
       values.time;
+      (values.bookingType !== "hourly" ? values.dropOffAddress : true)
 
     return Object.keys(validationErrors).length === 0 && areFieldsFilled;
   };

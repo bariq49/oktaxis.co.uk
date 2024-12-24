@@ -52,3 +52,56 @@ export const sendBookingEmail = async (values: any) => {
   }
 };
 
+// Get Data for Register Driver...
+export const registerDriverEmail = async (values: any) => {
+  try {
+    const response = await fetch('/api/registerDriver', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        vehicleType: values.vehicleType,
+        licenseNumber: values.licenseNumber,
+      })
+    })
+
+    if (!response.ok) {
+      const errorMessage = await response.json();
+      console.error('Failed to send emails. Server response:', errorMessage);
+      throw new Error(errorMessage.message || 'Unknown server error');
+    }
+
+    console.log('Emails sent successfully');
+  } catch (error) {
+    console.error('Error sending emails:', error.message);
+    throw error; 
+  }
+}
+
+export const contactEmail = async (values: any) => {
+  try {
+    const response = await fetch('/api/contactEmail', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        message: values.message,
+      })
+    })
+
+    if (!response.ok) {
+      const errorMessage = await response.json();
+      console.error('Failed to send emails. Server response:', errorMessage);
+      throw new Error(errorMessage.message || 'Unknown server error');
+    }
+
+    console.log('Emails sent successfully');
+  } catch (error) {
+    console.error('Error sending emails:', error.message);
+    throw error; 
+  }
+}

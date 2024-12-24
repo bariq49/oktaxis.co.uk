@@ -44,6 +44,7 @@ const BookingForm = () => {
         flightNumber: "",
         distance: 0,
         totalPrice: 0,
+
       };
       
       
@@ -73,6 +74,7 @@ const BookingForm = () => {
             expiry: Yup.string().required('Expiration date is required'),
             cvc: Yup.string().required('CVC is required').min(3, 'CVC must be at least 3 digits'),
             country: Yup.string().required('Country is required'),
+            
         });
       
 

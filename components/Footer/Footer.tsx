@@ -14,12 +14,12 @@ export default function Footer() {
     <>
       <footer className="w-full relative bg-green-800 text-white pt-12 px-4 md:px-6 lg:px-8 border-t">
         {/* WhatsApp Animation Section */}
-        <div className="fixed right-[1%] bottom-[4%] animate-whatsappBounce">
+        <div className="fixed right-[0] bottom-[4%] animate-whatsappBounce">
           <a href="https://wa.me/447788710290" target="_blank" rel="noopener noreferrer">
             <Image
               src={Whatsapp}
               alt="whatsapp logo"
-              className="w-32 lg:w-40"
+              className="w-14 lg:w-16 pr-[2px] lg:p-0"
             />
           </a>
         </div>
