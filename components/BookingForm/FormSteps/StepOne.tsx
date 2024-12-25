@@ -49,14 +49,13 @@ export default function StepOne({
       values.bookingType &&
       values.pickUpAddress &&
       values.date &&
-      values.time;
-      (values.bookingType !== "hourly" ? values.dropOffAddress : true)
+      values.time &&
+      (values.bookingType !== "hourly" ? values.dropOffAddress : true);
 
     return Object.keys(validationErrors).length === 0 && areFieldsFilled;
   };
 
   console.log("Formik Values FROM STEP:", values);
-
 
   const handleValidationAndNextStep = () => {
     const isValid = validateAllFields();
@@ -85,7 +84,9 @@ export default function StepOne({
 
   return (
     <div
-      className={`w-full flex flex-col items-center gap-y-3 ${isActive ? "" : "opacity-90"}`}
+      className={`w-full flex flex-col items-center gap-y-3 ${
+        isActive ? "" : "opacity-90"
+      }`}
     >
       {/* Step 1 Header and Summary */}
       {completedSteps.Step1 && !isEditing && (
@@ -139,12 +140,11 @@ export default function StepOne({
               />
               {airportSelectorFor === "from" && <AirlineInput />}
               {bookingType !== "hourly" && (
-                  <DropOffAddressInput
-                    showAirportSelector={airportSelectorFor === "to"}
-                    bookingType={bookingType}
-                  />
-              )
-              }
+                <DropOffAddressInput
+                  showAirportSelector={airportSelectorFor === "to"}
+                  bookingType={bookingType}
+                />
+              )}
               <div className="flex w-full gap-x-3 flex-wrap md:flex-nowrap gap-y-3">
                 <CustomTimeSelector />
                 <CustomDateSelector />
