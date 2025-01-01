@@ -21,14 +21,14 @@ const Home = () => {
 
       {/* Hero Section */}
       <div
-        className={`w-full h-auto overflow-x-hidden bg-contain object-cover bg-no-repeat flex text-black overflow-auto`}
+        className={`w-full  bg-contain object-cover bg-no-repeat flex text-black `}
         // style={{
         //     backgroundImage: `url(${heroSection.backgroundImage.src})`
             
         // }}
         >
 
-        <div className="w-full flex flex-col items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 px-[2%]">
+        <div className="w-full flex flex-col items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 px-[2%] ">
               <div className=" flex flex-col items-center m-auto">
                     <h2 className="font-bold py-4 px-4 lg:px-[10%] text-center text-2xl lg:text-4xl">
                         <span className="text-green-700">Manchester</span> Airport Taxi & Airport  <span className="text-green-700">Transfers</span>
@@ -40,13 +40,13 @@ const Home = () => {
                     />
               </div>
               <div className="container h-full flex flex-col align-middle items-center justify-center lg:flex-row gap-y-5 lg:gap-x-5">
-                <div className="w-full px-5 lg:w-[70%] h-auto overflow-visible custom-scrollbar my-5 lg:my-0">
+                <div className="w-full px-5 lg:w-[70%] h-auto   custom-scrollbar my-5 lg:my-0">
                     <BookingForm/>
                 </div>   
 
-                <div className="w-full lg:w-[30%] flex items-center m-auto justify-center">
+                {/* <div className="w-full lg:w-[30%] flex items-center m-auto justify-center">
                     <HeroCard/>
-                </div>
+                </div> */}
               </div>
         </div>
 
@@ -62,7 +62,7 @@ const Home = () => {
       </div>
             <div className="w-full">
               <ServiceCard/>
-              <OurStory/>
+              {/* <OurStory/> */}
               <WhyChooseUs/>
             </div>
 

@@ -182,7 +182,7 @@ aboutContent: {
   contactFormSection: {
     title: "Contact Us",
     subtitle: "Get in Touch with Oktaxis",
-    description: "Our professional drivers offer prompt pick-and-drop services.",
+    description: "Whether you're arranging a trip to Manchester or planning travel for a unique occasion, we’re here to assist. Our team guarantees a smooth and luxurious journey customized to your preferences.",
   },
 
   // Footer...

@@ -71,7 +71,7 @@ export default function AboutPage() {
           <div className="flex flex-col items-center space-y-4 text-center">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 {/* {aboutUsContent.hero.title} */}
-                We make sure that your every trip is <span className="text-green-700">reliable</span> & <span className="text-green-700">comfortable</span>
+                We Make Sure That Your Every Trip Is <span className="text-green-700">Reliable</span> & <span className="text-green-700">Comfortable</span>
               </h1>
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                 {aboutUsContent.hero.description}
