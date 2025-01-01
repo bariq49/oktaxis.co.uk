@@ -17,13 +17,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+
 
 interface PaymentCardModalProps {
   onClose: () => void;
@@ -188,23 +182,6 @@ const CheckoutForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               required
             />
           </div>
-{/* 
-          <div className="space-y-2">
-            <Label htmlFor="country">Country</Label>
-            <Select
-              value={formData.country}
-              onValueChange={(value) => handleInputChange('country', value)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select Country" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="US">United States</SelectItem>
-                <SelectItem value="CA">Canada</SelectItem>
-                <SelectItem value="GB">United Kingdom</SelectItem>
-              </SelectContent>
-            </Select>
-          </div> */}
 
           <div className="space-y-2">
             <Label htmlFor="card-number">Card Number</Label>
