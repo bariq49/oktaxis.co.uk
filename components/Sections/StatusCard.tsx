@@ -1,12 +1,14 @@
+'use client'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-
+import { useRouter } from "next/navigation"
 interface StatusCardProps {
   type: 'success' | 'error';
   onClose: () => void;
 }
 
 export function StatusCard({ type, onClose }: StatusCardProps) {
+  const router = useRouter()
   return (
     <Card className="w-full max-w-xs mx-auto shadow-lg">
       <CardContent className="pt-6 text-center space-y-4">
@@ -39,7 +41,11 @@ export function StatusCard({ type, onClose }: StatusCardProps) {
         <Button 
              onClick={() => {
                 if (type === 'success') {
-                  window.location.reload(); 
+                  document.body.style.overflow = 'auto'
+                  router.replace('/')
+                  // window.location.reload(); 
+
+                  onClose(); 
                 } else {
                   onClose(); 
                 }

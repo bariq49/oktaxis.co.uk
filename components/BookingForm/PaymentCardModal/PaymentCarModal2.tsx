@@ -4,94 +4,53 @@ import React, { useEffect, useState } from "react";
 import {
   useStripe,
   useElements,
-  Elements,
   PaymentElement,
   PaymentRequestButtonElement,
 } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js"
+import { sendBookingEmail } from "@/lib/utils";
+import { useFormikContext } from "formik";
 
-function convertToSubcurrency(amount: number, factor = 100) {
-    return Math.round(amount * factor);
-  }
-  
-  
-interface PaymentCardModalProps {
-    onClose: () => void;
-  }
-  
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
-  )
-  
-  if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-    console.warn("Stripe publishable key is missing. Check your environment variables.");
-  }
-  
 
-const CheckoutForm2 = () => {
+const CheckoutForm = ({ amount , }: { amount: number }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
   const [paymentRequest, setPaymentRequest] = useState<any | null>(null);
-  const [amount, setAmount] = useState(0)
+  const { values, validateForm } = useFormikContext<any>();
+
   useEffect(() => {
     // Create Payment Intent on load
-    // fetch("/api/create-payment", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ amount: convertToSubcurrency(amount) }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setClientSecret(data.clientSecret);
+    fetch("/api/create-payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount: amount }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setClientSecret(data.clientSecret);
         
-    //     if (stripe) {
-    //       const pr = stripe.paymentRequest({
-    //         country: "DE",
-    //         currency: "eur",
-    //         total: { label: "Total", amount: convertToSubcurrency(amount) },
-    //         requestPayerName: true,
-    //         requestPayerEmail: true,
-    //       });
+        if (stripe) {
+          const pr = stripe.paymentRequest({
+            country: "DE",
+            currency: "usd",
+            total: { label: "Total", amount: amount },
+            requestPayerName: true,
+            requestPayerEmail: true,
+          });
           
-    //       pr.canMakePayment().then((result) => {
-    //         if (result) setPaymentRequest(pr);
-    //       });
-    //     }
-    //   });
-  }, [ stripe]);
+          pr.canMakePayment().then((result) => {
+            if (result) setPaymentRequest(pr);
+          });
+        }
+      });
+  }, [amount, stripe]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch("/api/create-payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount: convertToSubcurrency(amount) }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setClientSecret(data.clientSecret);
-          
-          if (stripe) {
-            const pr = stripe.paymentRequest({
-              country: "DE",
-              currency: "eur",
-              total: { label: "Total", amount: convertToSubcurrency(amount) },
-              requestPayerName: true,
-              requestPayerEmail: true,
-            });
-            
-            pr.canMakePayment().then((result) => {
-              if (result) setPaymentRequest(pr);
-            });
-          }
-        });
     setLoading(true);
 
     if (!stripe || !elements) return;
@@ -111,7 +70,9 @@ const CheckoutForm2 = () => {
       confirmParams: { return_url: link },
     });
 
-    if (error) setErrorMessage(error.message);
+    if (error) {setErrorMessage(error.message); return;};
+    await sendBookingEmail(values)
+   
   };
 
   if (!clientSecret || !stripe || !elements) {
@@ -131,12 +92,11 @@ const CheckoutForm2 = () => {
         />
       )}
       {clientSecret && <PaymentElement />}
-      <input type="number" placeholder="amount" className="p-2 border focus:outline-none rounded-md" value={amount} onChange={(e)=>{if(isNaN(Number(e.target.value))){return;} setAmount(Number(e.target.value))}}/>
       {errorMessage && <div>{errorMessage}</div>}
 
       <button
         disabled={!stripe || loading}
-        className="text-white w-full p-5 bg-blue-500 mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
+        className="text-white w-full p-5 bg-gray-900 mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
       >
         {!loading ? `Pay ${amount}€` : "Processing..."}
       </button>
@@ -144,14 +104,4 @@ const CheckoutForm2 = () => {
   );
 };
 
-const PaymentCardModal2: React.FC<PaymentCardModalProps> = ({ onClose }) => {
-    return (
-      <div className="flex flex-col justify-center p-4">
-        <Elements stripe={stripePromise}>
-          <CheckoutForm2  />
-        </Elements>
-      </div>
-    )
-  }
-  
-  export default PaymentCardModal2
+export default CheckoutForm;

@@ -2,11 +2,14 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import PassengerInfo from "../PassengerPersonalInfo/PassengerInfo";
 import { DialogTitle, Dialog, DialogContent } from "@/components/ui/dialog";
-import PaymentCardModal from "../PaymentCardModal/PaymentCardModal";
 import { useFormikContext } from "formik";
 import StepThreeSummary from "./StepSummaries/StepThreeSummary";
 import ChildCount from "../PassengerAndLuggageSelector/ChildCount";
 import { TextareaInstruction } from "../PassengerPersonalInfo/TextArea";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "../PaymentCardModal/PaymentCarModal2";
+import PaymentCardModal from "../PaymentCardModal/PaymentCardModal";
 
 interface StepThreeProps {
   isActive: boolean;
@@ -15,6 +18,12 @@ interface StepThreeProps {
   onEdit: () => void;
   stepThreeHeaderRef: any;
 }
+
+if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY === undefined) {
+  throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
+}
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
 
 export default function StepThree({
   isActive,
@@ -27,7 +36,7 @@ export default function StepThree({
   const [isEditing, setIsEditing] = useState(false);
   const [showSummary, setShowSummary] = useState(false); 
   const [showHeader, setShowHeader] = useState(false); 
-
+  const [paymentDone, setPaymentDone] = useState(false)
   const { values, validateForm } = useFormikContext<any>();
 
   const handleOpenDialog = () => setPaymentDialogOpen(true);
@@ -59,7 +68,6 @@ export default function StepThree({
   };
   
   
-  console.log("Form Values ==>", values);
 
   const handleBookNow = async () => {
     const isValid = await validateFields();
@@ -80,6 +88,7 @@ export default function StepThree({
   return (
     <div className="w-full flex flex-col gap-y-3 items-center"  ref={stepThreeHeaderRef}>
       {/* Step Three Header */}
+     
       {showHeader && (
         <div className="w-[320px] lg:w-full h-12 bg-gray-800 text-white rounded-lg flex items-center align-middle justify-between px-3">
           <h1
@@ -147,7 +156,30 @@ export default function StepThree({
           <Dialog open={isPaymentDialogOpen} onOpenChange={setPaymentDialogOpen}>
             <DialogTitle></DialogTitle>
             <DialogContent className="sm:max-w-[425px] bg-transparent border-0 shadow-none">
-            <PaymentCardModal onClose={() => setPaymentDialogOpen(false)} />
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+       
+
+           <div className="bg-white w-[95%] sm:w-[500px] p-4 sm:p-8 rounded-lg shadow-lg">
+              <Elements
+                stripe={stripePromise}
+                options={{
+                  mode: "payment",
+                  amount: values.totalPrice,
+                  currency: "usd",
+                }}
+              >
+                <CheckoutForm amount={values.totalPrice}  />
+              </Elements>
+              <div
+                onClick={() => {
+                  setPaymentDialogOpen(false)
+                }}
+                className="text-gray-500 cursor-pointer"
+              >
+                Close
+              </div>
+            </div>
+          </div>
             </DialogContent>
           </Dialog>
         </div>

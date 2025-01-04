@@ -9,7 +9,6 @@ const CustomTimeSelector = () => {
   const { values, setFieldValue, errors, touched } = useFormikContext<any>()
   const [hours, setHours] = useState("HH")
   const [minutes, setMinutes] = useState("MM")
-  const [period, setPeriod] = useState("")
   const [showPicker, setShowPicker] = useState(false)
   const [dropdownDirection, setDropdownDirection] = useState("down")
 
@@ -27,13 +26,12 @@ const CustomTimeSelector = () => {
       const [selectedHours, selectedMinutes] = time.split(":")
       setHours(selectedHours)
       setMinutes(selectedMinutes)
-      setPeriod(ampm)
     }
   }, [values.time])
 
   const updateFormikTime = () => {
-    if (hours !== "HH" && minutes !== "MM" && period) {
-      const selectedTime = `${hours}:${minutes} ${period}`
+    if (hours !== "HH" && minutes !== "MM" ) {
+      const selectedTime = `${hours}:${minutes}`
       setFieldValue("time", selectedTime)
       setShowPicker(false);
     }
@@ -41,7 +39,7 @@ const CustomTimeSelector = () => {
 
   useEffect(() => {
     updateFormikTime()
-  }, [hours, minutes, period])
+  }, [hours, minutes])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -94,7 +92,7 @@ const CustomTimeSelector = () => {
           onClick={() => setShowPicker(!showPicker)}
         >
           <div>{hours}</div>:<div>{minutes}</div>
-          <div>{period}</div>
+         
         </div>
 
         {showPicker && (
