@@ -85,7 +85,6 @@ const BookingForm = () => {
 
     // Function to handle form submission...
     const handleSubmit = (values: typeof initialValues) => {
-        console.log("Form Data Submitted", values)
         alert("Booking details successfully submitted!")
     }
 

@@ -220,7 +220,6 @@ export default function VehicleSelector({
     onBookNow();
   };
 
-  console.log("Formik Values:", values);
 
   
 
