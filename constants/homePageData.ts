@@ -119,15 +119,15 @@ servicesSection: {
   ourFleets: {
     serviceName: "Oktaxis",
     title: "Our Fleets",
-    bgImg: FleetBg,
+    bgImg: FleetBg, // Ensure this is the correct import for your background image
     fleet: [
-      { name: "BMW Series", image: BMW },
-      { name: "Mercedes Benz", image: MERC },
-      { name: "Skoda Superb", image: Skoda },
-      { name: "Tesla Model S", image: Tesla },
-      { name: "Toyota Prius", image: Toyota },
-      { name: "XL Van", image: XLVAN },
-    ],
+      { name: "Skoda Superb", image: Skoda, class: 'economy' },
+      { name: "Toyota Prius", image: Toyota, class: 'economy' },
+      { name: "BMW 5 Series", image: BMW, class: 'executive' },
+      { name: "Mercedes Benz E-Class", image: MERC, class: 'executive' },
+      { name: "Tesla Model S", image: Tesla, class: 'executive_premium' },
+      { name: "XL Van", image: XLVAN, class: 'passenger_van' },
+    ]
   },
 
 // About Page...
