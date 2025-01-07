@@ -12,33 +12,24 @@ import FAQSection from "@/components/Sections/FaqSection";
 import Image from "next/image";
 import BookingProcess from "@/components/Sections/BookingProcess";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { StatusCard } from "@/components/Sections/StatusCard";
+import AirportTransportation from "@/components/Sections/AirportTransportation";
+import PremiumTransportation from "@/components/Sections/PremiumTransportation";
+import WhyChooseOktaxis from "@/components/Sections/WhyChooseOktaxis";
+import PaymentDone from "@/components/BookingForm/PaymentDone/PaymentDone";
 
 
 const Home = () => {
   const { heroSection } = homePageData;
   const [paymentDone, setPaymentDone] = useState(false)
-  const search = useSearchParams()
-  const paymentId = search.get("paymentId")
-
-  useEffect(() => {
-    if (paymentId) {
-      setPaymentDone(true);
-      document.body.style.overflow = 'hidden'
-    }
-  }, [paymentId])
+  
   return (
     <main className={`w-full  ${paymentDone && "overflow-hidden h-screen"}`}>
-      {paymentDone && <div className="absolute w-full h-full z-50 ">
-        <div className="w-full h-full bg-black/30 flex items-center justify-center transition-all duration-300 relative">
-
-          <StatusCard type="success" onClose={() => { setPaymentDone(false) }} />
-        </div>
-      </div>}
+      {paymentDone && <Suspense><PaymentDone setPaymentDone={setPaymentDone}/></Suspense>}
       {/* Hero Section */}
       <div
-        className={`w-full  bg-contain object-cover bg-no-repeat flex text-black `}
+        className={`w-full  bg-contain object-cover bg-no-repeat flex text-black mb-16 md:mb-24 `}
       >
         <div className={`${paymentDone && "z-0"} w-full flex flex-col items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 px-[2%]  `}>
           <div className=" flex flex-col items-center m-auto">
@@ -63,6 +54,7 @@ const Home = () => {
         </div>
 
       </div>
+      <AirportTransportation/>
 
       <div className="w-full bg-gray-50">
         {/* <div className="">
@@ -72,11 +64,12 @@ const Home = () => {
           <BookingProcess />
         </div>
       </div>
-      <div className="w-full">
+      <PremiumTransportation/>
         <ServiceCard />
         {/* <OurStory/> */}
+      <WhyChooseOktaxis/>
         <WhyChooseUs />
-      </div>
+     
 
       <div className="w-full flex items-center justify-center py-12 md:py-16 lg:py-20">
         <Testimonials />

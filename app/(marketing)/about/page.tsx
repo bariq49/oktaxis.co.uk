@@ -1,6 +1,6 @@
 import Image from "next/image"
 import HeroImg from "@/assets/aboutUsImages/hero-img.jpg";
-import { aboutUsContent } from "@/constants/aboutUsData" 
+import { aboutUsContent } from "@/constants/aboutUsData"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function AboutPage() {
@@ -24,22 +24,23 @@ export default function AboutPage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="w-full m-auto py-12 md:py-24 lg:py-32">
-        <div className="container m-auto px-4 md:px-6">
-          <div className="flex flex-col items-center space-y-4 text-center">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              {/* {aboutUsContent.whyChooseUs.title} */}
-              <span className="text-green-700">Why</span> Choose Us
-            </h2>
-            <p className="text-xl text-gray-500 dark:text-gray-400">
-              {aboutUsContent.whyChooseUs.subtitle}
-            </p>
-            <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-              {aboutUsContent.whyChooseUs.description}
-            </p>
-          </div>
-        </div>
-      </section>
+      <section className="w-full py-12 md:py-24 lg:py-32 mx-auto">
+  <div className="container mx-auto px-4 md:px-6">
+    <div className="flex flex-col items-center text-center space-y-6">
+      <h2 className="text-3xl font-extrabold sm:text-4xl md:text-5xl">
+        <span className="text-green-700">Why</span> Choose Us
+      </h2>
+      <p className="text-xl text-gray-500 dark:text-gray-400">
+        {aboutUsContent.whyChooseUs.subtitle}
+      </p>
+      <p className="mx-auto max-w-screen-lg text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+        {aboutUsContent.whyChooseUs.description}
+      </p>
+    </div>
+  </div>
+</section>
+
+
 
       {/* Features Section */}
       <section className="w-full m-auto py-12 md:py-24 lg:py-32 bg-white dark:bg-gray-800">
@@ -70,12 +71,12 @@ export default function AboutPage() {
         <div className="container m-auto px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                {/* {aboutUsContent.hero.title} */}
-                We Make Sure That Your Every Trip Is <span className="text-green-700">Reliable</span> & <span className="text-green-700">Comfortable</span>
-              </h1>
-              <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                {aboutUsContent.hero.description}
-              </p>
+              {/* {aboutUsContent.hero.title} */}
+              We Make Sure That Your Every Trip Is <span className="text-green-700">Reliable</span> & <span className="text-green-700">Comfortable</span>
+            </h1>
+            <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+              {aboutUsContent.hero.description}
+            </p>
           </div>
         </div>
       </section>
