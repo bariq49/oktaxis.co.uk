@@ -129,7 +129,7 @@ export default function VehicleGrid() {
                                     <Image
                                         src={fleet.image}
                                         alt={fleet.name}
-                                        fill
+                                        fill 
                                         className="object-contain"
                                     />
                                 </div>
