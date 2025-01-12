@@ -9,10 +9,10 @@ const WhyChooseOktaxis = () => {
 
       <div className="relative container mx-auto px-6 md:px-12 lg:px-20 z-10">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-green-700 mb-8 text-center">
-          Why Choose Oktaxis Over Public Transport?
+          Why Choose OkTaxis Over Public Transport?
         </h1>
         <p className="text-lg text-gray-700 mb-8 text-center max-w-2xl mx-auto">
-          While public transportation might seem cost-effective, it often lacks convenience and flexibility. Here&apos;s why premium airport transfers by Oktaxis are a better choice:
+          While public transportation might seem cost-effective, it often lacks convenience and flexibility. Here&apos;s why premium airport transfers by OkTaxis are a better choice:
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-gray-700">
@@ -43,7 +43,7 @@ const WhyChooseOktaxis = () => {
         </div>
 
         <h2 className="text-2xl text-green-700 font-semibold mt-12 mb-8 text-center">
-          Tips for Booking Oktaxis Airport Transfers in Manchester and Liverpool
+          Tips for Booking OkTaxis Airport Transfers in Manchester and Liverpool
         </h2>
         <div className="bg-white shadow-lg rounded-lg p-8 mb-12">
           <ul className="list-disc list-inside text-gray-700 space-y-4">
@@ -66,10 +66,10 @@ const WhyChooseOktaxis = () => {
         </div>
 
         <h2 className="text-2xl text-green-700 font-semibold text-center mb-6">
-          Choose Oktaxis for a Smooth Start and Finish to Your Journey
+          Choose OkTaxis for a Smooth Start and Finish to Your Journey
         </h2>
         <p className="text-gray-700 text-center max-w-2xl mx-auto mb-6">
-          At Oktaxis, we pride ourselves on delivering top-tier airport transportation services in Manchester and Liverpool. Whether it&apos;s a private transfer, chauffeur service, or business-class ride, we&apos;re committed to providing an exceptional travel experience.
+          At OkTaxis, we pride ourselves on delivering top-tier airport transportation services in Manchester and Liverpool. Whether it&apos;s a private transfer, chauffeur service, or business-class ride, we&apos;re committed to providing an exceptional travel experience.
         </p>
         <div className="flex justify-center">
           <Link

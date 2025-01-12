@@ -6,7 +6,7 @@ const PremiumTransportation = () => {
     <section className="bg-gradient-to-br from-gray-50 to-green-50 text-black py-12">
       <div className="max-w-screen-xl mx-auto px-6 md:px-12 lg:px-20">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-6">
-          <span className="text-green-700">Premium Airport <span className="text-black">Transportation Services</span> by Oktaxis</span>
+          <span className="text-green-700">Premium Airport <span className="text-black">Transportation Services</span> by OkTaxis</span>
         </h1>
         <p className="text-lg text-gray-700 mb-6 text-center">
           We offer a variety of services to suit every travel need, ensuring luxury, comfort, and professionalism at every step.
@@ -39,7 +39,7 @@ const PremiumTransportation = () => {
           </div>
         </div>
 
-        <h2 className="text-2xl text-green-700 font-semibold mb-6">Key Features of Oktaxis Premium Airport Transfers</h2>
+        <h2 className="text-2xl text-green-700 font-semibold mb-6">Key Features of OkTaxis Premium Airport Transfers</h2>
         <ul className="list-disc list-inside text-gray-700 space-y-4 mb-6">
           <li><span className="text-green-700 font-semibold">24/7 Availability:</span> We’re here whenever you need us, day or night.</li>
           <li><span className="text-green-700 font-semibold">Luxury Vehicles:</span> Travel in style with our premium fleet of sedans, SUVs, and executive cars.</li>
@@ -49,18 +49,18 @@ const PremiumTransportation = () => {
           <li><span className="text-green-700 font-semibold">Professional Drivers:</span> Our knowledgeable and courteous drivers enhance your travel experience.</li>
         </ul>
 
-        <h2 className="text-2xl text-green-700 font-semibold mb-6">Airports Covered by Oktaxis</h2>
+        <h2 className="text-2xl text-green-700 font-semibold mb-6">Airports Covered by OkTaxis</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div className="bg-white shadow-md rounded-lg p-6">
             <h3 className="text-xl text-green-700 font-semibold mb-4">Manchester Airport Transfers</h3>
             <p className="text-gray-700">
-              As one of the busiest UK airports, Manchester Airport demands efficient and reliable transportation. With Oktaxis, enjoy punctual, premium services that cater to both business and leisure travelers.
+              As one of the busiest UK airports, Manchester Airport demands efficient and reliable transportation. With OkTaxis, enjoy punctual, premium services that cater to both business and leisure travelers.
             </p>
           </div>
           <div className="bg-white shadow-md rounded-lg p-6">
             <h3 className="text-xl text-green-700 font-semibold mb-4">Liverpool John Lennon Airport Transfers</h3>
             <p className="text-gray-700">
-              Located close to Liverpool's vibrant city center, this hub is a gateway for business and cultural exploration. Oktaxis ensures smooth transfers with tailored routes and luxury vehicles.
+              Located close to Liverpool's vibrant city center, this hub is a gateway for business and cultural exploration. OkTaxis ensures smooth transfers with tailored routes and luxury vehicles.
             </p>
           </div>
         </div>

@@ -63,7 +63,7 @@ export default function VehicleGrid() {
             </div>
             <div className="w-full bg-green-100 py-8 px-4">
 
-            <div className="container mx-auto px-4 pt-10  flex flex-col gap-3 max-w-screen-lg">
+            <div className="container mx-auto   flex flex-col gap-3 max-w-screen-lg">
                 <div className="text-green-700 font-bold text-3xl" >Executive Class</div>
                 <div className="text-gray-700 text-lg max-w-screen-lg " >For those who appreciate a touch of elegance, our Executive Class cars offer sophistication and style. Whether you're heading to a business meeting or a special event, these premium vehicles ensure you arrive in comfort and class.</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -95,7 +95,7 @@ export default function VehicleGrid() {
             </div>
             <div className="w-full bg-gray-100 py-8 px-4">
 
-            <div className="container mx-auto px-4 pt-10  flex flex-col gap-3 max-w-screen-lg">
+            <div className="container mx-auto   flex flex-col gap-3 max-w-screen-lg">
                 <div className="text-green-700 font-bold text-3xl" >Executive Premium Class</div>
                 <div className="text-gray-700 text-lg max-w-screen-lg " >Experience the pinnacle of modern luxury with our Executive Premium vehicles. Combining cutting-edge technology and superior comfort, this option is perfect for those who demand the very best.</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -127,7 +127,7 @@ export default function VehicleGrid() {
             </div>
             <div className="w-full bg-green-100 py-8 px-4">
 
-            <div className="container mx-auto px-4 pt-10  flex flex-col gap-3 max-w-screen-lg">
+            <div className="container mx-auto   flex flex-col gap-3 max-w-screen-lg">
                 <div className="text-green-700 font-bold text-3xl" >XL Passenger Van</div>
                 <div className="text-gray-700 text-lg max-w-screen-lg " >Traveling with a group or extra luggage?<br />
                     Our spacious XL Passenger Vans are designed to accommodate up to 8 passengers with plenty of room for your belongings. Ideal for family trips or group outings, these vans offer convenience and comfort for all.</div>
@@ -165,7 +165,7 @@ export default function VehicleGrid() {
 
             <div className="max-w-screen-lg mx-auto px-3">
                 <div className="p-4 bg-white rounded-lg shadow-lg my-14 border border-gray-200 ">
-                    <h2 className="text-3xl font-semibold text-green-700 mb-6">Why Choose Oktaxis?</h2>
+                    <h2 className="text-3xl font-semibold text-green-700 mb-6">Why Choose OkTaxis?</h2>
                     <ul className="space-y-4 text-gray-700">
                         <li className="flex items-start space-x-2">
                             <span className="text-xl">🚗</span>
@@ -193,7 +193,7 @@ export default function VehicleGrid() {
                         </li>
                     </ul>
                     <p className="mt-6 text-lg text-gray-700">
-                        Whether you're traveling to or from Manchester Airport or Liverpool Airport, or need a dependable ride for a few hours, Oktaxis has the perfect vehicle to match your needs.
+                        Whether you're traveling to or from Manchester Airport or Liverpool Airport, or need a dependable ride for a few hours, OkTaxis has the perfect vehicle to match your needs.
                     </p>
                     <p className="mt-4 text-lg text-gray-700">
                         Book your ride today and experience seamless, professional transportation in the Manchester area and beyond!

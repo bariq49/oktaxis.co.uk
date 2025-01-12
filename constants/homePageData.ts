@@ -117,7 +117,7 @@ servicesSection: {
 
   // Fleets Page...
   ourFleets: {
-    serviceName: "Oktaxis",
+    serviceName: "OkTaxis",
     title: "Our Fleets",
     bgImg: FleetBg, // Ensure this is the correct import for your background image
     fleet: [
@@ -181,13 +181,13 @@ aboutContent: {
   // Contact Section
   contactFormSection: {
     title: "Contact Us",
-    subtitle: "Get in Touch with Oktaxis",
+    subtitle: "Get in Touch with OkTaxis",
     description: "Whether you're arranging a trip to Manchester or planning travel for a unique occasion, we’re here to assist. Our team guarantees a smooth and luxurious journey customized to your preferences.",
   },
 
   // Footer...
   footer: {
-    title: "Oktaxis",
+    title: "OkTaxis",
     description:
       "We take pride in offering premium services, including convenient pick-up and drop-off to your desired destination. Experience safe and luxurious travel with our top-tier chauffeur-driven cars, serving the entire Manchester area.",
     socialLinks: [
@@ -315,7 +315,7 @@ const faqData = [
     question: "Is there a waiting time fee at the airport?",
     answer: "A complimentary 20-minute waiting period is offered in case of flight delays. After this time, a waiting fee of £20 per hour is applied, calculated on a pro-rata basis."
   }
-];``
+];
 
 
 
