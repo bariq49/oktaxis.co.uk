@@ -17,11 +17,11 @@ const AirportTransportation = () => {
           <span className="text-black">Transportation Services</span>
         </h1>
         <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center text-green-700">
-          Premium Travel Solutions by Oktaxis
+          Premium Travel Solutions by OkTaxis
         </h2>
         <p className="text-lg text-gray-700 mb-6 text-center leading-relaxed">
           Traveling can be an exciting adventure, but getting to and from the airport often presents challenges. At{" "}
-          <span className="font-semibold text-green-700">Oktaxis</span>, we provide seamless and reliable airport transportation services in Manchester and Liverpool, ensuring your journey begins and ends on the right note. Whether you're traveling for business or leisure, our premium services are designed to cater to your needs with comfort, efficiency, and luxury.
+          <span className="font-semibold text-green-700">OkTaxis</span>, we provide seamless and reliable airport transportation services in Manchester and Liverpool, ensuring your journey begins and ends on the right note. Whether you're traveling for business or leisure, our premium services are designed to cater to your needs with comfort, efficiency, and luxury.
         </p>
 
         {/* Why Choose Section */}
@@ -30,7 +30,7 @@ const AirportTransportation = () => {
         </h3>
         <p className="text-lg text-gray-700 mb-6 text-center leading-relaxed">
           Choosing the right airport transfer service is crucial for a stress-free travel experience. At{" "}
-          <span className="font-semibold text-green-700">Oktaxis</span>, we bridge the gap between your home, office, or hotel and major airports like Manchester Airport and Liverpool John Lennon Airport. Here's why travelers prefer our premium services:
+          <span className="font-semibold text-green-700">OkTaxis</span>, we bridge the gap between your home, office, or hotel and major airports like Manchester Airport and Liverpool John Lennon Airport. Here's why travelers prefer our premium services:
         </p>
 
         {/* Features Section */}
