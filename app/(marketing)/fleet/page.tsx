@@ -16,18 +16,22 @@ export default function VehicleGrid() {
 
             >
             </div>
-            <div className=" flex flex-col gap-5 px-3 ">
+            <div className="flex flex-col gap-6 px-4 py-6 bg-gradient-to-r from-teal-100 to-green-50 rounded-lg shadow-lg transition-all ease-in-out duration-300 transform ">
 
-                <h2 className="text-green-700 text-3xl md:text-5xl pt-10 font-bold text-center ">{title}</h2>
-                <p className="text-gray-700 mx-auto text-lg mt-4 max-w-screen-lg text-center">
-                    At {serviceName}, we take pride in offering a diverse fleet of vehicles designed to meet the needs of every traveler. Whether you're seeking affordability, luxury, or room for a group, our meticulously maintained cars ensure a safe and comfortable ride.
-                </p>
-                <div className="max-w-screen-lg mx-auto w-full px-3">
+<h2 className="text-green-800 text-4xl md:text-6xl font-bold text-center tracking-wide leading-tight text-shadow-lg transition-all duration-500 transform hover:translate-y-1">{title}</h2>
 
-                    <Link href='/' className="px-5 py-2 font-semibold rounded-lg bg-green-700 hover:bg-green-600 text-white w-fit">Book Now</Link>
-                </div>
-            </div>
-            <div className="container mx-auto px-4 pt-10 flex flex-col gap-3 max-w-screen-lg">
+<p className="text-gray-800 mx-auto text-lg md:text-xl mt-4 max-w-screen-lg text-center opacity-90 transition-opacity duration-300 hover:opacity-100">
+    At {serviceName}, we take pride in offering a diverse fleet of vehicles designed to meet the needs of every traveler. Whether you're seeking affordability, luxury, or room for a group, our meticulously maintained cars ensure a safe and comfortable ride.
+</p>
+
+<div className="max-w-screen-lg mx-auto w-full px-4 py-5 flex justify-center">
+    <Link href='/' className="px-10 py-3 font-semibold rounded-lg bg-gradient-to-r from-green-700 to-teal-700 hover:from-green-600 hover:to-teal-600 text-white transition-all ease-in-out duration-300 transform hover:scale-105 hover:shadow-lg">
+        Book Now
+    </Link>
+</div>
+</div>
+            <div className="w-full bg-gray-100 py-8 px-4">
+            <div className="container mx-auto   flex flex-col gap-3 max-w-screen-lg">
                 <div className="text-green-700 font-bold text-3xl" >Economy Class</div>
                 <div className="text-gray-700 text-lg max-w-screen-lg " >Perfect for budget-conscious travelers, our Economy Class vehicles provide exceptional value without compromising on comfort. These reliable and fuel-efficient cars are ideal for solo passengers or small groups.</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -56,6 +60,9 @@ export default function VehicleGrid() {
                     ))}
                 </div>
             </div>
+            </div>
+            <div className="w-full bg-green-100 py-8 px-4">
+
             <div className="container mx-auto px-4 pt-10  flex flex-col gap-3 max-w-screen-lg">
                 <div className="text-green-700 font-bold text-3xl" >Executive Class</div>
                 <div className="text-gray-700 text-lg max-w-screen-lg " >For those who appreciate a touch of elegance, our Executive Class cars offer sophistication and style. Whether you're heading to a business meeting or a special event, these premium vehicles ensure you arrive in comfort and class.</div>
@@ -85,6 +92,9 @@ export default function VehicleGrid() {
                     ))}
                 </div>
             </div>
+            </div>
+            <div className="w-full bg-gray-100 py-8 px-4">
+
             <div className="container mx-auto px-4 pt-10  flex flex-col gap-3 max-w-screen-lg">
                 <div className="text-green-700 font-bold text-3xl" >Executive Premium Class</div>
                 <div className="text-gray-700 text-lg max-w-screen-lg " >Experience the pinnacle of modern luxury with our Executive Premium vehicles. Combining cutting-edge technology and superior comfort, this option is perfect for those who demand the very best.</div>
@@ -114,6 +124,9 @@ export default function VehicleGrid() {
                     ))}
                 </div>
             </div>
+            </div>
+            <div className="w-full bg-green-100 py-8 px-4">
+
             <div className="container mx-auto px-4 pt-10  flex flex-col gap-3 max-w-screen-lg">
                 <div className="text-green-700 font-bold text-3xl" >XL Passenger Van</div>
                 <div className="text-gray-700 text-lg max-w-screen-lg " >Traveling with a group or extra luggage?<br />
@@ -145,6 +158,10 @@ export default function VehicleGrid() {
                 </div>
 
             </div>
+            </div>
+
+
+          
 
             <div className="max-w-screen-lg mx-auto px-3">
                 <div className="p-4 bg-white rounded-lg shadow-lg my-14 border border-gray-200 ">
