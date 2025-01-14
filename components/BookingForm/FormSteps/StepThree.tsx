@@ -165,7 +165,7 @@ export default function StepThree({
                 options={{
                   mode: "payment",
                   amount: values.totalPrice,
-                  currency: "usd",
+                  currency: "gbp",
                 }}
               >
                 <CheckoutForm amount={values.totalPrice}  />

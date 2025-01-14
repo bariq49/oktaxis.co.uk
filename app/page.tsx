@@ -26,7 +26,7 @@ const Home = () => {
   
   return (
     <main className={`w-full  ${paymentDone && "overflow-hidden h-screen"}`}>
-      {paymentDone && <Suspense><PaymentDone setPaymentDone={setPaymentDone}/></Suspense>}
+      <Suspense><PaymentDone setPaymentDone={setPaymentDone} paymentDone={paymentDone}/></Suspense>
       {/* Hero Section */}
       <div
         className={`w-full  bg-contain object-cover bg-no-repeat flex text-black mb-16 md:mb-24 `}

@@ -11,7 +11,7 @@ import { sendBookingEmail } from "@/lib/utils";
 import { useFormikContext } from "formik";
 
 
-const CheckoutForm = ({ amount , }: { amount: number }) => {
+const CheckoutForm = ({ amount }: { amount: number }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -35,12 +35,13 @@ const CheckoutForm = ({ amount , }: { amount: number }) => {
         
         if (stripe) {
           const pr = stripe.paymentRequest({
-            country: "DE",
-            currency: "usd",
+            country: "GB", 
+            currency: "gbp", 
             total: { label: "Total", amount: amount },
             requestPayerName: true,
             requestPayerEmail: true,
           });
+          
           
           pr.canMakePayment().then((result) => {
             if (result) setPaymentRequest(pr);
@@ -98,7 +99,7 @@ const CheckoutForm = ({ amount , }: { amount: number }) => {
         disabled={!stripe || loading}
         className="text-white w-full p-5 bg-gray-900 mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
       >
-        {!loading ? `Pay ${amount}€` : "Processing..."}
+        {!loading ? `Pay ${(amount/100).toFixed(2)}£` : "Processing..."}
       </button>
     </form>
   );
