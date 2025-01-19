@@ -148,7 +148,7 @@ export default function StepThree({
             onClick={handleOpenDialog}
           >
             <span className="flex flex-col font-bold">
-              {(values.totalPrice / 100).toFixed(2)} £
+              {values.totalPrice} £
               <p>Pay Now</p>
             </span>
           </Button>
@@ -164,11 +164,11 @@ export default function StepThree({
                 stripe={stripePromise}
                 options={{
                   mode: "payment",
-                  amount: values.totalPrice,
+                  amount: Math.round(values.totalPrice * 100),
                   currency: "gbp",
                 }}
               >
-                <CheckoutForm amount={values.totalPrice}  />
+                <CheckoutForm amount={Math.round(values.totalPrice * 100)}  />
               </Elements>
               <div
                 onClick={() => {

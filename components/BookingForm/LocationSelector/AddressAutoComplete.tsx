@@ -29,8 +29,8 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       // Initialize Autocomplete with restricted types
       autocompleteRef.current = new google.maps.places.Autocomplete(inputRef.current, {
         fields: ['place_id', 'geometry', 'name', 'formatted_address', 'types'],
-        componentRestrictions: { country: 'uk' },
-        types: restrictAirports ? ['locality', 'administrative_area_level_1', 'country'] : ['geocode'],
+        componentRestrictions: {country:"uk"},
+        types: restrictAirports ? ['locality', 'administrative_area_level_1', 'country'] : [],
       });
 
       // Listener for place selection

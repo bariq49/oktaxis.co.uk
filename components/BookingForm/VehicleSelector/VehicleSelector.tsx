@@ -215,7 +215,7 @@ export default function VehicleSelector({
     setFieldValue("seats", seats);
     setFieldValue("bags", bags);
     setFieldValue("category", category);
-    setFieldValue("totalPrice", totalPrice); // Update totalPrice in Formik
+    setFieldValue("totalPrice", Number((totalPrice / 100 ).toFixed(2))); // Update totalPrice in Formik
   
     onBookNow();
   };
