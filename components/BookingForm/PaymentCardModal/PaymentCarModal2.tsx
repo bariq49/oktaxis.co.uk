@@ -22,6 +22,7 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
 
   useEffect(() => {
     // Create Payment Intent on load
+    console.log('amount : ',amount)
     fetch("/api/create-payment", {
       method: "POST",
       headers: {
