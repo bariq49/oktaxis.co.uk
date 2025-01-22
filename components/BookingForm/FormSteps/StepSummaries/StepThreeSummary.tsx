@@ -31,7 +31,7 @@ interface StepThreeSummaryProps {
           <span className="text-sm">{passengerInfo?.name || 'Not Provided'}</span>
         </div>
   
-        {/* <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Phone className="text-orange-500 w-4 h-4" />
           <p className="font-semibold text-sm">Phone:</p>
           <span className="text-sm">{passengerInfo?.phone || 'Not Provided'}</span>
@@ -41,7 +41,7 @@ interface StepThreeSummaryProps {
           <Mail className="text-sky-500 w-4 h-4" />
           <p className="font-semibold text-sm">Email:</p>
           <span className="text-sm">{passengerInfo?.email || 'Not Provided'}</span>
-        </div> */}
+        </div>
   
         <div className="flex items-center gap-2">
           <Briefcase className="text-gray-500 w-4 h-4" />

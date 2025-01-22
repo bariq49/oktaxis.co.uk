@@ -10,6 +10,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../PaymentCardModal/PaymentCarModal2";
 import PaymentCardModal from "../PaymentCardModal/PaymentCardModal";
+import {CrossCircledIcon} from "@radix-ui/react-icons"
 
 interface StepThreeProps {
   isActive: boolean;
@@ -60,7 +61,9 @@ export default function StepThree({
     // Check if any passengerInfo field is empty
     const passengerInfo = values.passengerInfo || {};
     const isPassengerInfoFilled =
-      passengerInfo.name?.trim();
+      passengerInfo.name?.trim() &&
+      passengerInfo.email?.trim() &&
+      passengerInfo.phone?.trim();
   
     return isPassengerInfoFilled;
   };
@@ -157,7 +160,17 @@ export default function StepThree({
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
        
 
-           <div className="bg-white w-[95%] sm:w-[500px] p-4 sm:p-8 rounded-lg shadow-lg">
+           <div className="bg-white w-[95%] sm:w-[500px] p-4 sm:p-8 rounded-lg shadow-lg relative">
+
+           <div
+                onClick={() => {
+                  setPaymentDialogOpen(false)
+                }}
+                className="text-black font-semibold cursor-pointer absolute top-1 right-1 "
+                >
+                <CrossCircledIcon className="size-7"/>
+              </div>
+                
               <Elements
                 stripe={stripePromise}
                 options={{
@@ -168,14 +181,7 @@ export default function StepThree({
               >
                 <CheckoutForm amount={Math.round(values.totalPrice * 100)}  />
               </Elements>
-              <div
-                onClick={() => {
-                  setPaymentDialogOpen(false)
-                }}
-                className="text-gray-500 cursor-pointer"
-              >
-                Close
-              </div>
+              
             </div>
           </div>
             </DialogContent>
