@@ -60,9 +60,7 @@ export default function StepThree({
     // Check if any passengerInfo field is empty
     const passengerInfo = values.passengerInfo || {};
     const isPassengerInfoFilled =
-      passengerInfo.name?.trim() &&
-      passengerInfo.email?.trim() &&
-      passengerInfo.phone?.trim();
+      passengerInfo.name?.trim();
   
     return isPassengerInfoFilled;
   };

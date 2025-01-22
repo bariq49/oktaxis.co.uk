@@ -36,7 +36,7 @@ export default function PassengerInfo() {
         <h2 className="text-base font-medium">Main Passenger *</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid  ">
         {/* Name Input */}
         <div>
           <Input
@@ -59,8 +59,7 @@ export default function PassengerInfo() {
           )}
         </div>
 
-        {/* Email Input */}
-        <div>
+        {/* <div>
           <Input
             name="passengerInfo.email"
             type="email"
@@ -81,7 +80,6 @@ export default function PassengerInfo() {
           )}
         </div>
 
-        {/* Phone Number Input */}
         <div>
           <Input
             name="passengerInfo.phone"
@@ -101,7 +99,7 @@ export default function PassengerInfo() {
           {getErrorMessage('phone') && (
             <p className="mt-1 text-xs text-red-500">{getErrorMessage('phone')}</p>
           )}
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-col lg:flex-row gap-x-3 gap-y-3 w-full">
