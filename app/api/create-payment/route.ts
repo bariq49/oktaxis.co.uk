@@ -10,6 +10,12 @@ export async function POST(request: NextRequest) {
       amount: amount,
       currency: "gbp",
       automatic_payment_methods: { enabled: true },
+      payment_method_options: {
+        card: {
+          setup_future_usage: null,
+        },
+      },
+
     });
     console.log("paymentIntent : ",paymentIntent)
     return NextResponse.json({ clientSecret: paymentIntent.client_secret });

@@ -39,8 +39,9 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
             country: "GB", 
             currency: "gbp", 
             total: { label: "Total", amount: amount },
-            requestPayerName: true,
-            requestPayerEmail: true,
+            requestPayerName: false,
+            requestPayerEmail: false,
+
           });
           
           
@@ -89,7 +90,7 @@ const CheckoutForm = ({ amount }: { amount: number }) => {
     <form onSubmit={handleSubmit} className="bg-white p-2 rounded-md">
       {paymentRequest && (
         <PaymentRequestButtonElement
-          options={{ paymentRequest }}
+          options={{ paymentRequest  }}
           onClick={() => setLoading(true)}
         />
       )}
