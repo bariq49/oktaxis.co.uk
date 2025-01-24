@@ -38,22 +38,25 @@ export default function RootLayout({
           async
           defer
         ></script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16835618994"></script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16835618994"></script>
-        
-      </Head>
-      <Script
+        {/* tag manager */}
+        <script
+          async
           src="https://www.googletagmanager.com/gtag/js?id=AW-16835618994"
-          strategy="lazyOnload"
-        />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-16835618994');
-          `}
-        </Script>
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-16835618994');
+            `,
+          }}
+        ></script>
+
+
+      </Head>
+
       <body className={`${roboto.variable} antialiased`}>
         <Header />
         <StripeProvider>{children}</StripeProvider>
