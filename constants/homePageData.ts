@@ -153,8 +153,8 @@ aboutContent: {
   contactDetails: {
     address: "Bailey Lane, Airport, Wythenshawe, Manchester M90 4AN",
     email: "info@oktaxis.co.uk",
-    phone: "07788710290",
-    whatsapp: "07788710290",
+    phone: "447342193341",
+    whatsapp: "447342193341",
   },
 },
 
@@ -206,7 +206,7 @@ aboutContent: {
     ],
     contact: {
       address: "Bailey Lane, Airport, Wythenshawe",
-      phone: "07788710290",
+      phone: "447342193341",
       email: "info@oktaxis.co.uk",
     },
   },
