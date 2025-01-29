@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import Head from "next/head";
+import Script from "next/script";
 import "./globals.css";
 
 import StripeProvider from "@/components/BookingForm/PaymentCardModal/StripeProvider";
@@ -20,41 +20,26 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.png",
   },
-  other: {
-    gtag: `
-      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16550284687"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'AW-16550284687');
-      </script>
-    `,
-  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <Head>
-        {/* Include Google Maps API script with 'places' library */}
-        <script
-          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-          async
-          defer
-        ></script>
-
-        
-        {/* tag manager */}
-        <script
-          async
+      <head>
+        {/* Metadata and necessary links are auto-handled by Next.js */}
+      </head>
+      <body className={`${roboto.variable} antialiased`}>
+        {/* Google Tag Manager */}
+        <Script
+          id="gtag-script"
+          strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=AW-16550284687"
-        ></script>
-        <script
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -63,11 +48,15 @@ export default function RootLayout({
               gtag('config', 'AW-16550284687');
             `,
           }}
-        ></script>
+        />
 
-      </Head>
+        {/* Google Maps API */}
+        <Script
+          id="google-maps"
+          strategy="lazyOnload"
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
+        />
 
-      <body className={`${roboto.variable} antialiased`}>
         <Header />
         <StripeProvider>{children}</StripeProvider>
         <Footer />
