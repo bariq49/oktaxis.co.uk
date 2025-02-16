@@ -67,7 +67,7 @@ const PremiumTransportation = () => {
 
         <div className="relative flex justify-center items-center mt-8">
           <div className="absolute inset-0 bg-green-100 rounded-full blur-3xl h-72 w-72 opacity-30 animate-pulse"></div>
-          <Link href='/' className="px-10 py-4 bg-gradient-to-r from-green-700 to-green-500 text-white font-bold text-lg rounded-full shadow-lg hover:shadow-xl hover:scale-110 focus:outline-none focus:ring-4 focus:ring-green-400 transition-transform">
+          <Link href='/booking' className="px-10 py-4 bg-gradient-to-r from-green-700 to-green-500 text-white font-bold text-lg rounded-full shadow-lg hover:shadow-xl hover:scale-110 focus:outline-none focus:ring-4 focus:ring-green-400 transition-transform">
             Book Now
           </Link>
         </div>

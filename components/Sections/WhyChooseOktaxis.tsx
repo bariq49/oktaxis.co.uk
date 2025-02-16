@@ -73,7 +73,7 @@ const WhyChooseOktaxis = () => {
         </p>
         <div className="flex justify-center">
           <Link
-            href="/"
+            href="/booking"
             className="inline-block px-8 py-4 bg-green-700 text-white font-semibold rounded-lg shadow-lg hover:bg-green-800 transition focus:outline-none focus:ring-4 focus:ring-green-400"
           >
             Book Now

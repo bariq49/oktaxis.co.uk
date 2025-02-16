@@ -50,7 +50,7 @@ const Home = () => {
 
            <Link
             href="/booking"
-            className="px-10 sm:px-12 py-1 font-semibold sm:font-bold rounded-sm  max-sm:mx-auto bg-brandColor text-white stext-lg border-2  border-brandColor hover:text-brandColor hover:bg-transparent transition-all duration-300 sm:text-xl "
+            className="px-10 sm:px-12 py-1 font-semibold sm:font-bold rounded-sm  max-sm:mx-auto bg-green-600  text-white stext-lg border-2  border-green-600 hover:text-green-600  hover:bg-transparent transition-all duration-300 sm:text-xl "
           >
             Book Your Ride Now
           </Link>

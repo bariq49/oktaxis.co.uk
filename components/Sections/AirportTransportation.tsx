@@ -1,78 +1,92 @@
+import Link from "next/link";
+import Image from "next/image";
 import React from "react";
+import image1 from "@/assets/13.jpg";
+import image2 from "@/assets/14.jpg";
 
 const AirportTransportation = () => {
   return (
-    <div className="w-full max-w-[100vw] overflow-hidden">
-
-    <section className="bg-gradient-to-r  from-gray-50 via-white to-gray-100 text-black py-12 relative">
-      {/* Decorative Background */}
-      <div className="absolute inset-0 bg-gradient-to-tl from-green-100/20 via-transparent to-white opacity-50 pointer-events-none"></div>
-
-      <div className="relative z-10 max-w-screen-xl mx-auto px-6 md:px-12 lg:px-20">
-        {/* Title Section */}
-        <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold text-center mb-6">
-          <span className="bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent">
-            Effortless Airport{" "}
-          </span>
-          <span className="text-black">Transportation Services</span>
+    <div className="w-full mt-20">
+      {/* Hero Section with Gradient Background */}
+      <section className="relative w-full  flex flex-col justify-center items-center text-center px-6">
+        <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-700 to-green-500 mb-4 drop-shadow-lg">
+          Effortless Airport Transportation
         </h1>
-        <h2 className="text-xl md:text-2xl font-semibold mb-4 text-center text-green-700">
+
+
+        <h2 className="text-xl md:text-2xl text-green-400 font-semibold mb-4">
           Premium Travel Solutions by OkTaxis
         </h2>
-        <p className="text-lg text-gray-700 mb-6 text-center leading-relaxed">
-          Traveling can be an exciting adventure, but getting to and from the airport often presents challenges. At{" "}
-          <span className="font-semibold text-green-700">OkTaxis</span>, we provide seamless and reliable airport transportation services in Manchester and Liverpool, ensuring your journey begins and ends on the right note. Whether you're traveling for business or leisure, our premium services are designed to cater to your needs with comfort, efficiency, and luxury.
+        <p className="text-lg text-gray-700 mb-8 leading-relaxed ">
+          Traveling can be an exciting adventure, but getting to and from the airport often presents challenges. At{' '}
+          <span className="font-semibold text-green-700">OkTaxis</span>, we provide seamless and reliable airport transportation services in Manchester and Liverpool, ensuring your journey begins and ends on the right note.
         </p>
+        <div className="rounded-lg shadow-lg w-full max-h-[500px] overflow-hidden">
 
-        {/* Why Choose Section */}
-        <h3 className="text-2xl font-semibold mb-4 text-center text-green-700">
-          Why Reliable Airport Transportation Matters
-        </h3>
-        <p className="text-lg text-gray-700 mb-6 text-center leading-relaxed">
-          Choosing the right airport transfer service is crucial for a stress-free travel experience. At{" "}
-          <span className="font-semibold text-green-700">OkTaxis</span>, we bridge the gap between your home, office, or hotel and major airports like Manchester Airport and Liverpool John Lennon Airport. Here's why travelers prefer our premium services:
-        </p>
+          <Image
+            src={image1}
+            alt="Luxury Taxi Service"
 
-        {/* Features Section */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-          <div className="bg-white shadow-lg rounded-lg p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl">
-            <h4 className="text-green-700 font-bold text-lg mb-2">Time Efficiency</h4>
-            <p className="text-gray-600 text-sm">
-              Never worry about missing a flight; our services ensure punctual pick-ups and drop-offs.
+            className="object-cover w-full h-full"
+          />
+        </div>
+
+      </section>
+
+      {/* Content Section */}
+      <section className="bg-white text-black py-16 px-6 md:px-12 lg:px-20">
+        <div className="max-w-screen-xl mx-auto text-center">
+
+
+          {/* Why Choose Section */}
+          <h3 className="text-2xl sm:text-4xl font-semibold mb-6 text-green-700">
+            Why Reliable Airport Transportation Matters
+          </h3>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Text Side */}
+          <div>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Choosing the right airport transfer service is crucial for a stress-free travel experience. At{' '}
+              <span className="font-semibold text-green-700">OkTaxis</span>, we bridge the gap between your home, office, or hotel and major airports like Manchester Airport and Liverpool John Lennon Airport.
             </p>
+            <div className="grid md:grid-cols-2 gap-6 mt-8">
+              {[
+                { title: "Time Efficiency", desc: "Never worry about missing a flight; our services ensure punctual pick-ups and drop-offs." },
+                { title: "Comfort and Convenience", desc: "Experience a hassle-free journey with luxury vehicles and courteous drivers." },
+                { title: "Safety First", desc: "Licensed, insured, and well-trained drivers guarantee a secure ride." },
+                { title: "Stress-Free Travel", desc: "Skip the parking hassles and unpredictable public transportation." },
+              ].map((feature, index) => (
+                <div key={index} className="bg-gray-50 shadow-md rounded-xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-lg">
+                  <h4 className="text-green-700 font-bold text-lg mb-2">{feature.title}</h4>
+                  <p className="text-gray-600 text-sm">{feature.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="bg-white shadow-lg rounded-lg p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl">
-            <h4 className="text-green-700 font-bold text-lg mb-2">Comfort and Convenience</h4>
-            <p className="text-gray-600 text-sm">
-              Experience a hassle-free journey with luxury vehicles and courteous drivers.
-            </p>
-          </div>
-          <div className="bg-white shadow-lg rounded-lg p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl">
-            <h4 className="text-green-700 font-bold text-lg mb-2">Safety First</h4>
-            <p className="text-gray-600 text-sm">
-              Licensed, insured, and well-trained drivers guarantee a secure ride.
-            </p>
-          </div>
-          <div className="bg-white shadow-lg rounded-lg p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl">
-            <h4 className="text-green-700 font-bold text-lg mb-2">Stress-Free Travel</h4>
-            <p className="text-gray-600 text-sm">
-              Skip the parking hassles and unpredictable public transportation.
-            </p>
+
+          {/* Image Side */}
+          <div className="flex justify-center w-full h-full max-h-[450px] rounded-lg shadow-lg overflow-hidden">
+            <Image
+              src={image2}
+              alt="Luxury Taxi Service"
+
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
         {/* Call-to-Action */}
         <div className="flex justify-center mt-12">
-          <button className="bg-green-700 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-green-800 hover:shadow-2xl transition duration-300">
+          <Link
+            href="/booking"
+            className="bg-green-700 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-green-800 hover:shadow-2xl transition duration-300"
+          >
             Book Now
-          </button>
+          </Link>
         </div>
-      </div>
-
-      {/* Decorative Circles */}
-      <div className="absolute top-0 left-0 w-32 h-32 bg-green-700 opacity-20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-48 h-48 bg-green-500 opacity-20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
-    </section>
+      </section>
     </div>
   );
 };

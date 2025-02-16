@@ -44,7 +44,7 @@ import { Button } from "../ui/button"
           <div className="flex flex-col gap-y-4 items-center justify-center mx-auto max-w-[700px] text-center text-gray-500 dark:text-gray-400">
             {okTaxisContent.footer}
             <Link
-              href="/"
+              href="/booking"
             >
               <Button
                 className="bg-green-700 hover:bg-green-800"

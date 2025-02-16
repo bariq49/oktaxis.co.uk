@@ -25,7 +25,7 @@ export default function VehicleGrid() {
 </p>
 
 <div className="max-w-screen-lg mx-auto w-full px-4 py-5 flex justify-center">
-    <Link href='/' className="px-10 py-3 font-semibold rounded-lg bg-gradient-to-r from-green-700 to-teal-700 hover:from-green-600 hover:to-teal-600 text-white transition-all ease-in-out duration-300 transform hover:scale-105 hover:shadow-lg">
+    <Link href='/booking' className="px-10 py-3 font-semibold rounded-lg bg-gradient-to-r from-green-700 to-teal-700 hover:from-green-600 hover:to-teal-600 text-white transition-all ease-in-out duration-300 transform hover:scale-105 hover:shadow-lg">
         Book Now
     </Link>
 </div>
@@ -199,7 +199,7 @@ export default function VehicleGrid() {
                         Book your ride today and experience seamless, professional transportation in the Manchester area and beyond!
                     </p>
                     <div className="mt-6 flex justify-center">
-                        <Link href='/' className="px-6 py-2 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <Link href='/booking' className="px-6 py-2 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500">
                             Book Now
                         </Link>
                     </div>
