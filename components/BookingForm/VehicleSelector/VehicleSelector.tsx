@@ -13,10 +13,8 @@ import {
 } from "@/components/ui/card";
 
 import BMW from "@/assets/vehicles/bmw.jpg";
-import MERC from "@/assets/vehicles/merc.jpg";
 import Skoda from "@/assets/vehicles/skoda.jpg";
 import Tesla from "@/assets/vehicles/tesla.jpg";
-import Toyota from "@/assets/vehicles/toyota.jpeg";
 import XLVan from "@/assets/vehicles/xlvan.jpg";
 
 interface Car {
@@ -28,13 +26,6 @@ interface Car {
 }
 
 const CarList: Car[] = [
-  // {
-  //   image: Toyota,
-  //   title: "Toyota Prius",
-  //   category: "Economy",
-  //   seats: 4,
-  //   bags: 3,
-  // },
   {
     image: Skoda,
     title: "Skoda Octavia | ToyotaPrius",
@@ -49,13 +40,6 @@ const CarList: Car[] = [
     seats: 4,
     bags: 3,
   },
-  // {
-  //   image: MERC,
-  //   title: "MERC E Class",
-  //   category: "Executive",
-  //   seats: 4,
-  //   bags: 3,
-  // },
   {
     image: Tesla,
     title: "Tesla Model S",

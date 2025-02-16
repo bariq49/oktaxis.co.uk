@@ -18,6 +18,8 @@ import AirportTransportation from "@/components/Sections/AirportTransportation";
 import PremiumTransportation from "@/components/Sections/PremiumTransportation";
 import WhyChooseOktaxis from "@/components/Sections/WhyChooseOktaxis";
 import PaymentDone from "@/components/BookingForm/PaymentDone/PaymentDone";
+import HeroImage from "@/assets/homeImages/about-us-bg-img.webp"
+import Link from "next/link";
 
 
 const Home = () => {
@@ -28,32 +30,33 @@ const Home = () => {
     <main className={`w-full  ${paymentDone && "overflow-hidden h-screen"}`}>
       <Suspense><PaymentDone setPaymentDone={setPaymentDone} paymentDone={paymentDone}/></Suspense>
       {/* Hero Section */}
-      <div
-        className={`w-full  bg-contain object-cover bg-no-repeat flex text-black mb-16 md:mb-24 `}
-      >
-        <div className={`${paymentDone && "z-0"} w-full flex flex-col items-center gap-y-2  m-auto gap-x-5 md:gap-y-2 px-[2%]  `}>
-          <div className=" flex flex-col items-center m-auto">
-            <h2 className="font-bold py-4 px-4 lg:px-[10%] text-center text-2xl lg:text-4xl">
-              <span className="text-green-700">Manchester</span> Airport Taxi & Airport  <span className="text-green-700">Transfers</span>
-            </h2>
-            <Image
-              src={heroSection.backgroundImage}
-              alt="Hero Image"
-              className="w-full lg:w-[30%] flex lg:hidden"
-            />
-          </div>
-          <div className="container h-full flex flex-col align-middle items-center justify-center lg:flex-row gap-y-5 lg:gap-x-5">
-            <div className="w-full px-5 lg:w-[70%] h-auto   custom-scrollbar my-5 lg:my-0">
-              <BookingForm />
+      <div className="w-full text-center relative bg-[#97572B] z-50 overflow-hidden h-[90vh]">
+      <Image
+        src={HeroImage}
+        quality={60}
+        alt="backgorund"
+        className="w-full h-full object-cover absolute object-center "
+      />
+      <div className="relative w-full h-full bg-black/40 top-0 left-0 min-h-full py-10 flex items-center justify-center z-[99] ">
+        <div className="w-full flex items-start justify-center flex-col gap-5 max-w-screen-2xl mx-auto px-3 sm:px-5 ">
+          <div className="text-center sm:text-start w-full">
+            <div className=" text-white text-4xl md:leading-[75px] md:text-7xl font-bold ">
+              Discover The New
             </div>
-
-            {/* <div className="w-full lg:w-[30%] flex items-center m-auto justify-center">
-                    <HeroCard/>
-                </div> */}
+            <div className="text-white text-4xl md:leading-[75px] md:text-7xl font-bold ">
+              PB Limo Services
+            </div>
           </div>
-        </div>
 
+           <Link
+            href="/booking"
+            className="px-10 sm:px-12 py-1 font-semibold sm:font-bold rounded-sm  max-sm:mx-auto bg-brandColor text-white stext-lg border-2  border-brandColor hover:text-brandColor hover:bg-transparent transition-all duration-300 sm:text-xl "
+          >
+            Book Your Ride Now
+          </Link>
+        </div>
       </div>
+    </div>
       <AirportTransportation/>
 
       <div className="w-full bg-gray-50">
