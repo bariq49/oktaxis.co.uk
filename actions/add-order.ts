@@ -87,7 +87,7 @@ export async function createOrder({
                 </a>
               </p>
               <p style="font-size: 14px; text-align: center; color: #777;">If you have any questions or need assistance, feel free to contact us.</p>
-              <p style="font-size: 14px; text-align: center; color: #777;">Best regards,<br>Merit Limo</p>
+              <p style="font-size: 14px; text-align: center; color: #777;">Best regards,<br>OkTaxis</p>
             </div>
           </body>
         </html>

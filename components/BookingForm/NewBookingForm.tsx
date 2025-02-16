@@ -21,7 +21,7 @@ import { z } from 'zod'
 // calander imports
 import { Calendar } from "@/components/ui/calendar"
 import { format } from "date-fns"
-import { CalendarDays, TimerIcon, Search, Trash2, SquarePlus, Users, Pencil } from "lucide-react"
+import { CalendarDays, TimerIcon, Search, Trash2, SquarePlus, Users, Pencil, CarFront } from "lucide-react"
 
 
 
@@ -33,10 +33,10 @@ import { Autocomplete, Libraries, useLoadScript } from "@react-google-maps/api"
 import Image, { StaticImageData } from 'next/image'
 
 
-import BMW from "@/assets/vehicles/bmw.jpg";
-import Skoda from "@/assets/vehicles/skoda.jpg";
-import Tesla from "@/assets/vehicles/tesla.jpg";
-import XLVan from "@/assets/vehicles/xlvan.jpg";
+import BMW from "@/assets/Executive.jpg";
+import Skoda from "@/assets/Economy.jpg";
+import Tesla from "@/assets/Tesla S.png";
+import XLVan from "@/assets/Luxury Van.jpg";
 
 // import { createOrder } from '@/actions/add-order'
 import { createOrder } from '@/actions/add-order'
@@ -183,6 +183,7 @@ function Circle({ active, text, title }: { active: boolean, text: string, title:
 }
 type CarDetails = {
   name: string;
+  cars: string;
   price: number;
   under10: number;
   under20: number;
@@ -213,23 +214,23 @@ type CarsDataTypes = {
 const carsData: CarsDataTypes = {
 
   'hourly-rates': {
-    'skoda': { name: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false , under10:25 , under20:35, hourly:15, stop:10 },
-    'bmw': { name: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10:35 , under20:45 , hourly:17, stop:10 },
-    'tesla': { name: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true , under10:45 , under20:65, hourly:20, stop:10 },
-    'xlvan': { name: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10:65 , under20:80, hourly:30, stop:15  },
+    'skoda': { name:'Economy', cars: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false , under10:25 , under20:35, hourly:15, stop:10 },
+    'bmw': { name:'Executive',cars: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10:35 , under20:45 , hourly:17, stop:10 },
+    'tesla': {name:'Executive Premium', cars: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true , under10:45 , under20:65, hourly:20, stop:10 },
+    'xlvan': { name:'Luxury Van',cars: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10:65 , under20:80, hourly:30, stop:15  },
   },
   'road-trips': {
-    'skoda': { name: 'Skoda Octavia | ToyotaPrius', price: 55, image: Skoda, bags: 3, persons: 4, specailRequest: false , under10:10 , under20:20 , hourly:15, stop:10 },
-    'bmw': { name: 'BMW 5 Series | MERC E Class', price: 60, image: BMW, bags: 3, persons: 4, specailRequest: true, under10:10 , under20:20, hourly:15, stop:10  },
-    'tesla': { name: 'Tesla Model S', price: 90, image: Tesla, bags: 3, persons: 4, specailRequest: true , under10:10 , under20:20, hourly:15, stop:10 },
-    'xlvan': { name: 'XL Passenger Van', price: 95, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10:10 , under20:20 , hourly:15, stop:10 },
+    'skoda': { name:'Economy', cars: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false , under10:25 , under20:35, hourly:15, stop:10 },
+    'bmw': { name:'Executive',cars: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10:35 , under20:45 , hourly:17, stop:10 },
+    'tesla': {name:'Executive Premium', cars: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true , under10:45 , under20:65, hourly:20, stop:10 },
+    'xlvan': { name:'Luxury Van',cars: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10:65 , under20:80, hourly:30, stop:15  },
   },
 };
 
-const allCars = [{ name: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false , under10:25 , under20:35, hourly:15, stop:10 },
-   { name: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10:35 , under20:45 , hourly:17, stop:10 },
-   { name: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true , under10:45 , under20:65, hourly:20, stop:10 },
-  { name: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10:65 , under20:80, hourly:30, stop:15  },]
+const allCars = [{ name:'Economy',cars: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false , under10:25 , under20:35, hourly:15, stop:10 },
+   {name:'Executive', cars: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10:35 , under20:45 , hourly:17, stop:10 },
+   {name:'Executive Premium', cars: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true , under10:45 , under20:65, hourly:20, stop:10 },
+  {name:'Luxury Van', cars: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10:65 , under20:80, hourly:30, stop:15  },]
 
 
 
@@ -438,7 +439,7 @@ function BookingForm({ _category }: { _category: string }) {
               const minutes = form.getValues('minutes') / 60
               console.log('hours : ', hours)
               console.log('minutes : ', minutes)
-              _price = Number(((hours + minutes) * Number(price)).toFixed(2));
+              _price = Number(((hours + minutes) * Number(value.hourly)).toFixed(2));
             }
             else if (category === 'road-trips' ) {
               if(distance<10){
@@ -475,6 +476,7 @@ function BookingForm({ _category }: { _category: string }) {
               <div className='flex flex-col gap-1 sm:gap-2 w-full col-span-2 sm:px-2'>
                 <h3 className=' font-bold  text-xl sm:text-3xl'>{value.name}</h3>
                 <div className='flex flex-col gap-1 sm:gap-2 max-sm:text-sm'>
+                  <div className='flex items-center text-sm gap-2'><CarFront color='black' className='max-sm:w-4' /><p>{value.cars}</p></div>
                   <div className='flex items-center text-sm gap-2'><Users color='black' className='max-sm:w-4' /><p>Up to {value.persons} Passengers</p></div>
                 </div>
               </div>
@@ -482,7 +484,7 @@ function BookingForm({ _category }: { _category: string }) {
               <div className='flex flex-col w-full gap-1 sm:gap-5 justify-center sm:p-2'>
 
 
-                 <div className='text-lg sm:text-xl justify-center font-semibold flex items-center gap-2'><div>Price: </div><div className='font-bold'>$ {_price.toFixed(2)} </div></div>
+                 <div className='text-lg sm:text-xl justify-center font-semibold flex items-center gap-2'><div>Price: </div><div className='font-bold'>£ {_price.toFixed(2)} </div></div>
 
                <div onClick={() => { setCar(value.name); setPrice(Number(_price.toFixed(2))); setStep(prev => ++prev) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
 
@@ -648,7 +650,7 @@ function BookingForm({ _category }: { _category: string }) {
 
                           <div onClick={() => { form.formState.errors.hours = undefined; field.onChange(++field.value); }}> <IncrementDecrementButtont text='+' /></div>
                         </div>
-                        <FormMessage />
+                        <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -672,7 +674,8 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
     Please select your dropoff location.
   </FormDescription> */}
-                        <FormMessage />
+                                             <FormMessage color='red' />
+
                       </FormItem>
                     )}
                   />
@@ -729,7 +732,7 @@ function BookingForm({ _category }: { _category: string }) {
                             />
                           </PopoverContent>
                         </Popover>
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -809,7 +812,7 @@ function BookingForm({ _category }: { _category: string }) {
                             </div>
                           </PopoverContent>
                         </Popover>
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -872,7 +875,7 @@ function BookingForm({ _category }: { _category: string }) {
                       {/* <FormDescription>
                     Please select your pickup location.
                   </FormDescription> */}
-                      <FormMessage />
+                                            <FormMessage color='red' />
                     </FormItem>
                   )}
                 />
@@ -966,7 +969,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1025,7 +1028,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1069,7 +1072,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1096,7 +1099,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1120,7 +1123,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1156,7 +1159,7 @@ function BookingForm({ _category }: { _category: string }) {
                             placeholder="Enter your name"
                           />
                         </div>
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1175,7 +1178,7 @@ function BookingForm({ _category }: { _category: string }) {
                             placeholder="Enter your email"
                           />
                         </div>
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1195,7 +1198,7 @@ function BookingForm({ _category }: { _category: string }) {
                             placeholder="Enter your phone number"
                           />
                         </div>
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1215,7 +1218,7 @@ function BookingForm({ _category }: { _category: string }) {
                             placeholder="Flight"
                           />
                         </div>
-                        <FormMessage />
+                                              <FormMessage color='red' />
                       </FormItem>
                     )}
                   />

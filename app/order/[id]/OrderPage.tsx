@@ -67,7 +67,7 @@ function OrderPage({ id }: { id: string }) {
           </div>
           <div>
             <p className="font-semibold text-gray-700">Price:</p>
-            <p className="text-gray-900 font-bold">${order.price}</p>
+            <p className="text-gray-900 font-bold">£{order.price}</p>
           </div>
           <div>
             <p className="font-semibold text-gray-700">Car:</p>

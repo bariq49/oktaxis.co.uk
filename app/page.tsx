@@ -41,10 +41,10 @@ const Home = () => {
         <div className="w-full flex items-start justify-center flex-col gap-5 max-w-screen-2xl mx-auto px-3 sm:px-5 ">
           <div className="text-center sm:text-start w-full">
             <div className=" text-white text-4xl md:leading-[75px] md:text-7xl font-bold ">
-              Discover The New
+            OkTaxis Offers Luxury
             </div>
             <div className="text-white text-4xl md:leading-[75px] md:text-7xl font-bold ">
-              PB Limo Services
+            Transport All Over The UK
             </div>
           </div>
 
