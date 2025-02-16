@@ -712,7 +712,7 @@ function BookingForm({ _category }: { _category: string }) {
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
+                          <PopoverContent className="w-auto p-0 bg-white" align="start">
                             <Calendar
                               mode="single"
                               selected={field.value}
@@ -761,7 +761,7 @@ function BookingForm({ _category }: { _category: string }) {
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
-                          <PopoverContent className="max-w-full w-fit h-40  p-2 overflow-hidden " align="start">
+                          <PopoverContent className="max-w-full w-fit h-40  p-2 overflow-hidden bg-white" align="start">
                             <div className="flex items-start justify-start gap-3 max-h-full h-full overflow-hidden">
                               {/* Hours */}
                               <div className='flex flex-col py-1 rounded-sm border border-gray-300 text-center max-h-full h-full overflow-y-auto overflow-hidden w-fit '>
