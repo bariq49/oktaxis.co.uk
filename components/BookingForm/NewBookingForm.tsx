@@ -833,7 +833,7 @@ function BookingForm({ _category }: { _category: string }) {
                         ) : (
                           <Autocomplete
                             options={{
-                              componentRestrictions: { country: "us" },
+                              componentRestrictions: { country: "gb" },
                             }}
                             onLoad={(autocomplete) => (fromRef.current = autocomplete)}
                             onPlaceChanged={() => {
@@ -895,7 +895,7 @@ function BookingForm({ _category }: { _category: string }) {
                           ) : (
                             <Autocomplete
                               options={{
-                                componentRestrictions: { country: "us" },
+                                componentRestrictions: { country: "gb" },
                               }}
                               onLoad={(autocomplete) => {
                                 if (index === 0) {
@@ -989,7 +989,7 @@ function BookingForm({ _category }: { _category: string }) {
                           ) : (
                             <Autocomplete
                               options={{
-                                componentRestrictions: { country: "us" },
+                                componentRestrictions: { country: "gb" },
                               }}
                               onLoad={(autocomplete) => (toRef.current = autocomplete)}
                               onPlaceChanged={() => {

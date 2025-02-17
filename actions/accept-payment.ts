@@ -5,7 +5,7 @@ import { randomUUID } from "crypto";
 
 console.log('Environment ',Environment)
 const squareClient = new Client({
-  accessToken: "EAAAl4WC-ijpgbWup_9PmX0p8EHNppnHeTo61oiLq2PKxSR6jEOdzUnaPul9eIaJ",
+  accessToken: "EAAAl0j-ptaxRP-CjeWgOkd091xw8Fh2hPMnKvwsXuBAF6ygarJT5tEE9k-xHPWn",
   environment: "sandbox", // Change to .Production when going live
 });
 

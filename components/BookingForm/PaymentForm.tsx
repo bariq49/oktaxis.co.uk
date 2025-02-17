@@ -47,8 +47,8 @@ function MyPaymentForm({ amount, form, setPaymentDone }: { form: UseFormReturn<P
     <div className="mt-5 w-full flex flex-col gap-5">
 
       <PaymentForm
-      applicationId="sandbox-sq0idb-c03RtfZOdscOdDnd5POc1A"
-      locationId="L5EQZ9HDZ4Z5Q"
+      applicationId="sq0idp-UScAl68JE4C7e3QTBxt-VQ"
+      locationId="LAV5G921YMBBH"
 
       cardTokenizeResponseReceived={async (token: PaymentResponse) => {
         console.log("Token received:", token);
