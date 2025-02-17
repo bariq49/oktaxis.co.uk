@@ -18,7 +18,7 @@ import AirportTransportation from "@/components/Sections/AirportTransportation";
 import PremiumTransportation from "@/components/Sections/PremiumTransportation";
 import WhyChooseOktaxis from "@/components/Sections/WhyChooseOktaxis";
 import PaymentDone from "@/components/BookingForm/PaymentDone/PaymentDone";
-import HeroImage from "@/assets/homeImages/about-us-bg-img.webp"
+import HeroImage from "@/assets/heroImage.jpg"
 import Link from "next/link";
 
 

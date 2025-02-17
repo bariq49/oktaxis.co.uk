@@ -23,7 +23,7 @@ function FindOrderForm() {
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="orderId" className="block text-lg text-gray-700 mb-2">
+            <label htmlFor="orderId" className="block text-lg text-gray-700 mb-2 ">
               Enter Order ID
             </label>
             <input
@@ -32,13 +32,13 @@ function FindOrderForm() {
               value={orderId}
               onChange={(e) => setOrderId(e.target.value)}
               placeholder="e.g., 12345"
-              className="w-full p-3 text-lg border rounded-xl focus:outline-none focus:ring-2 focus:ring-brandColor"
+              className="w-full p-3 text-lg border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-600"
             />
           </div>
           <div>
             <button
               type="submit"
-              className="w-full py-3 bg-brandColor text-white text-lg font-semibold rounded-xl hover:bg-brandColor/80 focus:outline-none focus:ring-2 focus:ring-brandColor"
+              className="w-full py-3 bg-green-600 text-white text-lg font-semibold rounded-xl hover:bg-green-600/80 focus:outline-none focus:ring-2 focus:ring-green-600"
             >
               Find Order
             </button>
