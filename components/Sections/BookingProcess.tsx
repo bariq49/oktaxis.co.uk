@@ -156,7 +156,7 @@ export default function BookingProcess() {
       <div className='px-5 w-full'>
 
       <div className="rounded-lg shadow-lg w-full max-h-[700px] h-full overflow-hidden max-w-screen-2xl mx-auto mt-10">
-          <Image src={image3} alt='image 3' className='w-full h-full object-cover min-h-72'/>
+          <Image src={image3}  quality={70} alt='image 3' className='w-full h-full object-cover min-h-72'/>
         </div>
       </div>
     </section>
