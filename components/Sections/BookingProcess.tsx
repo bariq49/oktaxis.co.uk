@@ -3,7 +3,8 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { cn } from "@/lib/utils"
 import { motion, useAnimation, useInView } from 'framer-motion'
-
+import Image from 'next/image'
+import image3 from '@/assets/image3.jpg'
 interface BookingStep {
   number: number
   title: string
@@ -149,6 +150,13 @@ export default function BookingProcess() {
               <StepItem key={step.number} step={step} index={index} totalSteps={bookingSteps.length} />
             ))}
           </div>
+        </div>
+       
+      </div>
+      <div className='px-5 w-full'>
+
+      <div className="rounded-lg shadow-lg w-full max-h-[700px] h-full overflow-hidden max-w-screen-2xl mx-auto mt-10">
+          <Image src={image3} alt='image 3' className='w-full h-full object-cover min-h-72'/>
         </div>
       </div>
     </section>

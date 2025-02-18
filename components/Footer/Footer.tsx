@@ -5,7 +5,6 @@ import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { homePageData } from "@/constants/homePageData";
 import Logo from "@/assets/homeImages/footer-logo.png";
-import Whatsapp from "@/assets/whatsapp.png";
 
 export default function Footer() {
   const { footer } = homePageData;
@@ -14,15 +13,7 @@ export default function Footer() {
     <>
       <footer className="w-full relative bg-green-800 text-white pt-12 px-4 md:px-6 lg:px-8 border-t">
         {/* WhatsApp Animation Section */}
-        <div className="fixed right-[0] bottom-[4%] animate-whatsappBounce">
-          <a href="https://wa.me/447342193341" target="_blank" rel="noopener noreferrer">
-            <Image
-              src={Whatsapp}
-              alt="whatsapp logo"
-              className="w-14 lg:w-16 pr-[2px] lg:p-0"
-            />
-          </a>
-        </div>
+        
 
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-1 items-center m-auto lg:grid-cols-12 gap-8">
@@ -103,9 +94,9 @@ export default function Footer() {
         </div>
 
         <div className="w-full border-t flex flex-col items-center py-2 text-sm text-white">
-          <p>Developed By: <span>The Dev Square</span></p>
+          <p>Developed By: <Link href='https://thedevsquare.com/'>The Dev Square</Link></p>
           <p>
-            © 2024 Oktaxis. All Rights Reserved.
+            © 2025 Oktaxis. All Rights Reserved.
           </p>
         </div>
       </footer>

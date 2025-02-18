@@ -21,7 +21,7 @@ import { z } from 'zod'
 // calander imports
 import { Calendar } from "@/components/ui/calendar"
 import { format } from "date-fns"
-import { CalendarDays, TimerIcon, Search, Trash2, SquarePlus, Users, Pencil, CarFront } from "lucide-react"
+import { CalendarDays, TimerIcon, Search, Trash2, SquarePlus, Pencil, CarFront } from "lucide-react"
 
 
 
@@ -477,7 +477,7 @@ function BookingForm({ _category }: { _category: string }) {
                 <h3 className=' font-bold  text-xl sm:text-3xl'>{value.name}</h3>
                 <div className='flex flex-col gap-1 sm:gap-2 max-sm:text-sm'>
                   <div className='flex items-center text-sm gap-2'><CarFront color='black' className='max-sm:w-4' /><p>{value.cars}</p></div>
-                  <div className='flex items-center text-sm gap-2'><Users color='black' className='max-sm:w-4' /><p>Up to {value.persons} Passengers</p></div>
+                  {/* <div className='flex items-center text-sm gap-2'><Users color='black' className='max-sm:w-4' /><p>Up to {value.persons} Passengers</p></div> */}
                 </div>
               </div>
               
@@ -569,8 +569,8 @@ function BookingForm({ _category }: { _category: string }) {
           </h2>
 
           <div className={`flex items-center ${step === 1 ? 'visible' : 'hidden'}`}>
-            <div onClick={() => { setCategory('road-trips') }} className={cn('text-sm px-2 py-1 border border-black cursor-pointer ', category !== 'hourly-rates' ? 'bg-black text-white' : 'text-black bg-transparent')}>TRANSFER</div>
-            <div onClick={() => { setCategory('hourly-rates') }} className={cn('text-sm px-2 py-1  border border-black  cursor-pointer', category === 'hourly-rates' ? 'bg-black text-white' : 'text-black bg-transparent')}>HOURLY</div>
+            <div onClick={() => { setCategory('road-trips') }} className={cn(' px-2 py-2 border border-black cursor-pointer ', category !== 'hourly-rates' ? 'bg-black text-white' : 'text-black bg-transparent')}>TRANSFER</div>
+            <div onClick={() => { setCategory('hourly-rates') }} className={cn(' px-2 py-2  border border-black  cursor-pointer', category === 'hourly-rates' ? 'bg-black text-white' : 'text-black bg-transparent')}>HOURLY</div>
 
           </div>
 

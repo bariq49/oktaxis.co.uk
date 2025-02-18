@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import image1 from "@/assets/13.jpg";
-import image2 from "@/assets/14.jpg";
+import image1 from "@/assets/image1.jpg";
+import image2 from "@/assets/image2.jpg";
 
 const AirportTransportation = () => {
   return (
@@ -21,13 +21,11 @@ const AirportTransportation = () => {
           Traveling can be an exciting adventure, but getting to and from the airport often presents challenges. At{' '}
           <span className="font-semibold text-green-700">OkTaxis</span>, we provide seamless and reliable airport transportation services in Manchester and Liverpool, ensuring your journey begins and ends on the right note.
         </p>
-        <div className="rounded-lg shadow-lg w-full max-h-[500px] overflow-hidden">
-
+        <div className="rounded-lg shadow-lg w-full max-h-[800px] h-full overflow-hidden  ">
           <Image
             src={image1}
             alt="Luxury Taxi Service"
-
-            className="object-cover w-full h-full"
+            className=" w-full min-h-80 h-full object-cover"
           />
         </div>
 
@@ -67,7 +65,7 @@ const AirportTransportation = () => {
           </div>
 
           {/* Image Side */}
-          <div className="flex justify-center w-full h-full max-h-[450px] rounded-lg shadow-lg overflow-hidden">
+          <div className="flex justify-center w-full h-full  rounded-lg shadow-lg overflow-hidden">
             <Image
               src={image2}
               alt="Luxury Taxi Service"
