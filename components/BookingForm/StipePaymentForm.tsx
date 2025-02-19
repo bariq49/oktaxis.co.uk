@@ -100,7 +100,7 @@ function CheckoutForm({ amount, form, setPaymentDone }: { form: UseFormReturn<Pa
         className="bg-black text-white py-2 px-4 rounded-md disabled:opacity-50"
         disabled={!stripe || loading}
       >
-        {loading ? "Processing..." : "Pay Now"}
+        {loading ? "Processing..." : "Pay Now : £ " + amount }
       </button>
 
       {error && <div className="text-red-500 text-center">{error}</div>}
