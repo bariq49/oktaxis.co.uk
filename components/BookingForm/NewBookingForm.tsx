@@ -1,17 +1,17 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form"
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -42,6 +42,7 @@ import XLVan from "@/assets/Luxury Van.jpg";
 import { createOrder } from '@/actions/add-order'
 import Link from 'next/link'
 import MyPaymentForm, { PaymentFormFields } from './PaymentForm'
+import StripePaymentForm from './StipePaymentForm'
 
 
 
@@ -214,23 +215,23 @@ type CarsDataTypes = {
 const carsData: CarsDataTypes = {
 
   'hourly-rates': {
-    'skoda': { name:'Economy', cars: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false , under10:25 , under20:35, hourly:15, stop:10 },
-    'bmw': { name:'Executive',cars: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10:35 , under20:45 , hourly:17, stop:10 },
-    'tesla': {name:'Executive Premium', cars: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true , under10:45 , under20:65, hourly:20, stop:10 },
-    'xlvan': { name:'Luxury Van',cars: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10:65 , under20:80, hourly:30, stop:15  },
+    'skoda': { name: 'Economy', cars: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false, under10: 25, under20: 35, hourly: 15, stop: 10 },
+    'bmw': { name: 'Executive', cars: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10: 35, under20: 45, hourly: 17, stop: 10 },
+    'tesla': { name: 'Executive Premium', cars: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true, under10: 45, under20: 65, hourly: 20, stop: 10 },
+    'xlvan': { name: 'Luxury Van', cars: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10: 65, under20: 80, hourly: 30, stop: 15 },
   },
   'road-trips': {
-    'skoda': { name:'Economy', cars: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false , under10:25 , under20:35, hourly:15, stop:10 },
-    'bmw': { name:'Executive',cars: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10:35 , under20:45 , hourly:17, stop:10 },
-    'tesla': {name:'Executive Premium', cars: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true , under10:45 , under20:65, hourly:20, stop:10 },
-    'xlvan': { name:'Luxury Van',cars: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10:65 , under20:80, hourly:30, stop:15  },
+    'skoda': { name: 'Economy', cars: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false, under10: 25, under20: 35, hourly: 15, stop: 10 },
+    'bmw': { name: 'Executive', cars: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10: 35, under20: 45, hourly: 17, stop: 10 },
+    'tesla': { name: 'Executive Premium', cars: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true, under10: 45, under20: 65, hourly: 20, stop: 10 },
+    'xlvan': { name: 'Luxury Van', cars: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10: 65, under20: 80, hourly: 30, stop: 15 },
   },
 };
 
-const allCars = [{ name:'Economy',cars: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false , under10:25 , under20:35, hourly:15, stop:10 },
-   {name:'Executive', cars: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10:35 , under20:45 , hourly:17, stop:10 },
-   {name:'Executive Premium', cars: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true , under10:45 , under20:65, hourly:20, stop:10 },
-  {name:'Luxury Van', cars: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10:65 , under20:80, hourly:30, stop:15  },]
+const allCars = [{ name: 'Economy', cars: 'Skoda Octavia | ToyotaPrius', price: 1.3, image: Skoda, bags: 3, persons: 4, specailRequest: false, under10: 25, under20: 35, hourly: 15, stop: 10 },
+{ name: 'Executive', cars: 'BMW 5 Series | MERC E Class', price: 1.45, image: BMW, bags: 3, persons: 4, specailRequest: true, under10: 35, under20: 45, hourly: 17, stop: 10 },
+{ name: 'Executive Premium', cars: 'Tesla Model S', price: 1.6, image: Tesla, bags: 3, persons: 4, specailRequest: true, under10: 45, under20: 65, hourly: 20, stop: 10 },
+{ name: 'Luxury Van', cars: 'XL Passenger Van', price: 1.9, image: XLVan, bags: 6, persons: 6, specailRequest: true, under10: 65, under20: 80, hourly: 30, stop: 15 },]
 
 
 
@@ -250,15 +251,16 @@ function BookingForm({ _category }: { _category: string }) {
   const [distance, setDistance] = useState(0);
   const [error, setError] = useState('')
   const [paymentDone, setPaymentDone] = useState(false);
-  
+
 
   const form = useForm({ resolver: zodResolver(category === 'hourly-rates' ? hourlyFormValidation : simpleFormValidation) })
   const [price, setPrice] = useState(0)
   const [car, setCar] = useState('')
+  const [formDone, setFormDone] = useState(false)
   const [isOrderPlaced, setIsOrderPlaced] = useState(false)
   const [isSubmiting, startSubmiting] = useTransition()
   const [stops, setStops] = useState<boolean[]>([])
-  const step1Fields:FormFieldTypes[] = ['pickup_date', 'pickup_time', 'pickup_location', 'dropoff_location', 'passengers', 'hours', 'minutes']
+  const step1Fields: FormFieldTypes[] = ['pickup_date', 'pickup_time', 'pickup_location', 'dropoff_location', 'passengers', 'hours', 'minutes']
   const { isLoaded, } = useLoadScript({
     googleMapsApiKey:
       process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ||
@@ -279,16 +281,17 @@ function BookingForm({ _category }: { _category: string }) {
     form.setValue('bags', 0)
     form.setValue('hours', 0)
     form.setValue('minutes', 0)
-    
+
   }, [paramCategory, form]);
 
-  useEffect(()=>{
-    console.log("use effect working : ",paymentDone)
-    if(paymentDone){
+  useEffect(() => {
+    console.log("use effect working : ", paymentDone)
+    if (paymentDone) {
       console.log('inside working')
       submitHandle()
+      setFormDone(false)
     }
-  },[paymentDone])
+  }, [paymentDone])
 
   console.log('form.watch(step1Fields) ', form.formState.errors)
 
@@ -311,7 +314,7 @@ function BookingForm({ _category }: { _category: string }) {
     const _pickup_time = `${pickup_time.hour.toString()} : ${pickup_time.minute.toString()} : ${pickup_time.period.toString()} `
     startSubmiting(async () => {
       const response = await createOrder({
-        bags, dropoff_location, email, payment_id:payment_id??'N/A', flight: flight ?? 'N/A', hours, childs, minutes, name, passengers, phone, pickup_time: _pickup_time, pickup_date, pickup_location,
+        bags, dropoff_location, email, payment_id: payment_id ?? 'N/A', flight: flight ?? 'N/A', hours, childs, minutes, name, passengers, phone, pickup_time: _pickup_time, pickup_date, pickup_location,
         price,
         car,
         distance,
@@ -352,11 +355,12 @@ function BookingForm({ _category }: { _category: string }) {
       if (!output || isStopError) {
         setError('All Fields Required')
 
-        return }
+        return
+      }
 
-      if ('road-trips' === category ) {
+      if ('road-trips' === category) {
         console.log("working 1");
-        if(!fromPlace || !toPlace){
+        if (!fromPlace || !toPlace) {
           setError('To and From Places are not selected')
           return;
         }
@@ -397,14 +401,14 @@ function BookingForm({ _category }: { _category: string }) {
             setError(res.error);
             return;
           }
-          
+
           setDistance(Number(res.distance.toFixed(2)));
-         
+
           setStep(prev => ++prev)
 
         });
-      } else if(category === 'hourly-rates') {
-    
+      } else if (category === 'hourly-rates') {
+
         setStep(prev => ++prev)
       }
     } else if (step === 2) {
@@ -422,7 +426,7 @@ function BookingForm({ _category }: { _category: string }) {
   console.log('category : ', category)
 
 
-  const CarsList = ({ category }: { category: keyof CarsDataTypes,  }) => {
+  const CarsList = ({ category }: { category: keyof CarsDataTypes, }) => {
     console.log('category : ', category)
     if (step !== 2) {
       return <div>Step Noy Correct</div>
@@ -435,33 +439,34 @@ function BookingForm({ _category }: { _category: string }) {
           {allCars.map((value, index) => {
             let _price = 0
             if (category === 'hourly-rates') {
-              const hours = form.getValues('hours') 
+              const hours = form.getValues('hours')
               const minutes = form.getValues('minutes') / 60
               console.log('hours : ', hours)
               console.log('minutes : ', minutes)
               _price = Number(((hours + minutes) * Number(value.hourly)).toFixed(2));
             }
-            else if (category === 'road-trips' ) {
-              if(distance<10){
+            else if (category === 'road-trips') {
+              if (distance < 10) {
                 _price = value.under10
-              } else if(distance<20){
+              } else if (distance < 20) {
                 _price = value.under20
-              }else{
-                 _price = value.under20 + ((distance-20) * value.price)
+              } else {
+                _price = value.under20 + ((distance - 20) * value.price)
               }
             }
-            if(stops.length>0){
+            if (stops.length > 0) {
               _price += value.stop * stops.length
             }
-            if(form.watch('childs')>0){
-              _price += 10* form.watch('childs')
+            if (form.watch('childs') > 0) {
+              _price += 10 * form.watch('childs')
             }
-            if(form.watch('bags')>0){
+            if (form.watch('bags') > 0) {
               _price += 15
             }
-           console.log("category ",category)
-           console.log("_price ",_price)
-           console.log("distance ",distance)
+            console.log("category ", category)
+            console.log("_price ", _price)
+            console.log("distance ", distance)
+            _price = Number(_price.toFixed(0))
 
 
             return <div key={index} className={`w-full max-sm:flex flex-col sm:grid sm:grid-cols-4 rounded-sm  max-sm:gap-2  sm:divide-x divide-gray-500  p-2   ${car === value.name ? 'bg-blue-300 shadow-2xl' : 'bg-gray-100 hover:bg-gray-300 hover:shadow-lg'} `}>
@@ -480,17 +485,17 @@ function BookingForm({ _category }: { _category: string }) {
                   {/* <div className='flex items-center text-sm gap-2'><Users color='black' className='max-sm:w-4' /><p>Up to {value.persons} Passengers</p></div> */}
                 </div>
               </div>
-              
+
               <div className='flex flex-col w-full gap-1 sm:gap-5 justify-center sm:p-2'>
 
 
-                 <div className='text-lg sm:text-xl justify-center font-semibold flex items-center gap-2'><div>Price: </div><div className='font-bold'>£ {_price.toFixed(2)} </div></div>
+                <div className='text-lg sm:text-xl justify-center font-semibold flex items-center gap-2'><div>Price: </div><div className='font-bold'>£ {_price.toFixed(2)} </div></div>
 
-               <div onClick={() => { setCar(value.name); setPrice(Number(_price.toFixed(2))); setStep(prev => ++prev) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
+                <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(_price)); setStep(prev => ++prev) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
 
                   <p className='text-xl'>SELECT</p>
                 </div>
-                
+
 
               </div>
 
@@ -505,14 +510,26 @@ function BookingForm({ _category }: { _category: string }) {
     );
   };
 
-  const submitHandle = () => {   
+  const submitHandle = () => {
     const _stops = stops.length;
     for (let i = 1; i <= 3; i++) {
       if (_stops < i) {
         form.clearErrors(`stop_${i}` as FormFieldTypes)
       }
     }
-    form.handleSubmit(onSubmit)();
+    for (let i = 0; i < 10; i++) {
+
+      console.log("working.......")
+    }
+    form.trigger()
+  console.log("errors : ",form.formState.errors)
+  console.log("errors : ", Object.entries(form.formState.errors).length===0)
+    if(paymentDone){
+      form.handleSubmit(onSubmit)();
+    }else if(!formDone && Object.entries(form.formState.errors).length===0){
+      console.log("get payment")
+       setFormDone(true)
+    }
   }
 
   return (
@@ -520,7 +537,7 @@ function BookingForm({ _category }: { _category: string }) {
       {/* steps */}
       {!isOrderPlaced && <div className='flex items-center w-full gap-3 justify-between max-w-[90%] mx-auto '>
         <div className='cursor-pointer' onClick={() => {
-          if(paymentDone) return;
+          if (paymentDone) return;
           if (step > 1) {
             setStep(1)
           }
@@ -530,7 +547,7 @@ function BookingForm({ _category }: { _category: string }) {
         </div>
         <div className={cn('w-full h-1 rounded-full bg-gray-400', step > 1 && 'bg-black')}></div>
         <div className='cursor-pointer' onClick={() => {
-          if(paymentDone) return;
+          if (paymentDone) return;
           if (step === 1) {
             NextStep()
           } else if (step === 3) {
@@ -542,7 +559,7 @@ function BookingForm({ _category }: { _category: string }) {
         </div>
         <div className={cn('w-full h-1 rounded-full bg-gray-400', step > 2 && 'bg-black')}></div>
         <div className='cursor-pointer' onClick={() => {
-          if(paymentDone) return;
+          if (paymentDone) return;
           if (step === 2) {
             if (car) {
               setStep(prev => prev + 1)
@@ -674,7 +691,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
     Please select your dropoff location.
   </FormDescription> */}
-                                             <FormMessage color='red' />
+                        <FormMessage color='red' />
 
                       </FormItem>
                     )}
@@ -732,7 +749,7 @@ function BookingForm({ _category }: { _category: string }) {
                             />
                           </PopoverContent>
                         </Popover>
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -812,7 +829,7 @@ function BookingForm({ _category }: { _category: string }) {
                             </div>
                           </PopoverContent>
                         </Popover>
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -875,7 +892,7 @@ function BookingForm({ _category }: { _category: string }) {
                       {/* <FormDescription>
                     Please select your pickup location.
                   </FormDescription> */}
-                                            <FormMessage color='red' />
+                      <FormMessage color='red' />
                     </FormItem>
                   )}
                 />
@@ -969,7 +986,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1028,7 +1045,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1072,7 +1089,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1099,7 +1116,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1123,7 +1140,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
@@ -1136,7 +1153,7 @@ function BookingForm({ _category }: { _category: string }) {
 
               <div className={`w-full  ${step === 2 ? 'visible' : 'hidden'}`}>
 
-                {category  && <CarsList category={category}  />}
+                {category && <CarsList category={category} />}
               </div>
 
 
@@ -1159,7 +1176,7 @@ function BookingForm({ _category }: { _category: string }) {
                             placeholder="Enter your name"
                           />
                         </div>
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' className='text-red-500' />
                       </FormItem>
                     )}
                   />
@@ -1178,7 +1195,7 @@ function BookingForm({ _category }: { _category: string }) {
                             placeholder="Enter your email"
                           />
                         </div>
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' className='text-red-500' />
                       </FormItem>
                     )}
                   />
@@ -1198,7 +1215,7 @@ function BookingForm({ _category }: { _category: string }) {
                             placeholder="Enter your phone number"
                           />
                         </div>
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' className='text-red-500' />
                       </FormItem>
                     )}
                   />
@@ -1218,23 +1235,23 @@ function BookingForm({ _category }: { _category: string }) {
                             placeholder="Flight"
                           />
                         </div>
-                                              <FormMessage color='red' />
+                        <FormMessage color='red' />
                       </FormItem>
                     )}
                   />
                 </div>
-               
-
 
               </div>}
               {error && <p className='text-center text-red-500'>{error}</p>}
               {paymentDone && <p className=' text-green-500 text-xl font-medium text-start mt-3'>Payment Done</p>}
-    
 
-              { paymentDone && step === 3 && <Button id='submitButton' type="submit" onClick={submitHandle} className='w-full hover:bg-black bg-black/80 hover:shadow-lg p-2 mt-6 rounded-sm text-white font-semibold'>{isSubmiting ? 'Order Placing...' : 'Place Order'}</Button>}
-              { step === 3 && !paymentDone && <MyPaymentForm amount={price}   form={form as unknown as UseFormReturn<PaymentFormFields>} setPaymentDone={setPaymentDone} />}
+
+              {step === 3 && <Button id='submitButton' type="button" onClick={submitHandle} className='w-full hover:bg-black bg-black/80 hover:shadow-lg p-2 mt-6 rounded-sm text-white font-semibold'>{isSubmiting ? 'Order Placing...' : 'Place Order'}</Button>}
+              {/* { step === 3 && !paymentDone && <MyPaymentForm amount={price}   form={form as unknown as UseFormReturn<PaymentFormFields>} setPaymentDone={setPaymentDone} />} */}
+             
             </form>
           </Form>
+          {step === 3 && !paymentDone && price && formDone && <StripePaymentForm amount={Number(price)} form={form as unknown as UseFormReturn<PaymentFormFields>} setPaymentDone={setPaymentDone} />}
         </div>}
       </div>
     </div>
