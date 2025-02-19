@@ -3,9 +3,10 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {  useStripe, useElements } from "@stripe/react-stripe-js";
 import { processStripePayment } from "@/actions/accept-payment-stripe";
 import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
+import { BsXCircle } from "react-icons/bs";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '');
 
@@ -107,22 +108,25 @@ function CheckoutForm({ amount, form, setPaymentDone }: { form: UseFormReturn<Pa
   );
 }
 
-function StripePaymentForm({ amount, form, setPaymentDone }: { form: UseFormReturn<PaymentFormFields>, amount: number, setPaymentDone: Dispatch<SetStateAction<boolean>> }) {
+function StripePaymentForm({ amount, form, setPaymentDone , setFormDone}: { form: UseFormReturn<PaymentFormFields>, amount: number, setPaymentDone: Dispatch<SetStateAction<boolean>>,setFormDone: Dispatch<SetStateAction<boolean>> }) {
   console.log("amount :: ", amount)
   return (
     <div className="fixed w-full h-full bg-black/40 flex items-center justify-center p-4 left-0 top-0 z-50">
-      <div className="bg-white p-4 rounded-md max-w-screen-sm mx-auto w-full">
-
+      <div className="bg-white p-4 rounded-md max-w-screen-sm mx-auto w-full relative">
+          
         <Elements
           stripe={stripePromise}
           options={{
             mode: "payment",
-            amount: amount ?? 0,
+            amount: amount*100 ,
             currency: "eur",
           }}
         >
           <CheckoutForm amount={amount ?? 0} form={form} setPaymentDone={setPaymentDone} />
         </Elements>
+        <div onClick={()=>{setFormDone(false)}} className="absolute  top-2 right-2 cursor-pointer">
+          <BsXCircle className="text-xl"/>
+        </div>
       </div>
     </div>
   );
