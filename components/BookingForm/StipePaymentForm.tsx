@@ -66,7 +66,7 @@ function CheckoutForm({ amount, form, setPaymentDone }: { form: UseFormReturn<Pa
   
     const res = await processStripePayment({ amount, paymentMethodId: paymentMethod.id });
     if (!res.success) {
-      setError("Payment failed");
+      setError(res.error ?? 'Payment Failed');
       setLoading(false);
       return;
     }
