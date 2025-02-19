@@ -28,6 +28,6 @@ export async function processStripePayment({
     return { success: true, paymentId: paymentIntent.id };
   } catch (error) {
     console.error("Stripe Payment Error:", error);
-    return { success: false, error: "Payment failed" };
+    return { success: false, error: error?.message ?? "Payment failed" };
   }
 }
