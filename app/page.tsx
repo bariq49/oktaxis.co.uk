@@ -21,7 +21,7 @@ import PaymentDone from "@/components/BookingForm/PaymentDone/PaymentDone";
 import HeroImage from "@/assets/heroImage.jpg"
 import Link from "next/link";
 import Whatsapp from "@/assets/whatsapp.png";
-
+import { heroImage64 } from "@/assets/heroImage64";
 
 const Home = () => {
   const { heroSection } = homePageData;
@@ -34,8 +34,11 @@ const Home = () => {
       <div className="w-full text-center relative  z-50 overflow-hidden h-[90vh]">
         <Image
           src={HeroImage}
-          quality={60}
+          quality={50}
           alt="backgorund"
+          loading="eager"
+          placeholder="blur"
+          blurDataURL={heroImage64}
           className="w-full h-full object-cover absolute object-center "
         />
         <div className="relative w-full h-full bg-black/40 top-0 left-0 min-h-full py-10 flex items-center justify-center z-[99] ">

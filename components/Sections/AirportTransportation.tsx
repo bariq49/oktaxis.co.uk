@@ -24,7 +24,7 @@ const AirportTransportation = () => {
         <div className="rounded-lg shadow-lg w-full max-h-[800px] h-full overflow-hidden  ">
           <Image
             src={image1}
-            quality={70}
+            quality={50}
             alt="Luxury Taxi Service"
             className=" w-full min-h-80 h-full object-cover"
           />
@@ -70,7 +70,7 @@ const AirportTransportation = () => {
             <Image
               src={image2}
               alt="Luxury Taxi Service"
-             quality={70}
+             quality={50}
               className="w-full h-full object-cover"
             />
           </div>

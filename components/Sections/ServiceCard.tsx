@@ -31,6 +31,7 @@ export default function sServiceCard() {
               <Image
                 src={service.image}
                 alt={service.title}
+                quality={50}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
