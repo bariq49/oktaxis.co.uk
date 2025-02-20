@@ -235,7 +235,6 @@ const allCars = [{ name: 'Economy', cars: 'Skoda Octavia | ToyotaPrius', price: 
 
 
 
-
 function BookingForm({ _category }: { _category: string }) {
   const paramCategory = _category as keyof CarsDataTypes
   const [step, setStep] = useState<number>(1)
