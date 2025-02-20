@@ -1,135 +1,153 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { UseFormReturn } from "react-hook-form";
-import { Elements } from "@stripe/react-stripe-js";
+
+import React, { SetStateAction, useEffect, useState } from "react";
+import {
+  useStripe,
+  useElements,
+  PaymentElement,
+  PaymentRequestButtonElement,
+  Elements,
+} from "@stripe/react-stripe-js";
+import { createPaymentIntent } from "@/actions/accept-payment-stripe"; // Import the server action
 import { loadStripe } from "@stripe/stripe-js";
-import {  useStripe, useElements } from "@stripe/react-stripe-js";
-import { processStripePayment } from "@/actions/accept-payment-stripe";
-import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
-import { BsXCircle } from "react-icons/bs";
+import { RxCrossCircled } from "react-icons/rx";
+
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '');
 
-export interface PaymentFormFields {
-  name: string;
-  stop_1?: string;
-  stop_2?: string;
-  stop_3?: string;
-  pickup_date: Date;
-  pickup_time: { hour: number; minute: number; period: "AM" | "PM" };
-  pickup_location: string;
-  dropoff_location: string;
-  passengers: number;
-  childs: number;
-  bags: number;
-  email?: string;
-  phone?: string;
-  flight?: string;
-  payment_id?: string;
-}
-
-function CheckoutForm({ amount, form, setPaymentDone }: { form: UseFormReturn<PaymentFormFields>, amount: number, setPaymentDone: Dispatch<SetStateAction<boolean>> }) {
+const CheckoutPage = ({ amount, orderId }: { amount: number, orderId: string }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string>();
+  const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
+  const [paymentRequest, setPaymentRequest] = useState<any | null>(null);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  useEffect(() => {
+    if (!stripe) return; // Ensure stripe is loaded before calling createPaymentIntent
+
+    const fetchPaymentIntent = async () => {
+      const response = await createPaymentIntent({
+        amount: Math.round(amount * 100),
+      });
+
+      console.log("created payment : ", response)
+
+      if (response.success && response.clientSecret) {
+        setClientSecret(response.clientSecret);
+
+        const pr = stripe.paymentRequest({
+          country: "DE",
+          currency: "eur",
+          total: { label: "Total", amount: Math.round(amount * 100) },
+          requestPayerName: true,
+          requestPayerEmail: true,
+        });
+
+        pr.canMakePayment().then((result) => {
+          if (result) setPaymentRequest(pr);
+        });
+      } else {
+        setErrorMessage("Failed to create payment intent");
+      }
+    };
+
+    fetchPaymentIntent();
+  }, [amount, stripe]); // Now, the effect runs only when `stripe` is available
+
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!stripe || !elements) return;
-  
     setLoading(true);
-    setError("");
-  
-    // Retrieve each individual card element
-    const cardNumberElement = elements.getElement(CardNumberElement);
-    const cardExpiryElement = elements.getElement(CardExpiryElement);
-    const cardCvcElement = elements.getElement(CardCvcElement);
-  
-    // Ensure all elements are present
-    if (!cardNumberElement || !cardExpiryElement || !cardCvcElement) {
-      setError("Card details are required");
+
+    if (!stripe || !elements) return;
+
+    const { error: submitError } = await elements.submit();
+
+    if (submitError) {
+      setErrorMessage(submitError.message);
       setLoading(false);
       return;
     }
-  
-    const { paymentMethod, error } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardNumberElement, // Only pass CardNumberElement; Stripe handles the rest
+
+    const link = `${process.env.BASE_URL}/payment-success/${orderId}?clientSecret=${clientSecret}`;
+    const { error } = await stripe.confirmPayment({
+      elements,
+      clientSecret,
+      confirmParams: { return_url: link },
     });
-  
-    if (error) {
-      setError(error.message || "Payment failed");
-      setLoading(false);
-      return;
-    }
-  
-    const res = await processStripePayment({ amount, paymentMethodId: paymentMethod.id });
-    if (!res.success) {
-      setError(res.error ?? 'Payment Failed');
-      setLoading(false);
-      return;
-    }
-  
-    form.setValue("payment_id", res.paymentId);
-    setPaymentDone(true);
+
+    if (error) setErrorMessage(error.message);
     setLoading(false);
   };
-  
+
+  if (!clientSecret || !stripe || !elements) {
+    return (
+      <div className="flex items-center justify-center">
+        <div className="loading-spinner"></div>
+      </div>
+    );
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-5 w-full flex flex-col gap-5">
-       <div>
-        <label className="block mb-1 text-sm font-medium">Card Number</label>
-        <CardNumberElement className="border p-2 rounded-md w-full" />
-       </div>
-  
-      <div className="grid grid-cols-2 gap-5">
-        <div className="">
-          <label className="block mb-1 text-sm font-medium">Expiration Date</label>
-          <CardExpiryElement className="border p-2 rounded-md w-full" />
-        </div>
+    <form onSubmit={handleSubmit} className="bg-white p-2 rounded-md">
+      {paymentRequest && (
+        <PaymentRequestButtonElement
+          options={{ paymentRequest }}
+          onClick={() => setLoading(true)}
+        />
+      )}
+      {clientSecret && <PaymentElement />}
+      {errorMessage && <div>{errorMessage}</div>}
 
-        <div className="">
-          <label className="block mb-1 text-sm font-medium">CVC</label>
-          <CardCvcElement className="border p-2 rounded-md w-full" />
-        </div>
-      </div>
       <button
-        type="submit"
-        className="bg-black text-white py-2 px-4 rounded-md disabled:opacity-50"
         disabled={!stripe || loading}
+        className="text-white w-full px-5 py-2 bg-black mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
       >
-        {loading ? "Processing..." : "Pay Now : £ " + amount }
+        {!loading ? `Pay : €${amount}` : "Processing..."}
       </button>
-
-      {error && <div className="text-red-500 text-center">{error}</div>}
     </form>
   );
-}
+};
 
-function StripePaymentForm({ amount, form, setPaymentDone , setFormDone}: { form: UseFormReturn<PaymentFormFields>, amount: number, setPaymentDone: Dispatch<SetStateAction<boolean>>,setFormDone: Dispatch<SetStateAction<boolean>> }) {
-  console.log("amount :: ", amount)
+
+
+const PaymentWrapper = ({ amount, orderId, setFormDone }: { amount: number; orderId: string, setFormDone: React.Dispatch<SetStateAction<boolean>> }) => {
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    const fetchPaymentIntent = async () => {
+      const response = await createPaymentIntent({
+        amount: Math.round(amount * 100),
+      });
+
+      if (response.success && response.clientSecret) {
+        setClientSecret(response.clientSecret);
+      }
+    };
+
+    fetchPaymentIntent();
+  }, [amount]);
+
+  // ✅ Ensure Elements is rendered only when clientSecret is available
+  if (!clientSecret) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Loading payment...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="fixed w-full h-full bg-black/40 flex items-center justify-center p-4 left-0 top-0 z-50">
-      <div className="bg-white p-4 rounded-md max-w-screen-sm mx-auto w-full relative">
-          
-        <Elements
-          stripe={stripePromise}
-          options={{
-            mode: "payment",
-            amount: amount*100 ,
-            currency: "eur",
-          }}
-        >
-          <CheckoutForm amount={amount ?? 0} form={form} setPaymentDone={setPaymentDone} />
+    <div className="fixed bg-black/50 top-0 left-0 h-full w-full flex items-center justify-center gap-3 z-50">
+      <div className="rounded-md bg-white p-5 max-w-screen-sm w-full relative">
+        <RxCrossCircled className="absolute top-3 cursor-pointer right-3 text-lg" onClick={()=>{setFormDone(false)}}/>
+        <Elements stripe={stripePromise} options={{ clientSecret }}>
+          <CheckoutPage amount={amount} orderId={orderId} />
         </Elements>
-        <div onClick={()=>{setFormDone(false)}} className="absolute  top-2 right-2 cursor-pointer">
-          <BsXCircle className="text-xl"/>
-        </div>
       </div>
     </div>
   );
-}
+};
 
-export default StripePaymentForm;
+export default PaymentWrapper;

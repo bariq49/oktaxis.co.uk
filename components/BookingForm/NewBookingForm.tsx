@@ -107,7 +107,7 @@ const hourlyFormValidation = z.object({
   phone: z.string().min(10, "Phone number must be at least 10 digits"),
   flight: z.string().optional(),
   payment_id: z.string().optional(),
-  hours: z.number({ required_error: 'Please Enter Hours' }).min(2),
+  hours: z.number({ required_error: 'Please Enter Hours' }).min(1),
   minutes: z.number({ required_error: 'Please Enter Minutes' }).min(0),
 
 })
@@ -251,7 +251,7 @@ function BookingForm({ _category }: { _category: string }) {
   const [distance, setDistance] = useState(0);
   const [error, setError] = useState('')
   const [paymentDone, setPaymentDone] = useState(false);
-
+  const [orderId, setOrderId]=useState<string | null>()
 
   const form = useForm({ resolver: zodResolver(category === 'hourly-rates' ? hourlyFormValidation : simpleFormValidation) })
   const [price, setPrice] = useState(0)
@@ -322,7 +322,12 @@ function BookingForm({ _category }: { _category: string }) {
       });
 
       console.log('response : ', response)
-      if (response.status === 201) {
+      if (response.status === 201 && response.data )  {
+        if(!paymentDone){
+          setOrderId(response.data.id)
+          setFormDone(true)
+          return;
+        }
         setIsOrderPlaced(true);
         setStep(0)
         return;
@@ -443,7 +448,8 @@ function BookingForm({ _category }: { _category: string }) {
               const minutes = form.getValues('minutes') / 60
               console.log('hours : ', hours)
               console.log('minutes : ', minutes)
-              _price = Number(((hours + minutes) * Number(value.hourly)).toFixed(2));
+
+              _price = Number((((hours + minutes) >= 2? (hours + minutes) : 2) * Number(value.hourly)).toFixed(2));
             }
             else if (category === 'road-trips') {
               if (distance < 10) {
@@ -524,12 +530,9 @@ function BookingForm({ _category }: { _category: string }) {
     form.trigger()
   console.log("errors : ",form.formState.errors)
   console.log("errors : ", Object.entries(form.formState.errors).length===0)
-    if(paymentDone){
+    
       form.handleSubmit(onSubmit)();
-    }else if(!formDone && Object.entries(form.formState.errors).length===0){
-      console.log("get payment")
-       setFormDone(true)
-    }
+    
   }
 
   return (
@@ -579,15 +582,15 @@ function BookingForm({ _category }: { _category: string }) {
       <div className='flex flex-col gap-6 w-full max-w-screen-lg  border px-2 sm:px-4 py-5 mx-auto bg-white'>
         <div className='flex items-center justify-between'>
 
-          <h2 className='text-xl sm:text-2xl text-black'>
+          <h2 className='text-xl sm:text-2xl text-black max-md:hidden'>
             {step === 1 && 'WHERE & WHEN'}
             {step === 2 && 'SELECT VEHICLE'}
             {step === 3 && 'PAYMENT CONFIRM'}
           </h2>
 
-          <div className={`flex items-center ${step === 1 ? 'visible' : 'hidden'}`}>
-            <div onClick={() => { setCategory('road-trips') }} className={cn(' px-2 py-2 border border-black cursor-pointer ', category !== 'hourly-rates' ? 'bg-black text-white' : 'text-black bg-transparent')}>TRANSFER</div>
-            <div onClick={() => { setCategory('hourly-rates') }} className={cn(' px-2 py-2  border border-black  cursor-pointer', category === 'hourly-rates' ? 'bg-black text-white' : 'text-black bg-transparent')}>HOURLY</div>
+          <div className={`md:flex md:items-center max-md:grid grid-cols-2 max-md:gap-5 max-md:w-full max-md:p-2 max-md:bg-gray-200 max-md:rounded-md  ${step === 1 ? 'visible' : 'hidden'}`}>
+            <div onClick={() => { setCategory('road-trips') }} className={cn(' px-2 py-2 border max-md:rounded-md border-black cursor-pointer  text-center ', category !== 'hourly-rates' ? 'bg-black text-white font-semibold' : 'text-gray-700 bg-white/80  md:bg-transparent')}>TRANSFER</div>
+            <div onClick={() => { setCategory('hourly-rates') }} className={cn(' px-2 py-2 max-md:rounded-md border border-black text-center  cursor-pointer', category === 'hourly-rates' ? 'bg-black text-white font-semibold' : 'text-gray-700 bg-white/80 md:bg-transparent ')}>HOURLY</div>
 
           </div>
 
@@ -667,7 +670,7 @@ function BookingForm({ _category }: { _category: string }) {
 
                           <div onClick={() => { form.formState.errors.hours = undefined; field.onChange(++field.value); }}> <IncrementDecrementButtont text='+' /></div>
                         </div>
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
@@ -691,7 +694,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
     Please select your dropoff location.
   </FormDescription> */}
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
 
                       </FormItem>
                     )}
@@ -749,7 +752,7 @@ function BookingForm({ _category }: { _category: string }) {
                             />
                           </PopoverContent>
                         </Popover>
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
@@ -829,7 +832,7 @@ function BookingForm({ _category }: { _category: string }) {
                             </div>
                           </PopoverContent>
                         </Popover>
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
@@ -892,7 +895,7 @@ function BookingForm({ _category }: { _category: string }) {
                       {/* <FormDescription>
                     Please select your pickup location.
                   </FormDescription> */}
-                      <FormMessage color='red' />
+                      <FormMessage color='red' className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -986,7 +989,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
@@ -1045,7 +1048,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
@@ -1089,7 +1092,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
@@ -1116,7 +1119,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
@@ -1140,7 +1143,7 @@ function BookingForm({ _category }: { _category: string }) {
                         {/* <FormDescription>
                     Please select your dropoff location.
                   </FormDescription> */}
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
@@ -1235,7 +1238,7 @@ function BookingForm({ _category }: { _category: string }) {
                             placeholder="Flight"
                           />
                         </div>
-                        <FormMessage color='red' />
+                        <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
@@ -1251,9 +1254,9 @@ function BookingForm({ _category }: { _category: string }) {
              
             </form>
           </Form>
-          {step === 3 && !paymentDone && price && formDone && <StripePaymentForm amount={Number(price)} form={form as unknown as UseFormReturn<PaymentFormFields>} setPaymentDone={setPaymentDone} setFormDone={setFormDone} />}
         </div>}
       </div>
+          {step === 3 && !paymentDone && price && formDone &&  orderId && <StripePaymentForm amount={Number(price)}  orderId={orderId} setFormDone={setFormDone} />}
     </div>
   )
 }
