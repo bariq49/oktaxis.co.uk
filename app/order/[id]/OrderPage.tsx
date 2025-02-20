@@ -70,7 +70,7 @@ function OrderPage({ id }: { id: string }) {
             <div>
               <p className="font-semibold text-gray-700">Order ID:</p>
               <div className='flex items-center gap-2'>
-                <p className="text-gray-900 font-bold">{order.id}</p>
+                <p className="text-gray-900 font-bold">{order.track_id}</p>
                 <TbCopy onClick={() => { navigator.clipboard.writeText(order.id) }} />
               </div>
             </div>

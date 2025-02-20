@@ -3,11 +3,12 @@ import {
     uuid,
     varchar,
     pgTable,
-    integer
+    integer,serial
   } from 'drizzle-orm/pg-core';
 
 export const orders = pgTable("okataxis_orders", {
     id: uuid('id').defaultRandom().notNull().primaryKey(),
+    track_id: serial('track_id').notNull().unique(),
     category: varchar('category').notNull(),
     price: varchar('price').notNull(),
     car: varchar('car').notNull(),

@@ -8,6 +8,13 @@
       "when": 1739707231158,
       "tag": "0000_mean_morlun",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1740057259431,
+      "tag": "0001_sticky_mongoose",
+      "breakpoints": true
     }
   ]
 }
