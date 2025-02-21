@@ -9,15 +9,22 @@ export async function createOrderById({orderId,clientSecret}:{orderId:string,cli
   try {
    if(!clientSecret){
     return { error: 'payment id not found', status: 500 };
-
    }
+
+   const alreadyDoneOrder = await db.select().from(orders).where(eq(orders.id, orderId))
+   if(alreadyDoneOrder[0] && alreadyDoneOrder[0].payment_id){
+
+      return { data:alreadyDoneOrder[0] , status: 201, error: '' };
+    
+   }
+
     const order = await db.update(orders).set({payment_id:clientSecret}).where(eq(orders.id, orderId)).returning(); 
     if(!order[0] || !order[0].id){
       console.log('order : ',order)
         return { error: 'order not found', status: 500 };
     }
-
-
+  
+   
     const orderLink = `${process.env.BASE_URL}/order/${orderId}`; 
 
     const transporter = nodemailer.createTransport(emailConfig);

@@ -130,7 +130,7 @@ function OrderPage({ id }: { id: string }) {
             </div>
 
             <div>
-              <p className="font-semibold text-gray-700">Childs:</p>
+              <p className="font-semibold text-gray-700">Child Seat's (10£ each):</p>
               <p className="text-gray-900 font-bold">{order.childs}</p>
             </div>
             <div>
