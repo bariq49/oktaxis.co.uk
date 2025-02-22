@@ -12,10 +12,8 @@ export async function createOrderById({orderId,clientSecret}:{orderId:string,cli
    }
 
    const alreadyDoneOrder = await db.select().from(orders).where(eq(orders.id, orderId))
-   if(alreadyDoneOrder[0] && alreadyDoneOrder[0].payment_id){
-
+   if(alreadyDoneOrder[0]?.payment_id !== 'N/A' ){
       return { data:alreadyDoneOrder[0] , status: 201, error: '' };
-    
    }
 
     const order = await db.update(orders).set({payment_id:clientSecret}).where(eq(orders.id, orderId)).returning(); 
