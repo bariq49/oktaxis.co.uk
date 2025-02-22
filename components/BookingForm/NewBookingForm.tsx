@@ -313,7 +313,7 @@ function BookingForm({ _category }: { _category: string }) {
     const _pickup_time = `${pickup_time.hour.toString()} : ${pickup_time.minute.toString()} : ${pickup_time.period.toString()} `
     startSubmiting(async () => {
       const response = await createOrder({
-        bags, dropoff_location, email, payment_id: payment_id ?? 'N/A', flight: flight ?? 'N/A', hours, childs, minutes, name, passengers, phone, pickup_time: _pickup_time, pickup_date, pickup_location,
+        bags, dropoff_location, email, flight: flight ?? 'N/A', hours, childs, minutes, name, passengers, phone, pickup_time: _pickup_time, pickup_date, pickup_location,
         price,
         car,
         distance,

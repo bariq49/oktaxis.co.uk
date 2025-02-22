@@ -13,13 +13,17 @@ function SuccessComponent({ orderId }: { orderId: string }) {
   const [error, setError] = useState('')
 
   const [orderDone, setOrderDone] = useState(false)
+  
   const [email, setEmail] = useState('')
+  let orderAdded= false
   function AddOrder() {
-    if (!orderId || !clientSecret || adding) {
+    if (!orderId || !clientSecret || adding || orderAdded) {
       return;
     }
+    orderAdded = true
     setError('')
     startAdding(async () => {
+      console.log('working 1')
       const res = await createOrderById({ orderId, clientSecret })
       if (res.status !== 201) {
         setError(res.error);
@@ -32,7 +36,7 @@ function SuccessComponent({ orderId }: { orderId: string }) {
 
   useEffect(() => {
 
-    if (orderId && clientSecret) {
+    if (orderId && clientSecret && !adding) {
       AddOrder()
     }
 
