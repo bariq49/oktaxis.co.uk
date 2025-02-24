@@ -1,5 +1,4 @@
-
-    export const emailConfig = {
+export const emailConfig = {
       host: "smtp.hostinger.com",
       port: 465,
       secure: true,
@@ -8,5 +7,3 @@
         pass: ";U3nJxy=hs",
       },
     };
-     
-    

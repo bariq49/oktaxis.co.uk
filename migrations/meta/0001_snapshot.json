@@ -1,6 +1,6 @@
 {
-  "id": "ca4db294-774c-4749-927f-95373e4b33f1",
-  "prevId": "84380a58-6740-4a2f-bdb9-e3f27a8a8dad",
+  "id": "2dcf4a97-c9ef-483d-b808-faab2a64485d",
+  "prevId": "671cce0c-87d6-4f40-9e05-05822e4c7cd4",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -75,6 +75,18 @@
           "primaryKey": false,
           "notNull": true
         },
+        "return_pickup_date": {
+          "name": "return_pickup_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "return_pickup_time": {
+          "name": "return_pickup_time",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "pickup_location": {
           "name": "pickup_location",
           "type": "varchar",
@@ -125,6 +137,12 @@
         },
         "flight": {
           "name": "flight",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "return_flight": {
+          "name": "return_flight",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false

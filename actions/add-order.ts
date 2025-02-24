@@ -6,9 +6,11 @@ import { emailConfig } from '@/lib/emailConfig';
 
 export async function createOrder({
   category, price, car, pickup_date, pickup_time , pickup_location, dropoff_location,
-  passengers, childs, bags, name, email, phone, flight, hours=null, minutes=null, distance=null,  stop_1=null,
+  passengers, childs, meet_and_greet, name, email, phone, flight, hours=null, minutes=null, distance=null,  stop_1=null,
   stop_2=null,
-  stop_3=null
+  stop_3=null,
+  return_pickup_date, 
+  return_pickup_time,return_flight
 }: {
   category: string;
   price: number;
@@ -16,15 +18,18 @@ export async function createOrder({
   distance?: number | null; 
   pickup_date: Date;
   pickup_time: string;
+  return_pickup_date: Date;
+  return_pickup_time: string;
   pickup_location: string;
   dropoff_location: string;
   passengers: number;
   childs: number;
-  bags: number;
+  meet_and_greet: string | null;
   name: string;
   email: string;
   phone: string;
   flight: string | null;
+  return_flight: string | null;
   hours?: number | null;
   minutes?: number | null;
   stop_1?:string | null,
@@ -43,7 +48,7 @@ export async function createOrder({
       dropoff_location,
       passengers,
       childs,
-      bags,
+      meet_and_greet,
       name,
       email,
       phone,
@@ -52,7 +57,10 @@ export async function createOrder({
       minutes,
       stop_1,
       stop_2,
-      stop_3
+      stop_3,
+      return_pickup_date, 
+      return_pickup_time,
+      return_flight
     };
 
     const order = await db.insert(orders).values({...orderData}).returning(); 

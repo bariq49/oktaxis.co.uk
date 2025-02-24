@@ -23,7 +23,15 @@ import { Calendar } from "@/components/ui/calendar"
 import { format } from "date-fns"
 import { CalendarDays, TimerIcon, Search, Trash2, SquarePlus, Pencil, CarFront } from "lucide-react"
 
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 // calander end
 
@@ -44,6 +52,14 @@ import Link from 'next/link'
 import MyPaymentForm, { PaymentFormFields } from './PaymentForm'
 import StripePaymentForm from './StipePaymentForm'
 
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 
 const libraries: Libraries = ["places"];
@@ -101,7 +117,7 @@ const hourlyFormValidation = z.object({
   stop_3: z.string().optional(),
   passengers: z.number({ required_error: 'Please Enter Passengers' }).min(1).max(6),
   childs: z.number({ required_error: 'Please Enter childs' }).min(0).max(6),
-  bags: z.number({ required_error: 'Please Enter Meet & Greet' }).min(0).max(2),
+  meet_and_greet: z.string(),
   name: z.string({ required_error: 'Please Enter Your Name' }),
   email: z.string({ required_error: 'Please Enter Email' }).email(),
   phone: z.string().min(10, "Phone number must be at least 10 digits"),
@@ -140,7 +156,7 @@ const simpleFormValidation = z.object({
   stop_3: z.string().optional(),
   passengers: z.number({ required_error: 'Please Enter Passengers' }).min(1).max(6),
   childs: z.number({ required_error: 'Please Enter childs' }).min(0).max(6),
-  bags: z.number({ required_error: 'Please Enter Meet & Greet' }).min(0).max(1),
+  meet_and_greet: z.string(),
   name: z.string({ required_error: 'Please Enter Your Name' }),
   email: z.string({ required_error: 'Please Enter Email' }).email(),
   phone: z.string().min(10, "Phone number must be at least 10 digits"),
@@ -148,6 +164,31 @@ const simpleFormValidation = z.object({
   payment_id: z.string().optional(),
   hours: z.number(),
   minutes: z.number(),
+
+})
+
+const returnFormValidation = z.object({
+  pickup_date: z.date({ required_error: 'Please Chose a Date' }),
+  pickup_time: z.object({
+    hour: z
+      .number({
+        required_error: "Please Choose an Hour",
+      })
+      .min(1, "Hour must be between 1 and 12")
+      .max(12, "Hour must be between 1 and 12"),
+    minute: z
+      .number({
+        required_error: "Please Choose Minutes",
+      })
+      .min(0, "Minutes must be between 0 and 59")
+      .max(59, "Minutes must be between 0 and 59"),
+    period: z
+      .enum(["AM", "PM"], {
+        required_error: "Please Choose AM or PM",
+      }),
+  }),
+  flight: z.string().optional(),
+
 
 })
 
@@ -161,7 +202,7 @@ type FormFieldTypes =
   | "stop_2"
   | "stop_3"
   | "childs"
-  | "bags"
+  | "meet_and_greet"
   | "name"
   | "email"
   | "phone"
@@ -244,15 +285,18 @@ function BookingForm({ _category }: { _category: string }) {
   const [stop2Place, setStop2Place] = useState<Place | null>()
   const [stop3Place, setStop3Place] = useState<Place | null>()
   const [dateOpen, setDateOpen] = useState(false)
+  const [retrunDateOpen, setReturnDateOpen] = useState(false)
   const [category, setCategory] = useState<keyof CarsDataTypes | null>()
 
   const [calculatingPrice, startCalculatingPrice] = useTransition()
   const [distance, setDistance] = useState(0);
   const [error, setError] = useState('')
   const [paymentDone, setPaymentDone] = useState(false);
-  const [orderId, setOrderId]=useState<string | null>()
+  const [returnTrip, setReturnTrip] = useState(false)
+  const [orderId, setOrderId] = useState<string | null>()
 
   const form = useForm({ resolver: zodResolver(category === 'hourly-rates' ? hourlyFormValidation : simpleFormValidation) })
+  const returnForm = useForm({ resolver: zodResolver(returnFormValidation) })
   const [price, setPrice] = useState(0)
   const [car, setCar] = useState('')
   const [formDone, setFormDone] = useState(false)
@@ -277,7 +321,6 @@ function BookingForm({ _category }: { _category: string }) {
     setCategory(paramCategory)
     form.setValue('passengers', 1)
     form.setValue('childs', 0)
-    form.setValue('bags', 0)
     form.setValue('hours', 0)
     form.setValue('minutes', 0)
 
@@ -308,21 +351,26 @@ function BookingForm({ _category }: { _category: string }) {
   function onSubmit(data: FieldValues) {
     console.log('submitt')
     const _data = data as HourlyFormDataProps
-    const { bags, dropoff_location, payment_id, email, flight, hours, childs, minutes, name, passengers, phone, pickup_time, pickup_date, pickup_location, stop_1, stop_2, stop_3 } = _data;
+    const { meet_and_greet, dropoff_location, payment_id, email, flight, hours, childs, minutes, name, passengers, phone, pickup_time, pickup_date, pickup_location, stop_1, stop_2, stop_3 } = _data;
     console.log('_data : ', _data)
+    const return_date = returnForm.getValues('pickup_time');
     const _pickup_time = `${pickup_time.hour.toString()} : ${pickup_time.minute.toString()} : ${pickup_time.period.toString()} `
+    const return_pickup_time = `${return_date?.hour.toString()} : ${return_date?.minute.toString()} : ${return_date?.period.toString()} `
     startSubmiting(async () => {
       const response = await createOrder({
-        bags, dropoff_location, email, flight: flight ?? 'N/A', hours, childs, minutes, name, passengers, phone, pickup_time: _pickup_time, pickup_date, pickup_location,
+        meet_and_greet, dropoff_location, email, flight: flight ?? 'N/A', hours, childs, minutes, name, passengers, phone, pickup_time: _pickup_time, pickup_date, pickup_location,
         price,
         car,
         distance,
-        category: category ?? 'n/a', stop_1, stop_2, stop_3
+        category: category ?? 'n/a', stop_1, stop_2, stop_3,
+        return_pickup_date: returnForm.getValues('pickup_date'),
+        return_pickup_time,
+        return_flight: returnForm.getValues('flight') ?? null
       });
 
       console.log('response : ', response)
-      if (response.status === 201 && response.data )  {
-        if(!paymentDone){
+      if (response.status === 201 && response.data) {
+        if (!paymentDone) {
           setOrderId(response.data.id)
           setFormDone(true)
           return;
@@ -448,7 +496,7 @@ function BookingForm({ _category }: { _category: string }) {
               console.log('hours : ', hours)
               console.log('minutes : ', minutes)
 
-              _price = Number((((hours + minutes) >= 2? (hours + minutes) : 2) * Number(value.hourly)).toFixed(2));
+              _price = Number((((hours + minutes) >= 2 ? (hours + minutes) : 2) * Number(value.hourly)).toFixed(2));
             }
             else if (category === 'road-trips') {
               if (distance < 10) {
@@ -465,7 +513,7 @@ function BookingForm({ _category }: { _category: string }) {
             if (form.watch('childs') > 0) {
               _price += 10 * form.watch('childs')
             }
-            if (form.watch('bags') > 0) {
+            if (form.getValues('meet_and_greet') === 'yes') {
               _price += 15
             }
             console.log("category ", category)
@@ -492,13 +540,19 @@ function BookingForm({ _category }: { _category: string }) {
               </div>
 
               <div className='flex flex-col w-full gap-1 sm:gap-5 justify-center sm:p-2'>
+                <div  >
+                  <p className='text-gray-500'>Select On Way Return</p>
+                  <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(_price)); setStep(prev => ++prev); setReturnTrip(false) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
 
+                    <p className=''>Price :£ {_price.toFixed(2)} </p>
+                  </div>
+                </div>
+                <div>
+                  <p className='text-gray-500'>Select Return Trip</p>
+                  <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(_price * 2)); setReturnTrip(true) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
 
-                <div className='text-lg sm:text-xl justify-center font-semibold flex items-center gap-2'><div>Price: </div><div className='font-bold'>£ {_price.toFixed(2)} </div></div>
-
-                <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(_price)); setStep(prev => ++prev) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
-
-                  <p className='text-xl'>SELECT</p>
+                    <p className=''>Price : £ {(_price * 2).toFixed(2)} </p>
+                  </div>
                 </div>
 
 
@@ -527,11 +581,11 @@ function BookingForm({ _category }: { _category: string }) {
       console.log("working.......")
     }
     form.trigger()
-  console.log("errors : ",form.formState.errors)
-  console.log("errors : ", Object.entries(form.formState.errors).length===0)
-    
-      form.handleSubmit(onSubmit)();
-    
+    console.log("errors : ", form.formState.errors)
+    console.log("errors : ", Object.entries(form.formState.errors).length === 0)
+
+    form.handleSubmit(onSubmit)();
+
   }
 
   return (
@@ -1096,14 +1150,12 @@ function BookingForm({ _category }: { _category: string }) {
                     )}
                   />
 
-
-
                   <FormField
                     control={form.control}
                     name="childs"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel className="">Child Seat's (10£ each)</FormLabel>
+                        <FormLabel className="">Flight Track (10£ each)</FormLabel>
 
                         <div className='w-full rounded-sm  flex items-center border border-gray-500  overflow-hidden '>
                           <div onClick={() => { if (field.value === 0) { return } form.formState.errors.childs = undefined; field.onChange(--field.value) }} >
@@ -1124,28 +1176,24 @@ function BookingForm({ _category }: { _category: string }) {
                   />
                   <FormField
                     control={form.control}
-                    name="bags"
+                    name="meet_and_greet"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel className="">Meet & Greet (15£ each)</FormLabel>
-
-                        <div className='w-full rounded-sm  flex items-center border border-gray-500  overflow-hidden '>
-                          <div onClick={() => { if (field.value === 0) { return } form.formState.errors.bags = undefined; field.onChange(--field.value) }} >
-
-                            <IncrementDecrementButtont text='-' />
-                          </div>
-
-                          <div className='w-full text-center rounded-sm  p-2 font-semibold  max-sm:text-sm'>{field.value}</div>
-                          <div onClick={() => { if (field.value === 1) { return } form.formState.errors.bags = undefined; field.onChange(++field.value) }}> <IncrementDecrementButtont text='+' /></div>
-                        </div>
-
-                        {/* <FormDescription>
-                    Please select your dropoff location.
-                  </FormDescription> */}
+                        <FormLabel className="">Meet & Greet (15£)</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <SelectTrigger className="w-full border border-gray-500 rounded-sm">
+                            <SelectValue placeholder="Select an option" />
+                          </SelectTrigger>
+                          <SelectContent className='bg-white'>
+                            <SelectItem value="yes">Yes (+£15) meet on arival</SelectItem>
+                            <SelectItem value="no">No (+£0) i will call my driver</SelectItem>
+                          </SelectContent>
+                        </Select>
                         <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
                   />
+
                 </div>
                 {step === 1 && <button type="button" className='w-full hover:bg-black bg-black/80 hover:shadow-lg p-2 rounded-sm text-white font-semibold' onClick={NextStep}>{calculatingPrice ? 'Calculating Price ...' : 'Next'}</button>}
               </div>
@@ -1250,12 +1298,171 @@ function BookingForm({ _category }: { _category: string }) {
 
               {step === 3 && <Button id='submitButton' type="button" onClick={submitHandle} className='w-full hover:bg-black bg-black/80 hover:shadow-lg p-2 mt-6 rounded-sm text-white font-semibold'>{isSubmiting ? 'Order Placing...' : 'Place Order'}</Button>}
               {/* { step === 3 && !paymentDone && <MyPaymentForm amount={price}   form={form as unknown as UseFormReturn<PaymentFormFields>} setPaymentDone={setPaymentDone} />} */}
-             
+
             </form>
           </Form>
         </div>}
       </div>
-          {step === 3 && !paymentDone && price && formDone &&  orderId && <StripePaymentForm amount={Number(price)}  orderId={orderId} setFormDone={setFormDone} />}
+      {step === 3 && !paymentDone && price && formDone && orderId && <StripePaymentForm amount={Number(price)} orderId={orderId} setFormDone={setFormDone} />}
+      <Dialog open={returnTrip} onOpenChange={setReturnTrip}>
+        <DialogContent className="sm:max-w-[425px] bg-white z-50">
+          <DialogHeader>
+            <DialogTitle>Return Date & Time</DialogTitle>
+            <DialogDescription>
+              Please Select Return Date and Time
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...returnForm} >
+            <form onSubmit={returnForm.handleSubmit(() => { setStep(prev => ++prev); setReturnTrip(false) })} className="flex flex-col gap-5 w-full">
+              <FormField
+                control={returnForm.control}
+                name="pickup_date"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Return Pickup Date</FormLabel>
+                    <Popover open={retrunDateOpen} onOpenChange={setReturnDateOpen}>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-medium",
+                              !field.value && "text-gray-400 font-normal"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarDays className="ml-auto h-4 w-4 " />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0 bg-white" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          className=''
+                          onSelect={(event) => {
+                            returnForm.formState.errors.pickup_date = undefined;
+                            field.onChange(event)
+                            setReturnDateOpen(false)
+                          }}
+                          disabled={(date) =>
+                            date < form.getValues('pickup_date')
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage color='red' className="text-red-500" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={returnForm.control}
+                name="pickup_time"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Return Pickup Time</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full text-start flex justify-between items-center font-medium",
+                              !field.value && "text-gray-400 font-normal"
+                            )}
+                          >
+                            {field.value ? (
+                              <span>
+                                {field.value?.hour ? field.value.hour.toString().padStart(2, "0") : 'hour'}:{field.value?.minute ? field.value.minute.toString().padStart(2, "0") : '00'} {field.value?.period ? field.value.period : 'period'}
+                              </span>
+                            ) : (
+                              <span>Pick a time</span>
+                            )}
+                            <TimerIcon className="ml-auto h-4 w-4 " />
+
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="max-w-full w-fit h-40  p-2 overflow-hidden bg-white" align="start">
+                        <div className="flex items-start justify-start gap-3 max-h-full h-full overflow-hidden">
+                          {/* Hours */}
+                          <div className='flex flex-col py-1 rounded-sm border border-gray-300 text-center max-h-full h-full overflow-y-auto overflow-hidden w-fit '>
+                            {Array.from({ length: 12 }, (_, i) => i + 1).map((item) => (
+                              <div className={`py-1 px-2 cursor-pointer ${field.value?.hour === item ? 'bg-blue-500 text-white' : 'bg-white'}`} key={item} onClick={() => {
+                                form.formState.errors.pickup_time = undefined;
+                                field.onChange({ period: field.value?.period ? field.value.period : 'AM', minute: isNaN(field.value?.minute) ? 0 : field.value.minute, hour: item })
+                              }
+                              } >{item}</div>
+                            ))}
+                          </div>
+                          {/* Minutes */}
+                          <div className='flex flex-col py-1 rounded-sm border border-gray-300 text-center max-h-full h-full overflow-y-auto overflow-hidden w-fit'>
+                            {Array.from({ length: 12 }, (_, i) => i * 5).map((item) => (
+                              <div
+                                className={`py-1 px-2  cursor-pointer  ${field.value?.minute === item ? 'bg-blue-500 text-white' : 'bg-white'}`}
+                                key={item}
+                                onClick={() => {
+                                  form.formState.errors.pickup_time = undefined;
+                                  field.onChange({ ...field.value, minute: item });
+                                }}
+                              >
+                                {item}
+                              </div>
+                            ))}
+                          </div>
+
+
+                          {/* Period */}
+                          <div className='flex flex-col py-1 rounded-sm border border-gray-300 text-center max-h-full h-full overflow-y-auto overflow-hidden w-fit '>
+
+                            <div className={`py-1 px-2  cursor-pointer  ${field.value?.period === "AM" ? 'bg-blue-500 text-white' : 'bg-white'}`} onClick={() => {
+                              form.formState.errors.pickup_time = undefined;
+                              field.onChange({ ...field.value, period: "AM" })
+                            }
+                            } >AM</div>
+                            <div className={`py-1 px-2 ${field.value?.period === "PM" ? 'bg-blue-500 text-white' : 'bg-white'}`} onClick={() => {
+                              form.formState.errors.pickup_time = undefined;
+                              field.onChange({ ...field.value, period: "PM" })
+                            }
+                            } >PM</div>
+
+                          </div>
+
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage color='red' className="text-red-500" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={returnForm.control}
+                name="flight"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel className="">Retrun Flight</FormLabel>
+                    <div className='w-full rounded-sm border border-gray-500 flex items-center gap-2 p-1'>
+                      <input
+                        {...field}
+
+                        className='w-full p-2 text-gray-800 border-none outline-none'
+                        placeholder="Flight"
+                      />
+                    </div>
+                    <FormMessage color='red' className="text-red-500" />
+                  </FormItem>
+                )}
+              />
+              <button className='w-full bg-black p-2 rounded-md text-center text-white font-bold'>Next</button>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

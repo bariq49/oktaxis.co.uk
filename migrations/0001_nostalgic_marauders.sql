@@ -1,0 +1,1 @@
+ALTER TABLE "okataxis_orders" ADD COLUMN "return_flight" varchar;
