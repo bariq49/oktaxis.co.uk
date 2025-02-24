@@ -9,30 +9,38 @@ function SuccessComponent({ orderId }: { orderId: string }) {
   const params = useSearchParams();
   const clientSecret = params.get("clientSecret");
 
-  const [adding, startAdding] = useTransition()
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   const [orderDone, setOrderDone] = useState(false)
+  
   const [email, setEmail] = useState('')
-  function AddOrder() {
-    if (!orderId || !clientSecret || adding) {
+  let orderAdded= false
+ async function AddOrder() {
+    if (!orderId || !clientSecret  || orderAdded) {
       return;
     }
+    orderAdded = true
     setError('')
-    startAdding(async () => {
+   setLoading(true)
+      console.log('working 1')
       const res = await createOrderById({ orderId, clientSecret })
+      
       if (res.status !== 201) {
         setError(res.error);
+       setLoading(false)
         return;
       }
       setEmail(res.data?.email ?? '')
       setOrderDone(true)
-    })
+      setLoading(false)
+
+    
   }
 
   useEffect(() => {
 
-    if (orderId && clientSecret) {
+    if (orderId && clientSecret ) {
       AddOrder()
     }
 
@@ -50,7 +58,7 @@ function SuccessComponent({ orderId }: { orderId: string }) {
     return <div className="py-20 text-center text-red-500">Payment Id not Found</div>
   }
 
-  if (adding) {
+  if (loading) {
     return <div className="py-20 text-center text-green-600 font-semibold">Please Wait Order Placing...</div>
   }
 

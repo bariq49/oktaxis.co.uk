@@ -100,6 +100,18 @@ function OrderPage({ id }: { id: string }) {
                 {order.pickup_time}
               </p>
             </div>
+            {order.return_pickup_date && <div>
+              <p className="font-semibold text-gray-700">Return Pick-Up Date:</p>
+              <p className="text-gray-900 font-bold">
+                {new Date(order.return_pickup_date).toLocaleString()}
+              </p>
+            </div>}
+            {order.return_pickup_time && <div>
+              <p className="font-semibold text-gray-700">Retrun Pick-Up Time:</p>
+              <p className="text-gray-900 font-bold">
+                {order.return_pickup_time}
+              </p>
+            </div>}
             <div>
               <p className="font-semibold text-gray-700">Pick-Up Location:</p>
               <p className="text-gray-900 font-bold">{order.pickup_location}</p>
@@ -135,7 +147,7 @@ function OrderPage({ id }: { id: string }) {
             </div>
             <div>
               <p className="font-semibold text-gray-700">Meet & Greet:</p>
-              <p className="text-gray-900 font-bold">{order.bags}</p>
+              <p className="text-gray-900 font-bold">{order.meet_and_greet ?? 'N/A'}</p>
             </div>
           </div>
           <div className='w-full h-1 bg-black rounded-full'></div>
@@ -156,6 +168,10 @@ function OrderPage({ id }: { id: string }) {
               <p className="font-semibold text-gray-700">Flight:</p>
               <p className="text-gray-900 font-bold">{order.flight}</p>
             </div>
+            {order.return_flight && <div>
+              <p className="font-semibold text-gray-700">Return Flight:</p>
+              <p className="text-gray-900 font-bold">{order.return_flight}</p>
+            </div>}
             {order.hours && (
               <div>
                 <p className="font-semibold text-gray-700">Duration:</p>

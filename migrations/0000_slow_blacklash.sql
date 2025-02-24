@@ -1,5 +1,6 @@
 CREATE TABLE "okataxis_orders" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"track_id" serial NOT NULL,
 	"category" varchar NOT NULL,
 	"price" varchar NOT NULL,
 	"car" varchar NOT NULL,
@@ -9,6 +10,8 @@ CREATE TABLE "okataxis_orders" (
 	"stop_3" varchar,
 	"pickup_date" timestamp NOT NULL,
 	"pickup_time" varchar NOT NULL,
+	"return_pickup_date" timestamp,
+	"return_pickup_time" varchar,
 	"pickup_location" varchar NOT NULL,
 	"dropoff_location" varchar NOT NULL,
 	"passengers" integer NOT NULL,
@@ -22,5 +25,6 @@ CREATE TABLE "okataxis_orders" (
 	"hours" integer,
 	"minutes" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "okataxis_orders_track_id_unique" UNIQUE("track_id")
 );

@@ -1,5 +1,5 @@
 {
-  "id": "84380a58-6740-4a2f-bdb9-e3f27a8a8dad",
+  "id": "671cce0c-87d6-4f40-9e05-05822e4c7cd4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -14,6 +14,12 @@
           "primaryKey": true,
           "notNull": true,
           "default": "gen_random_uuid()"
+        },
+        "track_id": {
+          "name": "track_id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
         },
         "category": {
           "name": "category",
@@ -68,6 +74,18 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "return_pickup_date": {
+          "name": "return_pickup_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "return_pickup_time": {
+          "name": "return_pickup_time",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         },
         "pickup_location": {
           "name": "pickup_location",
@@ -159,7 +177,15 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "okataxis_orders_track_id_unique": {
+          "name": "okataxis_orders_track_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "track_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
