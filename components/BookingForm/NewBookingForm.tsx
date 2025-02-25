@@ -321,6 +321,7 @@ function BookingForm({ _category }: { _category: string }) {
     setCategory(paramCategory)
     form.setValue('passengers', 1)
     form.setValue('childs', 0)
+    form.setValue('meet_and_greet', 'No (+£0) i will call my driver')
     form.setValue('hours', 0)
     form.setValue('minutes', 0)
 
@@ -539,22 +540,21 @@ function BookingForm({ _category }: { _category: string }) {
                 </div>
               </div>
 
-              <div className='flex flex-col w-full gap-1 sm:gap-5 justify-center sm:p-2'>
-                <div  >
+              <div className='flex flex-col w-full gap-5 sm:gap-6 justify-center sm:p-2'>
+                <div className='w-full'>
                   <p className='text-gray-500'>Select On Way Return</p>
                   <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(_price)); setStep(prev => ++prev); setReturnTrip(false) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
 
                     <p className=''>Price :£ {_price.toFixed(2)} </p>
                   </div>
                 </div>
-                <div>
+                <div className='w-full'>
                   <p className='text-gray-500'>Select Return Trip</p>
                   <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(_price * 2)); setReturnTrip(true) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
 
                     <p className=''>Price : £ {(_price * 2).toFixed(2)} </p>
                   </div>
                 </div>
-
 
               </div>
 
@@ -568,6 +568,8 @@ function BookingForm({ _category }: { _category: string }) {
       </div>
     );
   };
+
+  console.log("")
 
   const submitHandle = () => {
     const _stops = stops.length;
@@ -1185,8 +1187,8 @@ function BookingForm({ _category }: { _category: string }) {
                             <SelectValue placeholder="Select an option" />
                           </SelectTrigger>
                           <SelectContent className='bg-white'>
-                            <SelectItem value="yes">Yes (+£15) meet on arival</SelectItem>
-                            <SelectItem value="no">No (+£0) i will call my driver</SelectItem>
+                            <SelectItem value="Yes (+£15) meet on arival">Yes (+£15) meet on arival</SelectItem>
+                            <SelectItem value="No (+£0) i will call my driver">No (+£0) i will call my driver</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage color='red' className="text-red-500" />
