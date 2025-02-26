@@ -85,7 +85,7 @@ function OrderPage({ id }: { id: string }) {
             {order.distance && (
               <div>
                 <p className="font-semibold text-gray-700">Distance:</p>
-                <p className="text-gray-900 font-bold">{order.distance} km</p>
+                <p className="text-gray-900 font-bold">{order.distance} Miles</p>
               </div>
             )}
             <div>
@@ -142,11 +142,11 @@ function OrderPage({ id }: { id: string }) {
             </div>
 
             <div>
-              <p className="font-semibold text-gray-700">Child Seat's (10£ each):</p>
-              <p className="text-gray-900 font-bold">{order.childs}</p>
+              <p className="font-semibold text-gray-700">Flight Track (7£):</p>
+              <p className="text-gray-900 font-bold">{order.flight_track}</p>
             </div>
             <div>
-              <p className="font-semibold text-gray-700">Meet & Greet:</p>
+              <p className="font-semibold text-gray-700">Meet & Greet (10£):</p>
               <p className="text-gray-900 font-bold">{order.meet_and_greet ?? 'N/A'}</p>
             </div>
           </div>

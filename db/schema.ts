@@ -23,7 +23,7 @@ export const orders = pgTable("okataxis_orders", {
     pickup_location: varchar('pickup_location').notNull(),
     dropoff_location: varchar('dropoff_location').notNull(),
     passengers: integer('passengers').notNull(),
-    childs: integer('childs').notNull(),
+    flight_track: varchar('flight_track'),
     meet_and_greet: varchar('meet_and_greet'),
     name: varchar('name').notNull(),
     email: varchar('email').notNull(),

@@ -15,13 +15,13 @@ export interface OrderProps {
     pickup_location: string;
     dropoff_location: string;
     passengers: number;
-    childs: number;
     name: string;
     email: string;
     phone: string;
     flight: string | null;
     return_flight: string | null;
     meet_and_greet: string | null;
+    flight_track: string | null;
     hours?: number | null; 
     minutes?: number | null; 
     updated_at: Date; 

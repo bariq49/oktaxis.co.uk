@@ -104,7 +104,7 @@ const CheckoutPage = ({ amount, orderId }: { amount: number, orderId: string }) 
         disabled={!stripe || loading}
         className="text-white w-full px-5 py-2 bg-black mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
       >
-        {!loading ? `Pay : €${amount}` : "Processing..."}
+        {!loading ? `Pay : €${amount.toFixed(2)}` : "Processing..."}
       </button>
     </form>
   );
