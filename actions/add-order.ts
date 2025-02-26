@@ -6,7 +6,7 @@ import { emailConfig } from '@/lib/emailConfig';
 
 export async function createOrder({
   category, price, car, pickup_date, pickup_time , pickup_location, dropoff_location,
-  passengers, childs, meet_and_greet, name, email, phone, flight, hours=null, minutes=null, distance=null,  stop_1=null,
+  passengers, flight_track, meet_and_greet, name, email, phone, flight, hours=null, minutes=null, distance=null,  stop_1=null,
   stop_2=null,
   stop_3=null,
   return_pickup_date, 
@@ -23,7 +23,7 @@ export async function createOrder({
   pickup_location: string;
   dropoff_location: string;
   passengers: number;
-  childs: number;
+  flight_track: string|null;
   meet_and_greet: string | null;
   name: string;
   email: string;
@@ -47,7 +47,7 @@ export async function createOrder({
       pickup_location,
       dropoff_location,
       passengers,
-      childs,
+      flight_track,
       meet_and_greet,
       name,
       email,

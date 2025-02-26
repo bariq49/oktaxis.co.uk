@@ -30,7 +30,7 @@ export interface PaymentFormFields {
     pickup_location: string;
     dropoff_location: string;
     passengers: number;
-    childs: number;
+    flight_track: string | null;
     bags: number;
     email?: string;
     phone?: string;

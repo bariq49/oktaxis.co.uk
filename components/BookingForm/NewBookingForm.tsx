@@ -116,7 +116,7 @@ const hourlyFormValidation = z.object({
   stop_2: z.string().optional(),
   stop_3: z.string().optional(),
   passengers: z.number({ required_error: 'Please Enter Passengers' }).min(1).max(6),
-  childs: z.number({ required_error: 'Please Enter childs' }).min(0).max(6),
+  flight_track: z.string(),
   meet_and_greet: z.string(),
   name: z.string({ required_error: 'Please Enter Your Name' }),
   email: z.string({ required_error: 'Please Enter Email' }).email(),
@@ -155,7 +155,7 @@ const simpleFormValidation = z.object({
   stop_2: z.string().optional(),
   stop_3: z.string().optional(),
   passengers: z.number({ required_error: 'Please Enter Passengers' }).min(1).max(6),
-  childs: z.number({ required_error: 'Please Enter childs' }).min(0).max(6),
+  flight_track: z.string(),
   meet_and_greet: z.string(),
   name: z.string({ required_error: 'Please Enter Your Name' }),
   email: z.string({ required_error: 'Please Enter Email' }).email(),
@@ -201,7 +201,7 @@ type FormFieldTypes =
   | "stop_1"
   | "stop_2"
   | "stop_3"
-  | "childs"
+  | "flight_track"
   | "meet_and_greet"
   | "name"
   | "email"
@@ -320,7 +320,7 @@ function BookingForm({ _category }: { _category: string }) {
   useEffect(() => {
     setCategory(paramCategory)
     form.setValue('passengers', 1)
-    form.setValue('childs', 0)
+    form.setValue('flight_track', 'No')
     form.setValue('meet_and_greet', 'No (+£0) i will call my driver')
     form.setValue('hours', 0)
     form.setValue('minutes', 0)
@@ -352,14 +352,14 @@ function BookingForm({ _category }: { _category: string }) {
   function onSubmit(data: FieldValues) {
     console.log('submitt')
     const _data = data as HourlyFormDataProps
-    const { meet_and_greet, dropoff_location, payment_id, email, flight, hours, childs, minutes, name, passengers, phone, pickup_time, pickup_date, pickup_location, stop_1, stop_2, stop_3 } = _data;
+    const { meet_and_greet, dropoff_location, payment_id, email, flight, hours, flight_track, minutes, name, passengers, phone, pickup_time, pickup_date, pickup_location, stop_1, stop_2, stop_3 } = _data;
     console.log('_data : ', _data)
     const return_date = returnForm.getValues('pickup_time');
     const _pickup_time = `${pickup_time.hour.toString()} : ${pickup_time.minute.toString()} : ${pickup_time.period.toString()} `
     const return_pickup_time = `${return_date?.hour.toString()} : ${return_date?.minute.toString()} : ${return_date?.period.toString()} `
     startSubmiting(async () => {
       const response = await createOrder({
-        meet_and_greet, dropoff_location, email, flight: flight ?? 'N/A', hours, childs, minutes, name, passengers, phone, pickup_time: _pickup_time, pickup_date, pickup_location,
+        meet_and_greet, dropoff_location, email, flight: flight ?? 'N/A', hours, flight_track, minutes, name, passengers, phone, pickup_time: _pickup_time, pickup_date, pickup_location,
         price,
         car,
         distance,
@@ -511,8 +511,8 @@ function BookingForm({ _category }: { _category: string }) {
             if (stops.length > 0) {
               _price += value.stop * stops.length
             }
-            if (form.watch('childs') > 0) {
-              _price += 10 * form.watch('childs')
+            if (form.watch('flight_track') ==='Yes') {
+              _price += 7
             }
             if (form.getValues('meet_and_greet') === 'yes') {
               _price += 15
@@ -522,7 +522,8 @@ function BookingForm({ _category }: { _category: string }) {
             console.log("distance ", distance)
             // _price = Number(_price.toFixed(0))
 
-
+            const returnPrice = (_price * 2 ).toFixed(2);
+            const returnPriceDiscount = (_price * 2 * 0.95).toFixed(2);
             return <div key={index} className={`w-full max-sm:flex flex-col sm:grid sm:grid-cols-4 rounded-sm  max-sm:gap-2  sm:divide-x divide-gray-500  p-2   ${car === value.name ? 'bg-blue-300 shadow-2xl' : 'bg-gray-100 hover:bg-gray-300 hover:shadow-lg'} `}>
 
               <div className=' overflow-hidden sm:p-2 flex flex-col gap-1 sm:gap-2 w-full'>
@@ -542,17 +543,19 @@ function BookingForm({ _category }: { _category: string }) {
 
               <div className='flex flex-col w-full gap-5 sm:gap-6 justify-center sm:p-2'>
                 <div className='w-full'>
-                  <p className='text-gray-500'>Select On Way Return</p>
-                  <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(_price)); setStep(prev => ++prev); setReturnTrip(false) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
+                  <p className='text-gray-500'>Select One Way Trip</p>
+                  <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(_price)); setStep(prev => ++prev); setReturnTrip(false) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-md p-2 text-white font-semibold cursor-pointer'>
 
-                    <p className=''>Price :£ {_price.toFixed(2)} </p>
+                    <p className=''>£ {_price.toFixed(2)} </p>
                   </div>
                 </div>
                 <div className='w-full'>
                   <p className='text-gray-500'>Select Return Trip</p>
-                  <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(_price * 2)); setReturnTrip(true) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-sm p-2 text-white font-semibold cursor-pointer'>
+                  <div onClick={() => { console.log("_price.toFixed(2) ", _price), setCar(value.name); setPrice(Number(returnPriceDiscount)); setReturnTrip(true) }} className='text-center bg-black hover:shadow-lg hover:texl-lg rounded-md p-2 text-white font-semibold cursor-pointer relative flex justify-center items-end gap-2'>
 
-                    <p className=''>Price : £ {(_price * 2).toFixed(2)} </p>
+                    <p className='text-sm line-through'> £ {returnPrice} </p>
+                    <p className=''> £ {returnPriceDiscount} </p>
+                    <div className='absolute -top-2 -right-2 py-1 px-2 bg-green-500 text-white text-xs rounded-full'>5% off</div>
                   </div>
                 </div>
 
@@ -563,7 +566,7 @@ function BookingForm({ _category }: { _category: string }) {
         </div>
         {distance > 0 && <div className='flex items-center gap-2 text-center justify-center bg-black text-white text-lg font-semibold p-2 rounded-sm'>
           <p>Distance : </p>
-          <p>{distance.toFixed(2)} KM</p>
+          <p>{distance.toFixed(2)} Miles</p>
         </div>}
       </div>
     );
@@ -643,11 +646,11 @@ function BookingForm({ _category }: { _category: string }) {
             {step === 3 && 'PAYMENT CONFIRM'}
           </h2>
 
-          <div className={`md:flex md:items-center max-md:grid grid-cols-2 max-md:gap-5 max-md:w-full max-md:p-2 max-md:bg-gray-200 max-md:rounded-md  ${step === 1 ? 'visible' : 'hidden'}`}>
+          {step === 1 &&<div className={`md:flex md:items-center max-md:grid grid-cols-2 max-md:gap-5 max-md:w-full max-md:p-2 max-md:bg-gray-200 max-md:rounded-md  ${step === 1 ? 'visible' : 'hidden'}`}>
             <div onClick={() => { setCategory('road-trips') }} className={cn(' px-2 py-2 border max-md:rounded-md border-black cursor-pointer  text-center ', category !== 'hourly-rates' ? 'bg-black text-white font-semibold' : 'text-gray-700 bg-white/80  md:bg-transparent')}>TRANSFER</div>
             <div onClick={() => { setCategory('hourly-rates') }} className={cn(' px-2 py-2 max-md:rounded-md border border-black text-center  cursor-pointer', category === 'hourly-rates' ? 'bg-black text-white font-semibold' : 'text-gray-700 bg-white/80 md:bg-transparent ')}>HOURLY</div>
 
-          </div>
+          </div>}
 
         </div>
 
@@ -1154,24 +1157,19 @@ function BookingForm({ _category }: { _category: string }) {
 
                   <FormField
                     control={form.control}
-                    name="childs"
+                    name="flight_track"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel className="">Flight Track (10£ each)</FormLabel>
-
-                        <div className='w-full rounded-sm  flex items-center border border-gray-500  overflow-hidden '>
-                          <div onClick={() => { if (field.value === 0) { return } form.formState.errors.childs = undefined; field.onChange(--field.value) }} >
-
-                            <IncrementDecrementButtont text='-' />
-                          </div>
-
-                          <div className='w-full text-center rounded-sm  p-2 font-semibold  max-sm:text-sm'>{field.value}</div>
-                          <div onClick={() => { if (field.value === 6) { return } form.formState.errors.childs = undefined; field.onChange(++field.value) }}> <IncrementDecrementButtont text='+' /></div>
-                        </div>
-
-                        {/* <FormDescription>
-                    Please select your dropoff location.
-                  </FormDescription> */}
+                        <FormLabel className="">Flight Track (7£)</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <SelectTrigger className="w-full border border-gray-500 rounded-sm">
+                            <SelectValue placeholder="Select an option" />
+                          </SelectTrigger>
+                          <SelectContent className='bg-white'>
+                            <SelectItem value="Yes">Yes</SelectItem>
+                            <SelectItem value="No">No</SelectItem>
+                          </SelectContent>
+                        </Select>
                         <FormMessage color='red' className="text-red-500" />
                       </FormItem>
                     )}
